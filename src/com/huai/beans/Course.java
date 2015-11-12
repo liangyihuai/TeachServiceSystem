@@ -8,8 +8,15 @@ public class Course {
 	private String courseName;
 	private int teacherID;
 	private Date buildDate;
+	private String courseDescription;
 	
 	
+	public String getCourseDescription() {
+		return courseDescription;
+	}
+	public void setCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+	}
 	public int getCourseID() {
 		return courseID;
 	}
