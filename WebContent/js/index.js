@@ -28,8 +28,12 @@ $(function() {
 				password: $('#teacher_pass').val()
 			},
 			success: function(data, statusText) {
-				alert(data);
-				window.location.href = "course-list.html"
+				var jsondata=$.parseJSON(data);
+				if(jsondata.status==1){
+					window.location.href = "course-list.html";
+				}else{
+					alert('登录失败，请重试');
+				}
 			},
 		});
 	});
