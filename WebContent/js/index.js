@@ -70,9 +70,8 @@ $(function() {
 			dataType: "json",
 			/*
 			 * url:课程点击后的链接
-			 * courseNum:课程编号
-			 * courseName:课程名
-			 * courseDesc:课程描述
+			 * courseName:课程名（交互）
+			 * courseDesc:课程描述（交互）
 			 */
 			success: function(data, textStatus) {
 				var html = '';
