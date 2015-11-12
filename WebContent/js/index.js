@@ -19,17 +19,17 @@ $(function() {
 		});
 	});
 	/*老师登录Ajax*/
-	$('#teacher_login .confirm').click(function() {
+	$('#teacher_login_form .confirm').click(function() {
 		$.ajax({
 			type: "post",
 			url: "",
-			dataType: 'json',
 			data: {
 				username: $('#teacher_num').val(),
 				password: $('#teacher_pass').val()
 			},
-			success: function(data, textStatus) {
+			success: function(data, statusText) {
 				alert(data);
+				window.location.href = "course-list.html"
 			},
 		});
 	});
