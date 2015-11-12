@@ -22,7 +22,7 @@ $(function() {
 	$('#teacher_login_form .confirm').click(function() {
 		$.ajax({
 			type: "post",
-			url: "",
+			url: "/login?operate=teacherLogin",
 			data: {
 				username: $('#teacher_num').val(),
 				password: $('#teacher_pass').val()
