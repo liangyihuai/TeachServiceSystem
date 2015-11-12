@@ -27,7 +27,7 @@ public class CourseServiceImpl implements CourseService{
 	 * @return 
 	 */
 	@Override
-	public List<Course> getCourseByTeacherId(int teacherId,HttpServletRequest request) {
+	public List<Course> getCourseByTeacherId(int teacherId) {
 		Assert.notNull(teacherId, "teacherId must not be null");
 
 		

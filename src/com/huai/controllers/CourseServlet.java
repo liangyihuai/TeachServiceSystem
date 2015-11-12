@@ -1,6 +1,9 @@
 package com.huai.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.jws.WebService;
 
 import javax.servlet.ServletContext;
@@ -11,9 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.huai.utils.ServletUtil;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.huai.beans.Course;
 import com.huai.service.CourseService;
 
 
@@ -37,13 +43,22 @@ public class CourseServlet extends HttpServlet{
 		
 		System.out.println("operate = "+operate);
 		
-		if("queryCourseId".equals(operate)){
+		if("getCourses".equals(operate)){
+			String teacherID = request.getParameter("teacherID");
 			
+			int tempID = -1;
+			if(teacherID != null) 
+				tempID = Integer.parseInt(teacherID);
+			List<Course> courses = courseService.getCourseByTeacherId(tempID);
 			
-			response.getWriter().write("");
+			JSONObject jo = new JSONObject();
+			jo.element("courses", courses);
 			
+			PrintWriter writer = response.getWriter();
+			writer.write(jo.toString());
+			writer.close();
 			
-		}if("".equals(operate)){
+		}else if("".equals(operate)){
 			
 		}
 	}
