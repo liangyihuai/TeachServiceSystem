@@ -22,14 +22,18 @@ $(function() {
 	$('#teacher_login_form .confirm').click(function() {
 		$.ajax({
 			type: "post",
-			url: "",
+			url: "../login?operate=teacherLogin",
 			data: {
 				username: $('#teacher_num').val(),
 				password: $('#teacher_pass').val()
 			},
 			success: function(data, statusText) {
-				alert(data);
-				window.location.href = "course-list.html"
+				var jsondata=$.parseJSON(data);
+				if(jsondata.status==1){
+					window.location.href = "course-list.html";
+				}else{
+					alert('登录失败，请重试');
+				}
 			},
 		});
 	});
@@ -66,9 +70,8 @@ $(function() {
 			dataType: "json",
 			/*
 			 * url:课程点击后的链接
-			 * courseNum:课程编号
-			 * courseName:课程名
-			 * courseDesc:课程描述
+			 * courseName:课程名（交互）
+			 * courseDesc:课程描述（交互）
 			 */
 			success: function(data, textStatus) {
 				var html = '';
