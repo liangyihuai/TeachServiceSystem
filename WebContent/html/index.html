@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>教学辅助系统</title>
+		<!--bootstrap样式文件-->
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<!--时间插件-->
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css" />
+		<!--主样式文件-->
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<!--jquery引入，必须在bootstrap.js文件之前引入-->
+		<script src="../js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--bootstrap组件JS文件-->
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--日期插件支持js-->
+		<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+		<!--主js文件-->
+		<script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="wrapper-bg">
+				<div class="login-header">
+					<h1>教学辅助系统</h1>
+					<span class="label label-info">请选择你的身份进行登录</span>
+				</div>
+				<div class="content">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-2 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-5">
+								<div class="thumbnail text-center role" id="teacher-role">
+									<a href="teacher-login.html"><img src="../images/teacher-male.png" class="img-responsive img-rounded" /><span class="text-center">我是老师</span></a>
+								</div>
+							</div>
+							<div class="col-md-2 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-5 col-xs-offset-2">
+								<div class="thumbnail text-center role" id="student-role">
+									<a href="student-login.html"><img src="../images/graduate-male.png" class="img-responsive img-rounded" /><span class="text-center">我是学生</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
