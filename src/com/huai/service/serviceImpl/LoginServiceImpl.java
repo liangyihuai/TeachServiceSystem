@@ -58,8 +58,7 @@ public class LoginServiceImpl implements LoginService{
 		
 		Teacher teacher = teacherMapper.getTeacherByName(teacherName);
 		if(teacher != null && password.equals(teacher.getPassword())){
-			if(request != null)
-				RoleUtil.addTeacherRole(request.getSession(), teacher);
+			RoleUtil.addTeacherRole(request.getSession(), teacher);
 			return true;
 		}else{
 			return false;

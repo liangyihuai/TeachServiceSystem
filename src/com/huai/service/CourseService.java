@@ -8,5 +8,5 @@ import com.huai.beans.Course;
 
 public interface CourseService {
 
-	List<Course> getCourseByTeacherId(int teacherId,HttpServletRequest request);
+	List<Course> getCourseByTeacherId(int teacherId);
 }

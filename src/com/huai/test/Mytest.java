@@ -18,7 +18,7 @@ public class Mytest {
 		//得到LoginService这个bean，即LoginService的对象
 		CourseService  courseService = context.getBean(CourseService.class);
 		//调用LoginService对象的方法
-		List<Course> courseList =  courseService.getCourseByTeacherId(1, null);
+		List<Course> courseList =  courseService.getCourseByTeacherId(1);
 		
 		for(Course c:courseList){
 			System.out.println(c.getCourseID()+"   "+c.getCourseName()+"   "+c.getTeacherID()+"   "+c.getBuildDate());
