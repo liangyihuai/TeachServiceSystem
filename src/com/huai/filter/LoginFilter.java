@@ -30,8 +30,6 @@ public class LoginFilter implements Filter{
 		
 		String path = req.getRequestURI();
 		
-		System.out.println("path = "+path);
-		
 		// 关于登录的都无需过滤
 		if (path.endsWith(".css")||
 				path.indexOf("images") > -1||
@@ -54,10 +52,6 @@ public class LoginFilter implements Filter{
 			resp.sendRedirect(request.getServletContext().getContextPath()+"/html/index.html");
 			return ;
 		}
-		
-		
-		System.out.println("--->teacher loginning filter<----");
-		
 		chain.doFilter(request, response);
 	}
 
