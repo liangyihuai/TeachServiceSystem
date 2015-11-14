@@ -70,9 +70,10 @@ $(function() {
 			url: "../course?operate=getCourses",
 			dataType: "json",
 			/*
-			 * url:课程点击后的链接
-			 * courseName:课程名（交互）
-			 * courseDescription:课程描述（交互）
+			 * url:课程点击后的链接(待定)
+			 * courseID:获取课程图片(存储在本地)
+			 * courseName:课程名
+			 * courseDescription:课程描述
 			 */
 			data:{
 				teacherID:localStorage.currentUser
