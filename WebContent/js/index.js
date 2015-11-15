@@ -30,6 +30,7 @@ $(function() {
 			success: function(data, statusText) {
 				var jsondata=$.parseJSON(data);
 				if(jsondata.status==1){
+					localStorage.currentUser=$('#teacher_num').val();
 					window.location.href = "course-list.html";
 				}else{
 					alert('登录失败，请重试');
@@ -66,18 +67,22 @@ $(function() {
 	$('#course_link').click(function() {
 		$.ajax({
 			type: "get",
-			url: "",
+			url: "../course?operate=getCourses",
 			dataType: "json",
 			/*
-			 * url:课程点击后的链接
-			 * courseName:课程名（交互）
-			 * courseDesc:课程描述（交互）
+			 * url:课程点击后的链接(待定)
+			 * courseID:获取课程图片(存储在本地)
+			 * courseName:课程名
+			 * courseDescription:课程描述
 			 */
+			data:{
+				teacherID:localStorage.currentUser
+			},
 			success: function(data, textStatus) {
 				var html = '';
 				var jsonData = $.parseJSON(data);
 				for (var i = 0; i < jsonData.length; i++) {
-					html += '<li class="col-md-4 col-sm-6 col-xs-12"><div class="course-item"><div class="course-item-cover"><a href="#"><img src="../images/schedule.png" class="img-responsive" /></a></div><div class="course-item-desc"><div class="course-item-desc-title"><a href="#"><h3>' + jsonData[i].courseName + '</h3></a></div><div class="course-item-desc-text"><p>' + jsonData[i].courseDesc + '</p></div></div></div></li>';
+					html += "<li class='col-md-4 col-sm-6 col-xs-12'><div class='course-item'><div class='course-item-cover'><a href='#'><img src='../images/"+jsonData[i].courseID+".png' class='img-responsive' /></a></div><div class='course-item-desc'><div class='course-item-desc-title'><a href='#'><h3>" + jsonData[i].courseName + "</h3></a></div><div class='course-item-desc-text'><p>" + jsonData[i].courseDescription + "</p></div></div></div></li>";
 				}
 				$('.course .row').empty().append(html);
 			}
