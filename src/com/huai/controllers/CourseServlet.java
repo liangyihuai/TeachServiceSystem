@@ -1,6 +1,10 @@
 package com.huai.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.jws.WebService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -9,21 +13,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.huai.utils.RoleUtil;
+import com.huai.utils.ServletUtil;
+
+import net.sf.json.JSONObject;
+
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.huai.beans.Course;
+import com.huai.beans.Teacher;
+import com.huai.service.CourseService;
 
 
 @WebServlet(urlPatterns={"/course"})
 public class CourseServlet extends HttpServlet{
 
-//	private LoginService loginService = null;
+	private CourseService courseService = null;	
 	
 	@Override
 	public void init() throws ServletException {
 		ServletContext servletContext = this.getServletContext();
 		WebApplicationContext webAppContext = WebApplicationContextUtils
 				.getWebApplicationContext(servletContext);
-//		loginService = webAppContext.getBean(LoginService.class);
+		courseService = webAppContext.getBean(CourseService.class);
 		
 	}
 
@@ -33,9 +46,20 @@ public class CourseServlet extends HttpServlet{
 		
 		System.out.println("operate = "+operate);
 		
-		if("".equals(operate)){
+		if("getCourses".equals(operate)){
+			Teacher teacher = (Teacher) request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
+			int TeacherID = teacher.getTeacherID();
 			
-		}if("".equals(operate)){
+			List<Course> courses = courseService.getCourseByTeacherId(TeacherID);
+			
+			JSONObject jo = new JSONObject();
+			jo.element("courses", courses);
+			
+			PrintWriter writer = response.getWriter();
+			writer.write(jo.toString());
+			writer.close();
+			
+		}else if("".equals(operate)){
 			
 		}
 	}
