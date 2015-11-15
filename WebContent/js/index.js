@@ -69,7 +69,7 @@ $(function() {
 			type: "get",
 			url: "../course?operate=getCourses",
 			dataType: "json",
-			/*接口注释——20151115
+			/*接口注释——
 			 * url:课程点击后的链接(待定)
 			 * courseID:获取课程图片(存储在本地)
 			 * courseName:课程名
