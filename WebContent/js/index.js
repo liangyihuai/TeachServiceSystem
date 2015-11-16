@@ -13,7 +13,7 @@ $(function() {
 				student_num: $('#student_num').val(),
 				student_pass: $('#student_pass').val()
 			},
-			success: function(data, textStatus) {
+			success: function(data, statusText) {
 				alert(data);
 			}
 		});
@@ -30,7 +30,8 @@ $(function() {
 			success: function(data, statusText) {
 				var jsondata=$.parseJSON(data);
 				if(jsondata.status==1){
-					$.cookie('currentUser',$('#teacher_num').val(),{expires: 7})
+					localStorage.currentUser=$('#teacher_num').val();
+					//$.cookie('currentUser',$('#teacher_num').val(),{expires: 7})
 					window.location.href = "course-list.html";
 				}else{
 					alert('登录失败，请重试');
@@ -66,7 +67,7 @@ $(function() {
 	/*课程列表获取*/
 	$('#course_link').click(function() {
 		$.ajax({
-			type: "get",
+			type: "post",
 			url: "../course?operate=getCourses",
 			dataType: "json",
 			/*接口注释——
@@ -76,9 +77,10 @@ $(function() {
 			 * courseDescription:课程描述
 			 */
 			data:{
-				teacherID: $.cookie('currentUser')
+				teacherID:localStorage.currentUser
+				//teacherID: $.cookie('currentUser')
 			},
-			success: function(data, textStatus) {
+			success: function(data, statusText) {
 				var html = '';
 				var jsonData = $.parseJSON(data);
 				for (var i = 0; i < jsonData.length; i++) {
