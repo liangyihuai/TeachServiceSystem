@@ -1,377 +1,402 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>教学辅助系统</title>
-		<!--bootstrap样式文件-->
-		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
-		<!--时间插件-->
-		<link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css" />
-		<!--主样式文件-->
-		<link rel="stylesheet" type="text/css" href="../css/style.css" />
-		<!--jquery引入，必须在bootstrap.js文件之前引入-->
-		<script src="../js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-		<!--bootstrap组件JS文件-->
-		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-		<!--日期插件支持js-->
-		<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
-		<!--主js文件-->
-		<script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
-	</head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>教学辅助系统</title>
+    <!--bootstrap样式文件-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+    <!--时间插件-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css"/>
+    <!--主样式文件-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <!--jquery引入，必须在bootstrap.js文件之前引入-->
+    <script src="../js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--bootstrap组件JS文件-->
+    <script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--日期插件支持js-->
+    <script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+    <!--cookies插件-->
+    <script src="../js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <!--表单验证插件-->
+    <script src="../js/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--表单验证中文插件-->
+    <script src="../js/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--表单提交插件-->
+    <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+    <!--主js文件-->
+    <script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
+</head>
 
-	<body>
-		<!-- 添加课程安排Modal -->
-		<div class="modal fade" id="addPlan" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">添加课程安排</h4>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="plan_time">时间</label>
-								<input type="text" class="form-control" name="plan_time" id="plan_time" placeholder="第6周星期一三四节">
-							</div>
-							<div class="form-group">
-								<label for="plan_text">安排</label>
-								<textarea class="form-control" rows="3" name="plan_text" id="plan_text" placeholder="学习面向对象编程，布置第三章的作业"></textarea>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<!-- 添加模态框提交取消ID-->
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary">确认</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--end of Modal-->
-		<!-- 布置作业Modal -->
-		<div class="modal fade" id="addHomework" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">布置作业</h4>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="homeworkStopTime">截止日期</label>
-								<input type="text" name="homeworkStopTime" id="homeworkStopTime" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="homeworkTitle">题目</label>
-								<textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle" placeholder="学习面向对象编程，布置第三章的作业"></textarea>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<!-- 添加模态框提交取消ID-->
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary">确认</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--end of Modal-->
-		<!-- 添加学生模态框Modal -->
-		<div class="modal fade" id="addStudent" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">添加学生</h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="stuNum" class="col-md-2">学号：</label>
+<body>
+<!-- 添加课程安排Modal -->
+<div class="modal fade" id="addPlan" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">添加课程安排</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="plan_time">时间</label>
+                        <input type="text" class="form-control" name="plan_time" id="plan_time" placeholder="第6周星期一三四节">
+                    </div>
+                    <div class="form-group">
+                        <label for="plan_text">安排</label>
+                        <textarea class="form-control" rows="3" name="plan_text" id="plan_text"
+                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Modal-->
+<!-- 布置作业Modal -->
+<div class="modal fade" id="addHomework" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">布置作业</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="homeworkStopTime">截止日期</label>
+                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="homeworkTitle">题目</label>
+                        <textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle"
+                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Modal-->
+<!-- 添加学生模态框Modal -->
+<div class="modal fade" id="addStudent" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">添加学生</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="stuNum" class="col-md-2">学号：</label>
 
-								<div class="col-md-8">
-									<input type="text" class="form-control" name="stuNum" id="stuNum" placeholder="2013211729">
-								</div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="stuNum" id="stuNum" placeholder="2013211729">
+                        </div>
 
-							</div>
-							<div class="form-group">
-								<label for="stuName" class="col-md-2">姓名：</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="stuName" class="col-md-2">姓名：</label>
 
-								<div class="col-md-8">
-									<input type="text" class="form-control" name="stuName" id="stuName" placeholder="张三">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2">性别：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="stuName" id="stuName" placeholder="张三">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2">性别：</label>
 
-								<div class="col-md-8">
-									<select class="form-control" name="sex">
-										<option value="man">男</option>
-										<option value="woman">女</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="classNum" class="col-md-2">班级：</label>
+                        <div class="col-md-8">
+                            <select class="form-control" name="sex">
+                                <option value="man">男</option>
+                                <option value="woman">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="classNum" class="col-md-2">班级：</label>
 
-								<div class="col-md-8">
-									<input type="text" class="form-control" name="classNum" id="classNum" placeholder="0491301">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="department" class="col-md-2">学院：</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="classNum" id="classNum" placeholder="0491301">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="department" class="col-md-2">学院：</label>
 
-								<div class="col-md-8">
-									<input type="text" class="form-control" name="department" id="department" placeholder="计算机科学与技术">
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<!-- 添加模态框提交取消ID-->
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary">确认</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--end of Modal-->
-		<!-- 作业批改模态框Modal -->
-		<div class="modal fade" id="check" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">张三的作业</h4>
-					</div>
-					<div class="modal-body">
-						<!-- 作业详情-->
-						<div class="homework">
-							1、作业在这里 1、作业在这里 1、作业在这里 1、作业在这里
-						</div>
-						<!-- 批改内容-->
-						<div class="check-result">
-							<form>
-								<div class="form-group">
-									<label for="check-result-text">批阅：</label>
-									<textarea rows="3" class="form-control check-result-text" name="check-result-score" id="check-result-text"></textarea>
-								</div>
-								<div class="form-group">
-									<label for="check-result-score">分数：</label>
-									<input type="text" class="form-control check-result-score" name="check-result-score" id="check-result-score" />
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<!-- 添加模态框提交取消ID-->
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-primary">确认</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--end of Modal-->
-		<div class="wrapper">
-			<div class="header">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<!-- 在手机端将会显示下拉按钮-->
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
-								<span class="sr-only">教学辅助系统</span>
-								<!-- 手机响应式下拉图标-->
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="母版.html">教学辅助系统</a>
-						</div>
-						<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="#">课程列表</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">课程进度<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="course-process.html">当前课程进度</a></li>
-										<li class="divider"></li>
-										<li><a href="#addPlan" data-toggle="modal">添加课程安排</a></li>
-									</ul>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">学生管理<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="student-list.html">学生列表</a></li>
-										<li class="divider"></li>
-										<li><a href="#addStudent" data-toggle="modal">添加学生</a></li>
-									</ul>
-								</li>
-								<li><a href="score-manage.html">成绩管理</a></li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">作业管理<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="homework-list.html">批改作业</a></li>
-										<li><a href="#addHomework" data-toggle="modal">布置作业</a></li>
-									</ul>
-								</li>
-								<li><a href="#">资料管理</a></li>
-								<li><a href="#">留言墙</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="#">个人设置</a></li>
-										<li class="divider"></li>
-										<li><a href="index.html">注销</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-						<!-- /.navbar-collapse -->
-					</div>
-					<!-- /.container-fluid -->
-				</nav>
-			</div>
-			<div class="content">
-				<div class="container">
-					<div class="panel panel-primary">
-						<div class="panel-heading">作业批改</div>
-						<div class="panel-body">
-							<!--作业是否上交组-->
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<!--已交-->
-								<div class="panel panel-warning ">
-									<div class="panel-heading" role="tab" id="headingyijiao">
-										<h4 class="panel-title">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="department" id="department"
+                                   placeholder="计算机科学与技术">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Modal-->
+<!-- 作业批改模态框Modal -->
+<div class="modal fade" id="check" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">张三的作业</h4>
+            </div>
+            <div class="modal-body">
+                <!-- 作业详情-->
+                <div class="homework">
+                    1、作业在这里 1、作业在这里 1、作业在这里 1、作业在这里
+                </div>
+                <!-- 批改内容-->
+                <div class="check-result">
+                    <form>
+                        <div class="form-group">
+                            <label for="check-result-text">批阅：</label>
+                            <textarea rows="3" class="form-control check-result-text" name="check-result-score"
+                                      id="check-result-text"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="check-result-score">分数：</label>
+                            <input type="text" class="form-control check-result-score" name="check-result-score"
+                                   id="check-result-score"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Modal-->
+<div class="wrapper">
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <!-- 在手机端将会显示下拉按钮-->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">教学辅助系统</span>
+                        <!-- 手机响应式下拉图标-->
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="母版.html">教学辅助系统</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">课程列表</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">课程进度<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="course-process.html">当前课程进度</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#addPlan" data-toggle="modal">添加课程安排</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">学生管理<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="student-list.html">学生列表</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#addStudent" data-toggle="modal">添加学生</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="score-manage.html">成绩管理</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">作业管理<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="homework-list.html">批改作业</a></li>
+                                <li><a href="#addHomework" data-toggle="modal">布置作业</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">资料管理</a></li>
+                        <li><a href="#">留言墙</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">个人设置</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">作业批改</div>
+                <div class="panel-body">
+                    <!--作业是否上交组-->
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <!--已交-->
+                        <div class="panel panel-warning ">
+                            <div class="panel-heading" role="tab" id="headingyijiao">
+                                <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#yijiao"
                                        aria-expanded="true" aria-controls="yijiao">待批改作业<span
                                             class="badge">30</span></a>
                                 </h4>
-									</div>
-									<div id="yijiao" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingyijiao">
-										<div class="panel-body">
-											<div class="table-responsive col-md-8 col-md-offset-2 ">
-												<table class="table">
-													<tr>
-														<th>学号</th>
-														<th>姓名</th>
-														<th></th>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-														<td><a href="#check" data-toggle="modal" class="btn btn-default">
+                            </div>
+                            <div id="yijiao" class="panel-collapse collapse in" role="tabpanel"
+                                 aria-labelledby="headingyijiao">
+                                <div class="panel-body">
+                                    <div class="table-responsive col-md-8 col-md-offset-2 ">
+                                        <table class="table">
+                                            <tr>
+                                                <th>学号</th>
+                                                <th>姓名</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                                <td><a href="#check" data-toggle="modal" class="btn btn-default">
                                                     批改</a></td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-														<td><a href="" class="btn btn-default">批改</a></td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-														<td><a href="" class="btn btn-default">批改</a></td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-														<td><a href="" class="btn btn-default">批改</a></td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--已批改-->
-								<div class="panel panel-success">
-									<div class="panel-heading" role="tab" id="headingyipigai">
-										<h4 class="panel-title">
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                                <td><a href="" class="btn btn-default">批改</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                                <td><a href="" class="btn btn-default">批改</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                                <td><a href="" class="btn btn-default">批改</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--已批改-->
+                        <div class="panel panel-success">
+                            <div class="panel-heading" role="tab" id="headingyipigai">
+                                <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#yipigai"
                                        aria-expanded="true" aria-controls="yipigai">已批改作业<span
                                             class="badge">20</span></a>
                                 </h4>
-									</div>
-									<div id="yipigai" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingyipiagai">
-										<div class="panel-body">
-											<div class="table-responsive col-md-8 col-md-offset-2">
-												<table class="table">
-													<tr>
-														<th>学号</th>
-														<th>姓名</th>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--未交-->
-								<div class="panel panel-danger">
-									<div class="panel-heading" role="tab" id="headingweijiao">
-										<h4 class="panel-title">
+                            </div>
+                            <div id="yipigai" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingyipiagai">
+                                <div class="panel-body">
+                                    <div class="table-responsive col-md-8 col-md-offset-2">
+                                        <table class="table">
+                                            <tr>
+                                                <th>学号</th>
+                                                <th>姓名</th>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--未交-->
+                        <div class="panel panel-danger">
+                            <div class="panel-heading" role="tab" id="headingweijiao">
+                                <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#weijiao"
                                        aria-expanded="true" aria-controls="weijiao">未交作业<span
                                             class="badge">13</span></a>
                                 </h4>
-									</div>
-									<div id="weijiao" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingweijiao">
-										<div class="panel-body">
-											<div class="table-responsive col-md-8 col-md-offset-2">
-												<table class="table">
-													<tr>
-														<th>学号</th>
-														<th>姓名</th>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-													<tr>
-														<td>2013211729</td>
-														<td>张三</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
+                            </div>
+                            <div id="weijiao" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingweijiao">
+                                <div class="panel-body">
+                                    <div class="table-responsive col-md-8 col-md-offset-2">
+                                        <table class="table">
+                                            <tr>
+                                                <th>学号</th>
+                                                <th>姓名</th>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2013211729</td>
+                                                <td>张三</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 
 </html>
