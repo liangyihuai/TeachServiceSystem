@@ -30,7 +30,7 @@ $(function() {
 			success: function(data, statusText) {
 				var jsondata=$.parseJSON(data);
 				if(jsondata.status==1){
-					localStorage.currentUser=$('#teacher_num').val();
+					$.cookie('currentUser',$('#teacher_num').val(),{expires: 7})
 					window.location.href = "course-list.html";
 				}else{
 					alert('登录失败，请重试');
@@ -76,7 +76,7 @@ $(function() {
 			 * courseDescription:课程描述
 			 */
 			data:{
-				teacherID:localStorage.currentUser
+				teacherID: $.cookie('currentUser')
 			},
 			success: function(data, textStatus) {
 				var html = '';
