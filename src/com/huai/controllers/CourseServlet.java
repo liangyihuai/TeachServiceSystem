@@ -18,6 +18,7 @@ import com.huai.utils.ServletUtil;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.util.Assert;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -59,8 +60,15 @@ public class CourseServlet extends HttpServlet{
 			writer.write(jo.toString());
 			writer.close();
 			
-		}else if("".equals(operate)){
+		}else if("choose".equals(operate)){
+			String courseID = request.getParameter("courseID");
 			
+			Assert.notNull(courseID,"courser ID from Web must not be null !!!!");
+			request.getSession().setAttribute(ServletUtil.COURSE_ID, courseID);
+			
+			PrintWriter writer = response.getWriter();
+			writer.write("1");
+			writer.close();
 		}
 	}
 
