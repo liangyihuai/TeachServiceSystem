@@ -43,7 +43,6 @@ public class LoginServlet extends HttpServlet{
 			String name = request.getParameter("username");
 			String password = request.getParameter("password");
 			
-			System.out.println(name+"; "+password);
 			
 			boolean flag = loginService.validateTeacher(name, password, request);
 			
