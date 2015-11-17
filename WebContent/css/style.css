@@ -11,6 +11,9 @@ body {
 .header {
 	box-shadow: 0 2px 5px #888888;
 }
+.content{
+    margin-top: 30px;
+}
 .mustInput {
 	color: red;
 }

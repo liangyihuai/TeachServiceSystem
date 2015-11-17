@@ -45,19 +45,18 @@
                 <form>
                     <div class="form-group">
                         <label for="plan_time">时间</label>
-                        <input type="text" class="form-control" name="plan_time" id="plan_time" placeholder="第6周星期一三四节">
+                        <input type="text" class="form-control" name="plan_time" id="plan_time">
                     </div>
                     <div class="form-group">
                         <label for="plan_text">安排</label>
-                        <textarea class="form-control" rows="3" name="plan_text" id="plan_text"
-                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                        <textarea class="form-control" rows="3" name="plan_text" id="plan_text"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <!-- 添加模态框提交取消ID-->
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
             </div>
         </div>
     </div>
@@ -80,8 +79,7 @@
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
-                        <textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle"
-                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                        <textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle"></textarea>
                     </div>
                 </form>
             </div>
@@ -109,7 +107,7 @@
                         <label for="stuNum" class="col-md-2">学号：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="stuNum" id="stuNum" placeholder="2013211729">
+                            <input type="text" class="form-control" name="stuNum" id="stuNum">
                         </div>
 
                     </div>
@@ -117,7 +115,7 @@
                         <label for="stuName" class="col-md-2">姓名：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="stuName" id="stuName" placeholder="张三">
+                            <input type="text" class="form-control" name="stuName" id="stuName">
                         </div>
                     </div>
                     <div class="form-group">
@@ -134,15 +132,14 @@
                         <label for="classNum" class="col-md-2">班级：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="classNum" id="classNum" placeholder="0491301">
+                            <input type="text" class="form-control" name="classNum" id="classNum">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="department" class="col-md-2">学院：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="department" id="department"
-                                   placeholder="计算机科学与技术">
+                            <input type="text" class="form-control" name="department" id="department">
                         </div>
                     </div>
                 </form>
@@ -209,11 +206,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="母版.html">教学辅助系统</a>
+                    <a class="navbar-brand" href="course-list.html">教学辅助系统</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">课程列表</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">课程进度<span class="caret"></span></a>
@@ -247,11 +243,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false" id="current_center">个人中心<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">个人设置</a></li>
-                                <li class="divider"></li>
-                                <li><a href="index.html">注销</a></li>
+                                <li><a href="javascript:void(0);" id="logout">注销</a></li>
                             </ul>
                         </li>
                     </ul>
