@@ -33,59 +33,58 @@
 
 <body>
 <!-- 添加课程安排Modal -->
-<div class="modal fade" id="addPlan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="addPlan" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加课程安排</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">添加课程安排</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="change-time">时间</label>
-                        <input type="text" class="form-control" id="change-time" placeholder="第6周星期一三四节">
+                        <label for="plan_time">时间</label>
+                        <input type="text" class="form-control" name="plan_time" id="plan_time">
                     </div>
                     <div class="form-group">
-                        <label for="change-text">安排</label>
-                        <textarea class="form-control" rows="3" id="change-text"
-                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                        <label for="plan_text">安排</label>
+                        <textarea class="form-control" rows="3" name="plan_text" id="plan_text"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
             </div>
         </div>
     </div>
 </div>
 <!--end of Modal-->
 <!-- 布置作业Modal -->
-<div class="modal fade" id="addHomework" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="addHomework" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">布置作业</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">布置作业</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="stopTime">截止日期</label>
-                        <input type="text" id="homeworkStopTime" class="form-control"><span class="add-on"><i
-                            class="icon-th"></i></span>
+                        <label for="homeworkStopTime">截止日期</label>
+                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
-                        <textarea class="form-control" rows="3" id="homeworkTitle"
-                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                        <textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">确认</button>
             </div>
@@ -94,42 +93,59 @@
 </div>
 <!--end of Modal-->
 <!-- 添加学生模态框Modal -->
-<div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="addStudent" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加学生</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">添加学生</h4>
             </div>
             <div class="modal-body">
-                <form class="form-inline">
+                <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="studentNum">学号：</label>
-                        <input type="text" class="form-control" id="studentNum" placeholder="2013211729">
+                        <label for="stuNum" class="col-md-2">学号：</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="stuNum" id="stuNum">
+                        </div>
+
                     </div>
                     <div class="form-group">
-                        <label for="studentName">姓名：</label>
-                        <input type="text" class="form-control" id="studentName" placeholder="张三">
+                        <label for="stuName" class="col-md-2">姓名：</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="stuName" id="stuName">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="sex">性别：</label>
-                        <select class="form-control" name="sex">
-                            <option value="man">男</option>
-                            <option value="woman">女</option>
-                        </select>
+                        <label class="col-md-2">性别：</label>
+
+                        <div class="col-md-8">
+                            <select class="form-control" name="sex">
+                                <option value="man">男</option>
+                                <option value="woman">女</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="classNum">班级：</label>
-                        <input type="text" class="form-control" id="classNum" placeholder="0491301">
+                        <label for="classNum" class="col-md-2">班级：</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="classNum" id="classNum">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="department">学院：</label>
-                        <input type="text" class="form-control" id="department" placeholder="计算机科学与技术">
+                        <label for="department" class="col-md-2">学院：</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="department" id="department">
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">确认</button>
             </div>
@@ -137,34 +153,38 @@
     </div>
 </div>
 <!--end of Modal-->
-<!-- 作业批改Modal -->
-<div class="modal fade" id="oneHousework" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<!-- 作业批改模态框Modal -->
+<div class="modal fade" id="check" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><span class="workname">张三</span>的作业</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">张三的作业</h4>
             </div>
             <div class="modal-body">
-                <!--填充作业内容-->
-                <div class="workDetail">
-                    <p>作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容</p>
+                <!-- 作业详情-->
+                <div class="homework">
+                    1、作业在这里 1、作业在这里 1、作业在这里 1、作业在这里
                 </div>
-                <div class="pigai-content">
+                <!-- 批改内容-->
+                <div class="check-result">
                     <form>
                         <div class="form-group">
-                            <label for="pingyu">评语</label>
-                            <textarea class="form-control" name="pingyu"></textarea>
+                            <label for="check-result-text">批阅：</label>
+                            <textarea rows="3" class="form-control check-result-text" name="check-result-score"
+                                      id="check-result-text"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="score">分数</label>
-                            <input class="form-control" type="text" name="score" id="score"/>
+                            <label for="check-result-score">分数：</label>
+                            <input type="text" class="form-control check-result-score" name="check-result-score"
+                                   id="check-result-score"/>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">确认</button>
             </div>
@@ -185,11 +205,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">教学辅助系统</a>
+                    <a class="navbar-brand" href="course-list.html">教学辅助系统</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="course-list.html">课程列表</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">课程进度<span class="caret"></span></a>
@@ -222,11 +241,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false" id="current_center">个人中心<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">个人设置</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="login.html">注销</a></li>
+                                <li><a href="javascript:void(0);" id="logout">注销</a></li>
                             </ul>
                         </li>
                     </ul>

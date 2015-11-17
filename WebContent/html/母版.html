@@ -45,12 +45,11 @@
                 <form>
                     <div class="form-group">
                         <label for="plan_time">时间</label>
-                        <input type="text" class="form-control" name="plan_time" id="plan_time" placeholder="第6周星期一三四节">
+                        <input type="text" class="form-control" name="plan_time" id="plan_time">
                     </div>
                     <div class="form-group">
                         <label for="plan_text">安排</label>
-                        <textarea class="form-control" rows="3" name="plan_text" id="plan_text"
-                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                        <textarea class="form-control" rows="3" name="plan_text" id="plan_text"></textarea>
                     </div>
                 </form>
             </div>
@@ -80,8 +79,7 @@
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
-                        <textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle"
-                                  placeholder="学习面向对象编程，布置第三章的作业"></textarea>
+                        <textarea class="form-control" rows="3" name="homeworkStopTime" id="homeworkTitle"></textarea>
                     </div>
                 </form>
             </div>
@@ -109,7 +107,7 @@
                         <label for="stuNum" class="col-md-2">学号：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="stuNum" id="stuNum" placeholder="2013211729">
+                            <input type="text" class="form-control" name="stuNum" id="stuNum">
                         </div>
 
                     </div>
@@ -117,7 +115,7 @@
                         <label for="stuName" class="col-md-2">姓名：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="stuName" id="stuName" placeholder="张三">
+                            <input type="text" class="form-control" name="stuName" id="stuName">
                         </div>
                     </div>
                     <div class="form-group">
@@ -134,15 +132,14 @@
                         <label for="classNum" class="col-md-2">班级：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="classNum" id="classNum" placeholder="0491301">
+                            <input type="text" class="form-control" name="classNum" id="classNum">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="department" class="col-md-2">学院：</label>
 
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="department" id="department"
-                                   placeholder="计算机科学与技术">
+                            <input type="text" class="form-control" name="department" id="department">
                         </div>
                     </div>
                 </form>
@@ -156,34 +153,38 @@
     </div>
 </div>
 <!--end of Modal-->
-<!-- 作业批改Modal -->
-<div class="modal fade" id="oneHousework" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<!-- 作业批改模态框Modal -->
+<div class="modal fade" id="check" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><span class="workname">张三</span>的作业</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">张三的作业</h4>
             </div>
             <div class="modal-body">
-                <!--填充作业内容-->
-                <div class="workDetail">
-                    <p>作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容作业内容</p>
+                <!-- 作业详情-->
+                <div class="homework">
+                    1、作业在这里 1、作业在这里 1、作业在这里 1、作业在这里
                 </div>
-                <div class="pigai-content">
+                <!-- 批改内容-->
+                <div class="check-result">
                     <form>
                         <div class="form-group">
-                            <label for="pingyu">评语</label>
-                            <textarea class="form-control" name="pingyu"></textarea>
+                            <label for="check-result-text">批阅：</label>
+                            <textarea rows="3" class="form-control check-result-text" name="check-result-score"
+                                      id="check-result-text"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="score">分数</label>
-                            <input class="form-control" type="text" name="score" id="score"/>
+                            <label for="check-result-score">分数：</label>
+                            <input type="text" class="form-control check-result-score" name="check-result-score"
+                                   id="check-result-score"/>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">确认</button>
             </div>
