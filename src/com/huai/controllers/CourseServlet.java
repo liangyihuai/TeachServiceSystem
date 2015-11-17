@@ -62,8 +62,8 @@ public class CourseServlet extends HttpServlet{
 			
 		}else if("choose".equals(operate)){
 			String courseID = request.getParameter("courseID");
-			
 			Assert.notNull(courseID,"courser ID from Web must not be null !!!!");
+			//把courseID放到session中
 			request.getSession().setAttribute(ServletUtil.COURSE_ID, courseID);
 			
 			PrintWriter writer = response.getWriter();
