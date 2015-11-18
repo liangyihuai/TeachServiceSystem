@@ -1,28 +1,27 @@
-package com.huai.service;
+package com.huai.persistence;
 
 import java.util.List;
 
 import com.huai.beans.Schedule;
 
-public interface ScheduleService {
-	
+public interface ScheduleMapper {
 	/**
-	 * 根据课程ID返回课程进度表
+	 * 
 	 * @param courseId
-	 * @return
+	 * @return  List<Schedule>课程进度表的集合
 	 */
 	List<Schedule> getScheduleByCourseId(int courseId);
 	
 	/**
-	 * 
+	 * 增加课程进度
 	 * @param sehedule
 	 */
 	void addToSchedule(Schedule sehedule);
 	
 	/**
-	 * 
+	 * 删除课程进度
 	 * @param courseId
-	 * @param scheduleId
 	 */
 	void deleteFromSchedule(Schedule sehedule);
+
 }
