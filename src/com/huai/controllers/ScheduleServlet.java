@@ -39,27 +39,15 @@ public class ScheduleServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
-		System.out.println("-------------步骤一----------");
 		System.out.println("operate = "+operate);
 //		request.setCharacterEncoding("utf-8");
 		
 		//查询课程进度信息
 		if("getSchedule".equals(operate)){
-			System.out.println("进入");
-			int courseID = Integer.parseInt(request.getParameter("courseID"));
-			
-			System.out.println(courseID);
+			int courseID = Integer.parseInt(request.getParameter("courseID"));	
 			List<Schedule> schedule = scheduleService.getScheduleByCourseId(courseID);
 			
 			if(schedule!=null && schedule.size()>0){
-				
-				for(Schedule s : schedule){
-					System.out.println("courseID ："+s.getCourseID()+"   第"+s.getScheduleID()+"次安排");
-					System.out.println("课程时间为 ："+s.getCourseTime());
-					System.out.println("课程安排是 ："+s.getArrangement());
-					System.out.println("---------我是华丽丽的分割线------------");
-				}
-				//查询到课程进度信息
 				JSONObject jo = new JSONObject();
 				jo.element("schedule", schedule);
 				
