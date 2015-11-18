@@ -3,6 +3,9 @@
  */
 $(function () {
     getCourseList();
+    $('.course .row').on('click', 'course-item-desc-title', function () {
+        alert('hi')
+    });
 });
 //课程列表获取模块
 /*接口注释:
