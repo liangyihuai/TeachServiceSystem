@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ServletUtil {
+	
+	public static final String COURSE_ID = "courseID";
 
 	public static void forward(String path, HttpServletRequest request, HttpServletResponse response){
 		try {

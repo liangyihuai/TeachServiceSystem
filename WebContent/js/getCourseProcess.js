@@ -10,7 +10,7 @@ function getCourseProcess() {
             $.ajax({
                 type:'POST',
                 //url:'courseProcess_data.php',
-                url:"../course?operate=getSchedule",
+                url:"../schedule?operate=getSchedule",
                 data:{
                     courseID:'1'//TODO 这个值需要变动，测试设置为1
                 },

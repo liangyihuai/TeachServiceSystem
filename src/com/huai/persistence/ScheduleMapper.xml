@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huai.persistence.ScheduleMapper">
+	<select id="getScheduleByCourseId" parameterType="int" resultType="Schedule">
+		Select * From schedule Where courseID=#{courseId}
+	</select>
+	
+	<insert id="addToSchedule" parameterType="Schedule">
+	INSERT INTO schedule (courseID, courseTime, arrangement) VALUES (#{courseID}, #{courseTime}, #{arrangement})
+	</insert>
+	
+	<delete id="deleteFromSchedule" parameterType="Schedule">
+	DELETE FROM schedule WHERE courseID=#{courseID} AND scheduleID=#{scheduleID}
+	</delete>
+	
+</mapper>
