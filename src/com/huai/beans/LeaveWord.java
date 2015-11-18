@@ -7,6 +7,14 @@ public class LeaveWord {
 	private String content;
 	private int teacherID;
 	private int studentID;
+	private int courseID;
+	
+	public int getCourseID() {
+		return courseID;
+	}
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
 	public int getLeaveWordID() {
 		return leaveWordID;
 	}

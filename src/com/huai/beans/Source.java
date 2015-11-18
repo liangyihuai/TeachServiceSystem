@@ -7,6 +7,15 @@ public class Source {
 	private String path;
 	private int studentID;
 	private int teacherID;
+	private int courseID;
+	
+	
+	public int getCourseID() {
+		return courseID;
+	}
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
 	public int getSourceID() {
 		return sourceID;
 	}
