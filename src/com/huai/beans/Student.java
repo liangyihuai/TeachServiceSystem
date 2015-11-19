@@ -9,6 +9,13 @@ public class Student {
 	private String studentNO;
 	//班级，注意和课程（course）的区别
 	private String clazz;
+
+	public String getClazz(){
+		return this.clazz;
+	}
+	public void setClazz(String clazz){
+		this.clazz = clazz;
+	}
 	
 	public int getStudentID() {
 		return studentID;
