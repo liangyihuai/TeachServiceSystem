@@ -7,6 +7,8 @@ public class Student {
 	private String password;
 	private String sex;
 	private String studentNO;
+	//班级，注意和课程（course）的区别
+	private String clazz;
 	
 	public int getStudentID() {
 		return studentID;
