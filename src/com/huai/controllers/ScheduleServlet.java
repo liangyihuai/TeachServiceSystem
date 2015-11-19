@@ -10,17 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.huai.utils.RoleUtil;
 import com.huai.utils.ServletUtil;
-
 import net.sf.json.JSONObject;
-
-import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import com.huai.beans.Schedule;
 import com.huai.service.ScheduleService;
 
@@ -44,9 +37,8 @@ public class ScheduleServlet extends HttpServlet {
 		
 		//查询课程进度信息
 		if("getSchedule".equals(operate)){
-			int courseID = Integer.parseInt(request.getParameter("courseID"));	
+			int courseID = Integer.parseInt((String) request.getSession().getAttribute(ServletUtil.COURSE_ID));	
 			List<Schedule> schedule = scheduleService.getScheduleByCourseId(courseID);
-			
 			if(schedule!=null && schedule.size()>0){
 				JSONObject jo = new JSONObject();
 				jo.element("schedule", schedule);
