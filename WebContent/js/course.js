@@ -17,8 +17,8 @@ $(function () {
 function getCourseList() {
     $.ajax({
         type: "POST",
-        url: "../course?operate=getCourses",
-        //url:"courseList_data.php",
+//      url: "../course?operate=getCourses",
+          url:"courseList_data.php",
         data: {
             //teacherID:localStorage.currentUser
             teacherID: $.cookie('currentUser')
@@ -27,7 +27,7 @@ function getCourseList() {
             var html = '';
             var jsonData = $.parseJSON(data).courses;
             $.each(jsonData, function (index, value) {
-                html += "<li class='col-md-4 col-sm-6 col-xs-12'><div class='course-item'><div class='course-item-cover'><a href='#'><img src='../images/" + jsonData[index].courseID + ".png' class='img-responsive' /></a></div><div class='course-item-desc'><div class='course-item-desc-title'><a href='#'><h3>" + jsonData[index].courseName + "</h3></a></div><div class='course-item-desc-text'><p>" + jsonData[index].courseDescription + "</p></div></div></div></li>";
+                html += "<li class='col-md-4 col-sm-6 col-xs-12'><div class='course-item'><div class='course-item-cover'><img src='../images/" + jsonData[index].courseID + ".jpg' class='img-responsive' /></div><div class='course-item-desc'><div class='course-item-desc-courseID'>课程编号："+jsonData[index].courseID+"</div><div class='course-item-desc-title'><h3>课程名称：" + jsonData[index].courseName + "</h3></div><div class='course-item-desc-text'><p>" + jsonData[index].courseDescription + "</p></div>"+"<div class='enter_manage'><a href='course-process.html' class='btn btn-default'>管理</a></div>"+"</div></div></li>";
             })
             $('.course .row').empty().append(html);
         }

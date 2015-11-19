@@ -12,6 +12,14 @@ public class Homework {
 	private String comment;
 	private int teacherID;
 	private String remark;
+	private Date buildDate;
+
+	public Date getBuildDate(){
+		return this.buildDate;
+	}
+	public void setBuildDate(Date buildDate){
+		this.buildDate = buildDate;
+	}
 	public int getHomeworkID() {
 		return homeworkID;
 	}
