@@ -46,14 +46,12 @@ $(function () {
         addPlan();//TODO 考虑是否在这里执行
     } else if ($('#current_center').length > 0) {
         $('#current_center').html('登录');
-        alert('即将跳转到登陆页面，请选择进行登录!');
-        window.location.href = 'index.html';
     }
     //注销登录
     /*点击注销按钮，清除cookies*/
     $('#logout').click(function () {
         $.removeCookie('currentUser');
-        window.location.href = 'index.html';
+        $('#current_center').parent().html('<a href="index.html">登录</a>')
     });
     //添加课程进度模块
     /*字段合法性监测，通过点击确定允许提交*/
