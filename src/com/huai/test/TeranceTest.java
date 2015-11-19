@@ -31,12 +31,13 @@ public class TeranceTest {
 		}*/
 		
 		Student s = new Student();
-//		s.setName("bai");
-//		s.setPassword("1234567");
-//		s.setSex("男");
-//		s.setStudentNO("42341343");
+		s.setName("kate");
+		s.setPassword("1234567");
+		s.setSex("女");
+		s.setStudentNO("12346789");
+		s.setClazz("0491301");
 		
-//		ss.addStudentToTheCourse(s, 2);
+		ss.addStudentToTheCourse(s, 3);
 		
 //		ss.deleteStudentFromTheCourse("42341343", 2);
 		

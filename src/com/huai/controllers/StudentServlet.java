@@ -49,13 +49,15 @@ public class StudentServlet extends HttpServlet{
 			add(request, response);
 		}else if("delete".equals(operate)){
 			delete(request, response);
+		}else if("import".equals(operate)){
+			//从Excel文件进行导入的操作
 		}
 	}
 
+	//列出此课程中所有学生
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		List<Student> students = studentService.getStudentsInTheCourse(courseId);
-		request.setAttribute("students", students);
 		
 		if(students!=null && students.size()>0){
 			JSONObject jo = new JSONObject();
@@ -69,22 +71,26 @@ public class StudentServlet extends HttpServlet{
 		}
 	}
 	
+	//添加学生到课程
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
 		String name = request.getParameter("stuName");
 		String sex = request.getParameter("sex");
 		String studentNO = request.getParameter("stuNum");
+		String clazz = request.getParameter("classNum");
 		
 		Student s = new Student();
 		s.setName(name);
 		s.setPassword("111111");//设为默认密码
 		s.setSex(sex);
 		s.setStudentNO(studentNO);
+		s.setClazz(clazz);
 		
 		studentService.addStudentToTheCourse(s, courseId);
 		response.sendRedirect("student?operate=list");
 	}
 	
+	//从课程中删除学生
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
 		String studentNo = request.getParameter("stuNum");

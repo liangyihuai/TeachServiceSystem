@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 往数据库中添加一个学生 -->
 	<select id="addStudent" parameterType="Student">
-		Insert Into student(name,password,sex,studentNO) 
-		values(#{name},#{password},#{sex},#{studentNO})
+		Insert Into student(name,password,sex,studentNO,clazz) 
+		values(#{name},#{password},#{sex},#{studentNO},#{clazz})
 	</select>
 	<!-- 将学生添加到一个课程中 -->
 	<select id="addStudentToCourse">
