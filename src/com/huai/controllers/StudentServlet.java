@@ -53,13 +53,13 @@ public class StudentServlet extends HttpServlet{
 	}
 
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String courseId = (String)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
 		List<Student> students = studentService.getStudentsInTheCourse(courseId);
 		request.setAttribute("students", students);
 		
 		if(students!=null && students.size()>0){
 			JSONObject jo = new JSONObject();
-			jo.element("schedule", students);
+			jo.element("students", students);
 			
 			PrintWriter writer = response.getWriter();
 			writer.write(jo.toString());
@@ -70,22 +70,23 @@ public class StudentServlet extends HttpServlet{
 	}
 	
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
 		String name = request.getParameter("stuName");
 		String sex = request.getParameter("sex");
-		String studentNo = request.getParameter("stuNum");
+		String studentNO = request.getParameter("stuNum");
 		
 		Student s = new Student();
 		s.setName(name);
 		s.setPassword("111111");//设为默认密码
 		s.setSex(sex);
-		s.setStudentNO(studentNo);
+		s.setStudentNO(studentNO);
 		
-		studentService.addStudent(s, ServletUtil.COURSE_ID);
+		studentService.addStudentToTheCourse(s, courseId);
 		response.sendRedirect("student?operate=list");
 	}
 	
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String courseId = (String)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
 		String studentNo = request.getParameter("stuNum");
 		studentService.deleteStudentFromTheCourse(studentNo, courseId);
 		response.sendRedirect("student?operate=list");

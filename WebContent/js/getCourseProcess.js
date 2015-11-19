@@ -11,9 +11,6 @@ function getCourseProcess() {
                 type:'POST',
                 //url:'courseProcess_data.php',
                 url:"../schedule?operate=getSchedule",
-                data:{
-                    courseID:'1'//TODO 这个值需要变动，测试设置为1
-                },
                 success: function (data,statusText) {
                     var html = '';
                     var jsonData = $.parseJSON(data).schedule;
