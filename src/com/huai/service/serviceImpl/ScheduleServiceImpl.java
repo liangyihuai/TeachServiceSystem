@@ -50,5 +50,11 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 
+	@Override
+	public void modifySchedule(Schedule sehedule) {
+		scheduleMapper.modifySchedule(sehedule);
+	}
+
+
 
 }

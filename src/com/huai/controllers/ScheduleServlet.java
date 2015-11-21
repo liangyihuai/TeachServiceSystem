@@ -10,16 +10,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.huai.utils.ServletUtil;
+
 import net.sf.json.JSONObject;
+
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.huai.beans.Schedule;
 import com.huai.service.ScheduleService;
 
 @WebServlet(urlPatterns={"/schedule"})
 public class ScheduleServlet extends HttpServlet {
 	
+
+	private static final long serialVersionUID = 3L;
 	private ScheduleService scheduleService;
 		
 	@Override
@@ -30,39 +36,90 @@ public class ScheduleServlet extends HttpServlet {
 		scheduleService = webAppContext.getBean(ScheduleService.class);
 	}	
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
-		System.out.println("operate = "+operate);
-//		request.setCharacterEncoding("utf-8");
-		
-		//查询课程进度信息
-		if("getSchedule".equals(operate)){
-			int courseID = Integer.parseInt((String) request.getSession().getAttribute(ServletUtil.COURSE_ID));	
-			List<Schedule> schedule = scheduleService.getScheduleByCourseId(courseID);
-			if(schedule!=null && schedule.size()>0){
-				JSONObject jo = new JSONObject();
-				jo.element("schedule", schedule);
-				
-				PrintWriter writer = response.getWriter();
-				writer.write(jo.toString());
-				writer.close();
-			}else{
-				//未查询到课程进度信息
-				//To be continued---
-				
-			}
-		}else if("addSchedule".equals(operate)){
-			//添加课程进度
-			
-			
-		}else if("deleteSchedule".equals(operate)){
-			//删除课程进度
-						
-			
+		System.out.println("operate = " + operate);
+
+		// 查询课程进度信息
+		if ("getSchedule".equals(operate)) {
+			querySchedule(request, response);
+		} else if ("addSchedule".equals(operate)) {
+			// 添加课程进度
+			addSchedule(request, response);
+
+		} else if ("modifySchedule".equals(operate)) {
+			modifySchedule(request, response);
+
+		} else if ("deleteSchedule".equals(operate)) {
+			// 删除课程进度
+			//暫不允許刪除
 		}
-		
+
 	}
 	
+	private void modifySchedule(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Schedule schedule = new Schedule();
+		int courseID = Integer.parseInt((String) request.getSession()
+				.getAttribute(ServletUtil.COURSE_ID));
+		int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));
+		String arrangement = request.getParameter("arrangement");
+		String courseTime = request.getParameter("courseTime");		
+		
+		schedule.setArrangement(arrangement);
+		schedule.setCourseID(courseID);
+		schedule.setCourseTime(courseTime);
+		schedule.setScheduleID(scheduleID);
+		
+		scheduleService.modifySchedule(schedule);
+		PrintWriter writer = response.getWriter();
+		writer.write("1");
+		writer.close();		
+		
+	}
+
+	private void addSchedule(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Schedule schedule = new Schedule();
+		int courseID = Integer.parseInt((String) request.getSession()
+				.getAttribute(ServletUtil.COURSE_ID));
+		String arrangement = request.getParameter("arrangement");
+		String courseTime = request.getParameter("courseTime");		
+		
+		schedule.setArrangement(arrangement);
+		schedule.setCourseID(courseID);
+		schedule.setCourseTime(courseTime);
+		
+		scheduleService.addToSchedule(schedule);
+		PrintWriter writer = response.getWriter();
+		writer.write("1");
+		writer.close();	
+		
+		
+	}
+
+	private void querySchedule(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		int courseID = Integer.parseInt((String) request.getSession()
+				.getAttribute(ServletUtil.COURSE_ID));		
+		List<Schedule> schedule = scheduleService
+				.getScheduleByCourseId(courseID);
+		if (schedule != null && schedule.size() > 0) {
+			JSONObject jo = new JSONObject();
+			jo.element("schedule", schedule);
+
+			PrintWriter writer = response.getWriter();
+			writer.write(jo.toString());
+			writer.close();
+		} else {
+			// 未查询到课程进度信息
+			// To be continued---
+
+		}
+
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}

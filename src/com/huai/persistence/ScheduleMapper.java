@@ -23,5 +23,10 @@ public interface ScheduleMapper {
 	 * @param courseId
 	 */
 	void deleteFromSchedule(Schedule sehedule);
+	/**
+	 * 修改课程进度
+	 * @param sehedule
+	 */
+	void modifySchedule(Schedule sehedule);
 
 }

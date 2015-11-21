@@ -66,10 +66,28 @@ public class Mytest {
 //		System.out.println("--------------------------------------------------");
 		
 		//测试删除课程进度安排(需要传入 courseID和scheduleID)
+//		Schedule schedule = new Schedule();
+//		schedule.setCourseID(1);
+//		schedule.setScheduleID(1);
+//		scheduleService.deleteFromSchedule(schedule);
+//		list = scheduleService.getScheduleByCourseId(1);
+//		if(list!=null){
+//			for(Schedule s : list){
+//				System.out.println("courseID ："+s.getCourseID()+"   第"+s.getScheduleID()+"次安排");
+//				System.out.println("课程时间为 ："+s.getCourseTime());
+//				System.out.println("课程安排是 ："+s.getArrangement());
+//				System.out.println("---------我是华丽丽的分割线------------");
+//			}
+//		}
+//		System.out.println("--------------------------------------------------");
+//		
+		//测试修改课程进度（传入修改scheduleID，和修改内容）
 		Schedule schedule = new Schedule();
 		schedule.setCourseID(1);
 		schedule.setScheduleID(1);
-		scheduleService.deleteFromSchedule(schedule);
+		schedule.setArrangement("哈哈哈");
+		schedule.setCourseTime("第第一周");
+		scheduleService.modifySchedule(schedule);
 		list = scheduleService.getScheduleByCourseId(1);
 		if(list!=null){
 			for(Schedule s : list){

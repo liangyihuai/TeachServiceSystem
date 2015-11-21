@@ -25,4 +25,9 @@ public interface ScheduleService {
 	 * @param scheduleId
 	 */
 	void deleteFromSchedule(Schedule sehedule);
+	/**
+	 * 
+	 * @param sehedule
+	 */
+	void modifySchedule(Schedule sehedule);
 }
