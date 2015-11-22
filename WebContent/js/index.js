@@ -119,9 +119,9 @@ $(function () {
                             $('#addStudent').modal('hide');
                             getStudentList();
                         }else if(data==2){
-                            alert('学生已存在，请刷新浏览器进行查看！')
+                            alert('学生已存在，请刷新浏览器进行查看！');
                         }else{
-                            alert('发生错误')
+                            alert('发生错误，请重试');
                         }
                     }
                 });
