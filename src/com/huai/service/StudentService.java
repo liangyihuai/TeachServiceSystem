@@ -17,11 +17,11 @@ public interface StudentService {
 	 * @param student
 	 * @param courseId
 	 */
-	public void addStudentToTheCourse(Student student, int courseId);
+	public int addStudentToTheCourse(Student student, int courseId);
 	/**
 	 * 把一个学生从此课程中删除
 	 * @param studentNo
 	 * @param courseId
 	 */
-	public void deleteStudentFromTheCourse(String studentNO, int courseId);
+	public int deleteStudentFromTheCourse(String studentNO, int courseId);
 }

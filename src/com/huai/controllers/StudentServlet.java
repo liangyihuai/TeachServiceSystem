@@ -86,16 +86,16 @@ public class StudentServlet extends HttpServlet{
 		s.setStudentNO(studentNO);
 		s.setClazz(clazz);
 		
-		studentService.addStudentToTheCourse(s, courseId);
-		response.sendRedirect("student?operate=list");
+		int flag = studentService.addStudentToTheCourse(s, courseId);
+		response.getWriter().write(flag);
 	}
 	
 	//从课程中删除学生
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
 		String studentNo = request.getParameter("stuNum");
-		studentService.deleteStudentFromTheCourse(studentNo, courseId);
-		response.sendRedirect("student?operate=list");
+		int flag = studentService.deleteStudentFromTheCourse(studentNo, courseId);
+		response.getWriter().write(flag);
 	}
 	
 	@Override

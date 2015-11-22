@@ -32,25 +32,32 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public void addStudentToTheCourse(Student student, int courseId) {
-		//判断学生是否存在
-		if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null) {
-			//不存在-->则创建后再添加到课程中
-			studentMapper.addStudent(student);
-			studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
-		} else {
-			//存在-->再判断学生是否已经在该课程中
-			List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
-			//在课程中则什么都不做
-			if (studentNOs.contains(student.getStudentNO()))
-				return ;
-			//不在则添加
-			studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
-		}
+	public int addStudentToTheCourse(Student student, int courseId) {
+		//判断学生是否已经在该课程中
+		List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
+		if (studentNOs.contains(student.getStudentNO()))
+			return 2;//已存在
+		// 不在则添加
+		studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
+		//判断是否添加成功
+		List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+		if (studentNOs1.contains(student.getStudentNO()))
+			return 1;//添加成功
+		return 0;//添加失败
 	}
 
 	@Override
-	public void deleteStudentFromTheCourse(String studentNO, int courseId) {
+	public int deleteStudentFromTheCourse(String studentNO, int courseId) {
+		// 判断学生是否在该课程中
+		List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
+		if (!studentNOs.contains(studentNO))
+			return 3;// 不存在
+		//删除
 		studentMapper.deleteStudentFromCourse(studentNO, courseId);
+		// 判断学生是否在该课程中
+		List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+		if (!studentNOs1.contains(studentNO))
+			return 1;// 删除成功
+		return 0;
 	}
 }
