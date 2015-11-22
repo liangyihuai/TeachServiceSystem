@@ -29,7 +29,6 @@ function changeCourseProcess() {
         var processNum=$(this).parents('tr').children().eq(0).html();
         var changeTime = $(this).parents('tr').children().eq(1).html();
         var changeText = $(this).parents('tr').children().eq(2).html();
-        alert(processNum);
         $('#changePlan .modal-title').text(changeTime);
         $('#change_plan_text').val(changeText);
         //提交修改合法性检测
