@@ -43,6 +43,7 @@ $(function () {
     if ($.cookie('currentUser')) {
         $('#current_center').html($.cookie('currentUser') + '<span class="caret"></span>');
         addPlan();//TODO 考虑是否在这里执行
+        addStudent();
     } else if ($('#current_center').length > 0) {
         $('#current_center').html('登录');
     }
@@ -100,7 +101,53 @@ $(function () {
         });
     }
 
-
+    //添加学生模块
+    /*字段合法性监测，通过点击确定允许提交*/
+    function addStudent() {
+        $('#addStudent .confirm').click(function () {
+            $('#addStudent').find('form').submit();
+        });
+        $('#addStudent').find('form').validate({
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'POST',
+                    url: '',
+                    success: function (data, statusText) {
+                        if (data == 1) {
+                            $(form).resetForm();
+                            alert('添加学生成功');
+                            $('#addStudent').modal('hide');
+                            getStudentList();
+                        } else {
+                            alert(statusText);
+                        }
+                    }
+                });
+            },
+            rules: {
+                plan_time: {
+                    required: true,
+                },
+                plan_text: {
+                    required: true,
+                }
+            },
+            messages: {
+                plan_time: {
+                    required: '亲，你没有填写时间哟！',
+                },
+                plan_text: {
+                    required: '亲，你没有填写详细进度描述哟！',
+                }
+            },
+            highlight: function (element, errorClass) {
+                $(element).css('border', '1px solid red');
+            },
+            unhighlight: function (element, errorClass) {
+                $(element).css('border', '1px solid #ccc');
+            }
+        });
+    }
     /*作业布置截至时间选框*/
     $('#homeworkStopTime').datetimepicker({
         format: 'yyyy-mm-dd',
