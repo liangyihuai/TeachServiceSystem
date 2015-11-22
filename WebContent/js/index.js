@@ -117,9 +117,11 @@ $(function () {
                             $(form).resetForm();
                             alert('添加学生成功');
                             $('#addStudent').modal('hide');
-                            getCourseList();
+                            getStudentList();
+                        }else if(data==2){
+                            alert('学生已存在，请刷新浏览器进行查看！')
                         }else{
-                            alert('发生错误，请重试！')
+                            alert('发生错误')
                         }
                     }
                 });
@@ -127,33 +129,15 @@ $(function () {
             rules: {
                 stuNum: {
                     required: true,
-                    digits: true
-                },
-                stuName:{
-                    required: true,
-                },
-                classNum:{
-                    required:true,
-                    digits:true
-                },
-                department:{
-                    required:true
+                    digits: true,
+                    remote:'123.php',
                 }
             },
             messages: {
                 stuNum: {
                     required: '请填写学生的学号！',
-                    digits:'学号应为纯数字组成！'
-                },
-                stuName: {
-                    required: '请填写学生姓名！',
-                },
-                classNum:{
-                    required:'请填写班级号',
-                    digits:'班级号应为纯数字组成！',
-                },
-                department:{
-                    required:'请填写学生所属学院',
+                    digits:'学号应为纯数字组成！',
+                    remote:'学生不存在',
                 }
             },
             highlight: function (element, errorClass) {
