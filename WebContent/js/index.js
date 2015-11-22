@@ -130,7 +130,7 @@ $(function () {
                 stuNum: {
                     required: true,
                     digits: true,
-                    remote:'123.php',
+                    remote:'../student?operate=validate',
                 }
             },
             messages: {
