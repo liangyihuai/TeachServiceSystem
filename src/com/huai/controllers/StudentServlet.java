@@ -75,24 +75,24 @@ public class StudentServlet extends HttpServlet{
 	
 	//添加学生到课程
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNO = request.getParameter("stuNum");
 		
 		int flag = studentService.addStudentToTheCourse(studentNO, courseId);
-		response.getWriter().write(flag);
+		response.getWriter().print(flag);
 	}
 	
 	//从课程中删除学生
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNo = request.getParameter("stuNum");
 		int flag = studentService.deleteStudentFromTheCourse(studentNo, courseId);
-		response.getWriter().write(flag);
+		response.getWriter().print(flag);
 	}
 	
 	//输入验证
 	private void validate(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		int courseId = (int) request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNo = request.getParameter("stuNum");
 		boolean flag = studentService.validate(studentNo, courseId);
 		response.getWriter().print(flag);
