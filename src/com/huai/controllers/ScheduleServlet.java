@@ -68,9 +68,24 @@ public class ScheduleServlet extends HttpServlet {
 		schedule.setScheduleID(scheduleID);
 		
 		scheduleService.modifySchedule(schedule);
+		
+		List<Schedule> scheduleList =  scheduleService.getScheduleByCourseId(courseID);		
+		if (scheduleList != null && scheduleList.size() > 0) {
+			for(Schedule s : scheduleList){
+				//在数据库查询到的信息与修改的信息一致，即修改成功，返回1
+				if(s.getCourseID()==courseID && s.getScheduleID()==scheduleID && s.getArrangement().equals(arrangement)){
+					PrintWriter writer = response.getWriter();
+					writer.write("1");
+					writer.close();
+					return;
+				}
+				
+			}			
+		}
+		//在数据库中未查询到与修改信息一致的结果，即修改失败，返回0
 		PrintWriter writer = response.getWriter();
-		writer.write("1");
-		writer.close();		
+		writer.write("0");
+		writer.close();
 		
 	}
 
@@ -88,10 +103,24 @@ public class ScheduleServlet extends HttpServlet {
 		schedule.setCourseTime(courseTime);
 		
 		scheduleService.addToSchedule(schedule);
-		PrintWriter writer = response.getWriter();
-		writer.write("1");
-		writer.close();	
 		
+		List<Schedule> scheduleList =  scheduleService.getScheduleByCourseId(courseID);		
+		
+		if (scheduleList != null && scheduleList.size() > 0) {
+			for(Schedule s : scheduleList){
+				//在数据库查询到的信息与添加的信息一致，即添加成功，返回1
+				if(s.getCourseID()==courseID && s.getCourseTime().equals(courseTime) &&s.getArrangement().equals(arrangement)){
+					PrintWriter writer = response.getWriter();
+					writer.write("1");
+					writer.close();
+					return;
+				}
+			}			
+		}
+		//在数据库中未查询到与添加信息一致的结果，即添加失败，返回0
+		PrintWriter writer = response.getWriter();
+		writer.write("0");
+		writer.close();
 		
 	}
 
@@ -99,11 +128,11 @@ public class ScheduleServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		int courseID = Integer.parseInt((String) request.getSession()
 				.getAttribute(ServletUtil.COURSE_ID));
-		List<Schedule> schedule = scheduleService
+		List<Schedule> scheduleList = scheduleService
 				.getScheduleByCourseId(courseID);
-		if (schedule != null && schedule.size() > 0) {
+		if (scheduleList != null && scheduleList.size() > 0) {
 			JSONObject jo = new JSONObject();
-			jo.element("schedule", schedule);
+			jo.element("schedule", scheduleList);
 
 			PrintWriter writer = response.getWriter();
 			writer.write(jo.toString());
