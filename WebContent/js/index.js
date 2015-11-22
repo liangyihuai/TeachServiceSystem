@@ -111,33 +111,49 @@ $(function () {
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     type: 'POST',
-                    url: '',
+                    url: '../student?operate=add',
                     success: function (data, statusText) {
-                        if (data == 1) {
+                        if(data==1) {
                             $(form).resetForm();
                             alert('添加学生成功');
                             $('#addStudent').modal('hide');
-                            getStudentList();
-                        } else {
-                            alert(statusText);
+                            getCourseList();
+                        }else{
+                            alert('发生错误，请重试！')
                         }
                     }
                 });
             },
             rules: {
-                plan_time: {
+                stuNum: {
+                    required: true,
+                    digits: true
+                },
+                stuName:{
                     required: true,
                 },
-                plan_text: {
-                    required: true,
+                classNum:{
+                    required:true,
+                    digits:true
+                },
+                department:{
+                    required:true
                 }
             },
             messages: {
-                plan_time: {
-                    required: '亲，你没有填写时间哟！',
+                stuNum: {
+                    required: '请填写学生的学号！',
+                    digits:'学号应为纯数字组成！'
                 },
-                plan_text: {
-                    required: '亲，你没有填写详细进度描述哟！',
+                stuName: {
+                    required: '请填写学生姓名！',
+                },
+                classNum:{
+                    required:'请填写班级号',
+                    digits:'班级号应为纯数字组成！',
+                },
+                department:{
+                    required:'请填写学生所属学院',
                 }
             },
             highlight: function (element, errorClass) {
