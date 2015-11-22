@@ -29,7 +29,6 @@ $(function () {
             success: function (data, statusText) {
                 var jsondata = $.parseJSON(data);
                 if (jsondata.status == 1) {
-                    //localStorage.currentUser=$('#teacher_num').val();
                     $.cookie('currentUser', $('#teacher_num').val(), {expires: 7})
                     window.location.href = "course-list.html";
                 } else {
@@ -57,23 +56,22 @@ $(function () {
     /*字段合法性监测，通过点击确定允许提交*/
     function addPlan() {
         $('#addPlan .confirm').click(function () {
-            alert('click')
             $('#addPlan').find('form').submit();
         });
         $('#addPlan').find('form').validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     type: 'POST',
-                    url: '123.php',
-                    data: {
-                        courseID: '1'//TODO 模拟值，待修改
-                    },
+                    url: '../schedule?operate=addSchedule',
                     success: function (data, statusText) {
-                        if (data == true) {
-                            $(this).resetForm();
+                        if (data == 1) {
+                            $(form).resetForm();
                             alert('添加成功');
+                            $('#addPlan').modal('hide');
+                            getCourseProcess();
+                        } else {
+                            alert(statusText);
                         }
-                        alert(statusText);
                     }
                 });
             },
@@ -103,7 +101,6 @@ $(function () {
     }
 
 
-
     /*作业布置截至时间选框*/
     $('#homeworkStopTime').datetimepicker({
         format: 'yyyy-mm-dd',
@@ -111,17 +108,4 @@ $(function () {
         autoclose: true,
         language: 'zh-CN'
     });
-    //教学计划发布模块
-    $('#addPlan .confirm').click(function () {
-        $.ajax({
-            type: "post",
-            url: "",
-            dataType: 'json',
-            data: {
-                stopTime: $('#plan_time').val(),
-                planText: $('#plan_text').val()
-            }
-        });
-    });
-
 });

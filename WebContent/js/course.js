@@ -16,9 +16,7 @@ function getCourseList() {
     $.ajax({
         type: "POST",
         url: "../course?operate=getCourses",
-        //url: "courseList_data.php",
         data: {
-            //teacherID:localStorage.currentUser
             teacherID: $.cookie('currentUser')
         },
         success: function (data, statusText) {
@@ -34,12 +32,11 @@ function getCourseList() {
 //选择课程列表模块
 /*点击课程列表中的管理按钮后，用AJAX的方式将所选课程ID传给后台存入session中，并且前端存入cookies中方便后续使用*/
 function chooseCourse() {
-    $('.course .row').on('click', '.enter_manage button', function () {
+    $('.course .row').one('click', '.enter_manage button', function () {
         var current_course=$(this).parent().parent().find('.course-item-desc-courseID').html().substr(5,1);
         $.cookie('courseID',current_course);
         $.ajax({
             url:"../course?operate=choose",
-            //url:'choose-course.php',
             type:"POST",
             data:{
                 courseID:current_course,
