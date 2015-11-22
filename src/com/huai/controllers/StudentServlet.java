@@ -49,6 +49,8 @@ public class StudentServlet extends HttpServlet{
 			add(request, response);
 		}else if("delete".equals(operate)){
 			delete(request, response);
+		}else if("validate".equals(operate)) {
+			validate(request, response);
 		}else if("import".equals(operate)){
 			//从Excel文件进行导入的操作
 		}
@@ -74,19 +76,9 @@ public class StudentServlet extends HttpServlet{
 	//添加学生到课程
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int courseId = (int)request.getSession().getAttribute(ServletUtil.COURSE_ID);
-		String name = request.getParameter("stuName");
-		String sex = request.getParameter("sex");
 		String studentNO = request.getParameter("stuNum");
-		String clazz = request.getParameter("classNum");
 		
-		Student s = new Student();
-		s.setName(name);
-		s.setPassword("111111");//设为默认密码
-		s.setSex(sex);
-		s.setStudentNO(studentNO);
-		s.setClazz(clazz);
-		
-		int flag = studentService.addStudentToTheCourse(s, courseId);
+		int flag = studentService.addStudentToTheCourse(studentNO, courseId);
 		response.getWriter().write(flag);
 	}
 	
@@ -98,6 +90,14 @@ public class StudentServlet extends HttpServlet{
 		response.getWriter().write(flag);
 	}
 	
+	//输入验证
+	private void validate(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		int courseId = (int) request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		String studentNo = request.getParameter("stuNum");
+		boolean flag = studentService.validate(studentNo, courseId);
+		response.getWriter().print(flag);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

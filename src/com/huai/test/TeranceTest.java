@@ -37,7 +37,7 @@ public class TeranceTest {
 		s.setStudentNO("12346789");
 		s.setClazz("0491301");
 		
-		ss.addStudentToTheCourse(s, 3);
+//		ss.addStudentToTheCourse(s, 3);
 		
 //		ss.deleteStudentFromTheCourse("42341343", 2);
 		

@@ -32,16 +32,16 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public int addStudentToTheCourse(Student student, int courseId) {
+	public int addStudentToTheCourse(String studentNO, int courseId) {
 		//判断学生是否已经在该课程中
 		List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
-		if (studentNOs.contains(student.getStudentNO()))
+		if (studentNOs.contains(studentNO))
 			return 2;//已存在
 		// 不在则添加
-		studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
+		studentMapper.addStudentToCourse(studentNO, courseId);
 		//判断是否添加成功
 		List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
-		if (studentNOs1.contains(student.getStudentNO()))
+		if (studentNOs1.contains(studentNO))
 			return 1;//添加成功
 		return 0;//添加失败
 	}
@@ -59,5 +59,14 @@ public class StudentServiceImpl implements StudentService{
 		if (!studentNOs1.contains(studentNO))
 			return 1;// 删除成功
 		return 0;
+	}
+
+	@Override
+	public boolean validate(String studentNO, int courseId) {
+		//判断学生是否已经在该课程中
+		List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
+		if (studentNOs.contains(studentNO))
+			return true;//已存在
+		return false;
 	}
 }
