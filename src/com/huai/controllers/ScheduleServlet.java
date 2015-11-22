@@ -3,21 +3,16 @@ package com.huai.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.huai.utils.ServletUtil;
-
 import net.sf.json.JSONObject;
-
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import com.huai.beans.Schedule;
 import com.huai.service.ScheduleService;
 
@@ -40,6 +35,7 @@ public class ScheduleServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
 		System.out.println("operate = " + operate);
+		request.setCharacterEncoding("utf-8");
 
 		// 查询课程进度信息
 		if ("getSchedule".equals(operate)) {
@@ -49,6 +45,7 @@ public class ScheduleServlet extends HttpServlet {
 			addSchedule(request, response);
 
 		} else if ("modifySchedule".equals(operate)) {
+			//修改课程进度
 			modifySchedule(request, response);
 
 		} else if ("deleteSchedule".equals(operate)) {
@@ -59,17 +56,15 @@ public class ScheduleServlet extends HttpServlet {
 	}
 	
 	private void modifySchedule(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response) throws IOException {		
 		Schedule schedule = new Schedule();
 		int courseID = Integer.parseInt((String) request.getSession()
 				.getAttribute(ServletUtil.COURSE_ID));
-		int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));
-		String arrangement = request.getParameter("arrangement");
-		String courseTime = request.getParameter("courseTime");		
+		int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));	
+		String arrangement = request.getParameter("change_plan_text");	
 		
 		schedule.setArrangement(arrangement);
 		schedule.setCourseID(courseID);
-		schedule.setCourseTime(courseTime);
 		schedule.setScheduleID(scheduleID);
 		
 		scheduleService.modifySchedule(schedule);
@@ -84,8 +79,9 @@ public class ScheduleServlet extends HttpServlet {
 		Schedule schedule = new Schedule();
 		int courseID = Integer.parseInt((String) request.getSession()
 				.getAttribute(ServletUtil.COURSE_ID));
-		String arrangement = request.getParameter("arrangement");
-		String courseTime = request.getParameter("courseTime");		
+		
+		String arrangement = request.getParameter("plan_text");
+		String courseTime = request.getParameter("plan_time");		
 		
 		schedule.setArrangement(arrangement);
 		schedule.setCourseID(courseID);
@@ -102,7 +98,7 @@ public class ScheduleServlet extends HttpServlet {
 	private void querySchedule(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		int courseID = Integer.parseInt((String) request.getSession()
-				.getAttribute(ServletUtil.COURSE_ID));		
+				.getAttribute(ServletUtil.COURSE_ID));
 		List<Schedule> schedule = scheduleService
 				.getScheduleByCourseId(courseID);
 		if (schedule != null && schedule.size() > 0) {
