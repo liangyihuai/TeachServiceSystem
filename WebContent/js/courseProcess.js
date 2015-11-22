@@ -25,7 +25,7 @@ function getCourseProcess() {
 //修改课程进度模块
 /*点击修改按钮修改课程进度*/
 function changeCourseProcess() {
-    $('#courseProcessPanel').one('click', '.changePlan', function () {
+    $('#courseProcessPanel').on('click', '.changePlan', function () {
         var processNum=$(this).parents('tr').children().eq(0).html();
         var changeTime = $(this).parents('tr').children().eq(1).html();
         var changeText = $(this).parents('tr').children().eq(2).html();
