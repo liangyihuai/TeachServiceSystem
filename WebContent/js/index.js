@@ -170,7 +170,7 @@ $(function () {
                             alert('添加成功！');
                             $('#addHomework').modal('hide');
                             getHomeworkList();
-                        }else{
+                        }else if(data==0){
                             alert('发生错误，请重试！')
                         }
                     }
