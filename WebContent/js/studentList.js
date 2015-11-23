@@ -25,16 +25,17 @@ function getStudentList(){
 /*点击删除传递学号进行学生删除*/
 function deleteStudent(){
     $('tbody').on('click','.deleteStudent',function () {
+        var stuNum=$(this).parent().prevAll().eq(4).html();
         $.ajax({
             type:'POST',
-            url:'',
+            url:'../student?operate=delete',
             data:{
-                //TODO 传递删除学生参数
+                stuNum:stuNum,
             },
             success: function (data,statusText) {
                 if(data==1){
                     alert('删除成功！');
-                }else{
+                }else if(data==0){
                     alert('发生错误，请重试！')
                 }
             }
