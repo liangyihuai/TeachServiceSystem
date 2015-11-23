@@ -4,5 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.huai.persistence.HomeworkMapper">
-
+	<select id="getHomeworks" parameterType="int" resultType="Homework">
+		select * from homework where teacherID = #{teacherID}
+	</select>
+	
+	<insert id="giveHomework" parameterType="Homework">
+		insert into homework(homeworkID,deadline,buildDate,content,teacherID) values (#{homeworkID},#{deadline},#{buildDate},#{content},#{teacherID})
+	</insert>
 </mapper>
