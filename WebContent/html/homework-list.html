@@ -62,6 +62,32 @@
     </div>
 </div>
 <!--end of Modal-->
+<!-- 修改课程安排Modal -->
+<div class="modal fade" id="changePlan" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">修改课程安排</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="plan_text">安排</label>
+                        <textarea class="form-control" rows="3" name="change_plan_text" id="change_plan_text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Modal-->
 <!-- 布置作业Modal -->
 <div class="modal fade" id="addHomework" tabindex="-1">
     <div class="modal-dialog">
@@ -75,7 +101,7 @@
                 <form>
                     <div class="form-group">
                         <label for="homeworkStopTime">截止日期</label>
-                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" class="form-control">
+                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" readonly="readonly" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
@@ -85,8 +111,8 @@
             </div>
             <div class="modal-footer">
                 <!-- 添加模态框提交取消ID-->
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
             </div>
         </div>
     </div>
@@ -94,7 +120,7 @@
 <!--end of Modal-->
 <!-- 添加学生模态框Modal -->
 <div class="modal fade" id="addStudent" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
@@ -104,50 +130,18 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="stuNum" class="col-md-2">学号：</label>
-
-                        <div class="col-md-8">
+                        <label for="stuNum" class="col-md-3">学号：</label>
+                        <div class="col-md-9">
                             <input type="text" class="form-control" name="stuNum" id="stuNum">
                         </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label for="stuName" class="col-md-2">姓名：</label>
-
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="stuName" id="stuName">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2">性别：</label>
-
-                        <div class="col-md-8">
-                            <select class="form-control" name="sex">
-                                <option value="man">男</option>
-                                <option value="woman">女</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="classNum" class="col-md-2">班级：</label>
-
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="classNum" id="classNum">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="department" class="col-md-2">学院：</label>
-
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="department" id="department">
-                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <!-- 添加模态框提交取消ID-->
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
             </div>
         </div>
     </div>
@@ -185,8 +179,8 @@
             </div>
             <div class="modal-footer">
                 <!-- 添加模态框提交取消ID-->
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
             </div>
         </div>
     </div>
