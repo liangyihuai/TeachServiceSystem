@@ -3,6 +3,13 @@ $(function () {
     $('.modal').on('hidden.bs.modal', function () {
         $(this).find('form').get(0).reset();
     });
+    /*作业布置截至时间选框*/
+    $('#homeworkStopTime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: 2,
+        autoclose: true,
+        language: 'zh-CN'
+    });
     //学生登录模块
     $('#student_login .confirm').click(function () {
         $.ajax({
@@ -44,6 +51,7 @@ $(function () {
         $('#current_center').html($.cookie('currentUser') + '<span class="caret"></span>');
         addPlan();//TODO 考虑是否在这里执行
         addStudent();
+        addHomework();
     } else if ($('#current_center').length > 0) {
         $('#current_center').html('登录');
     }
@@ -148,11 +156,48 @@ $(function () {
             }
         });
     }
-    /*作业布置截至时间选框*/
-    $('#homeworkStopTime').datetimepicker({
-        format: 'yyyy-mm-dd',
-        minView: 2,
-        autoclose: true,
-        language: 'zh-CN'
-    });
+    function addHomework(){
+        $('#addHomework .confirm').click(function () {
+           $('#addHomework').find('form').submit();
+        })
+        $('#addHomework').find('form').validate({
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type:'POST',
+                    url:'../homework?operate=addHomework',
+                    success: function (data,statusText) {
+                        if(data==1){
+                            alert('添加成功！');
+                            $('#addHomework').modal('hide');
+                            getHomeworkList();
+                        }else{
+                            alert('发生错误，请重试！')
+                        }
+                    }
+                });
+            },
+            rules:{
+                homeworkStopTime:{
+                    required:true,
+                },
+                homeworkTitle:{
+                    required:true,
+                }
+            },
+            messages:{
+                homeworkStopTime:{
+                    required:'请选择作业截至日期！',
+                },
+                homeworkTitle:{
+                    required:'请填写作业题目',
+                }
+            },
+            highlight: function (element, errorClass) {
+                $(element).css('border', '1px solid red');
+            },
+            unhighlight: function (element, errorClass) {
+                $(element).css('border', '1px solid #ccc');
+            }
+        });
+    }
 });
