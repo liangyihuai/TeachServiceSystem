@@ -87,8 +87,8 @@ public class HomeworkServlet extends HttpServlet {
 			Date buildDate = new Date();
 			Date deadline;
 			try {
-				deadline = format.parse(request.getParameter("deadline"));
-				String content = request.getParameter("content");
+				deadline = format.parse(request.getParameter("homeworkStopTime"));
+				String content = request.getParameter("homeworkTitle");
 				Homework homework = new Homework();
 				homework.setBuildDate(buildDate);
 				homework.setDeadline(deadline);
