@@ -47,7 +47,7 @@ public class HomeworkServiceImpl implements HomeworkService{
 			if (homework.getContent().equals(content)) {
 				return true;
 			}
-		}		
+		}	
 		return false;
 	}
 	

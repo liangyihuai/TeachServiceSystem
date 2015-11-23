@@ -80,7 +80,7 @@ public class HomeworkServlet extends HttpServlet {
 			}
 			PrintWriter writer = response.getWriter();
 			writer.write(jsonArray.toString());
-			System.out.println(jsonArray.toString());
+			//System.out.println(jsonArray.toString());
 		} else if("addHomework".equals(operate)){
 			
 			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
@@ -94,19 +94,20 @@ public class HomeworkServlet extends HttpServlet {
 				homework.setDeadline(deadline);
 				homework.setHeadline(content);
 				homework.setTeacherID(teacherID);
+				homework.setContent(content);
 				homeworkService.giveHomework(homework);
 				
 				PrintWriter writer = response.getWriter();
 				Boolean isSuccess = homeworkService.isAddHomeworkSuccess(teacherID, content);
 				if(isSuccess){
-					writer.write(1);
+					writer.print(1);
 				} else {
-					writer.write(0);
+					writer.print(0);
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 				PrintWriter writer = response.getWriter();
-				writer.write(-1);
+				writer.print(-1);
 			}
 			/*
 			Homework homework = new Homework();
