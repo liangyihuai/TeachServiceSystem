@@ -9,6 +9,8 @@ $(function () {
 //获取课程进度模块
 /*点击获取课程进度*/
 function getCourseProcess() {
+    var beginTime=new Date(2015,8,7);
+    var currentTime= (Math.ceil((new Date()-beginTime)/1000/3600/24/7));
     $.ajax({
         type: 'POST',
         url: "../schedule?operate=getSchedule",
@@ -19,6 +21,7 @@ function getCourseProcess() {
                 html += "<tr><td>" + jsonData[index].scheduleID + "</td><td>" + jsonData[index].courseTime + "</td><td>" + jsonData[index].arrangement + "</td><td><a class='btn btn-default changePlan' href='#' role='button' data-toggle='modal' data-target='#changePlan'>修改</a></td></tr>"
             })
             $('#courseProcessPanel tbody').empty().append(html);
+            $('.currentTime').text('第'+currentTime+'周');
         }
     });
 }
