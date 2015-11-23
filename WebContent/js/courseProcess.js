@@ -26,27 +26,28 @@ function getCourseProcess() {
 /*点击修改按钮修改课程进度*/
 function changeCourseProcess() {
     $('#courseProcessPanel').on('click', '.changePlan', function () {
-        var processNum=$(this).parents('tr').children().eq(0).html();
+        var processNum = $(this).parents('tr').children().eq(0).html();
         var changeTime = $(this).parents('tr').children().eq(1).html();
         var changeText = $(this).parents('tr').children().eq(2).html();
         $('#changePlan .modal-title').text(changeTime);
         $('#change_plan_text').val(changeText);
         //提交修改合法性检测
-        $('#changePlan .confirm').click(function () {
+        $('#changePlan .confirm').unbind('click').bind('click', function () {
             $('#changePlan').find('form').submit();
         });
         $('#changePlan').find('form').validate({
             submitHandler: function (form) {
+                alert(processNum);
                 $(form).ajaxSubmit({
                     type: 'POST',
                     url: '../schedule?operate=modifySchedule',
                     data: {
-                        scheduleID:processNum,
+                        scheduleID: processNum,
                     },
+                    clearForm: true,
                     success: function (data, statusText) {
                         if (data == 1) {
                             alert('修改成功');
-                            $(form).resetForm();
                             $('#changePlan').modal('hide');
                             getCourseProcess();
                         }
@@ -70,5 +71,6 @@ function changeCourseProcess() {
                 $(element).css('border', '1px solid #ccc');
             }
         });
+        /*end of validate*/
     });
 }
