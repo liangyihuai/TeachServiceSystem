@@ -138,15 +138,32 @@ $(function () {
                 stuNum: {
                     required: true,
                     digits: true,
-                    remote:'../student?operate=validate',
+                },
+                stuName:{
+                    required:true,
+                },
+                classNum:{
+                    required:true,
+                    digits: true,
+                },
+                department:{
+                    required:true,
                 }
             },
             messages: {
                 stuNum: {
                     required: '请填写学生的学号！',
                     digits:'学号应为纯数字组成！',
-                    remote:'学生不存在',
-                }
+                },
+                stuName:{
+                    required:'请填写学生姓名',
+                },
+                classNum:{
+                    required:'请填写学生所属班级',
+                },
+                department:{
+                    required:'请填写学生所属学院',
+                },
             },
             highlight: function (element, errorClass) {
                 $(element).css('border', '1px solid red');
