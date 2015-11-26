@@ -75,8 +75,16 @@ public class StudentServlet extends HttpServlet{
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNO = request.getParameter("stuNum");
+		String name = request.getParameter("stuName");
+		String sex = request.getParameter("sex");
+		String clazz = request.getParameter("classNum");
+		
 		Student student = new Student();
 		student.setStudentNO(studentNO);
+		student.setClazz(clazz);
+		student.setName(name);
+		student.setPassword("111111");
+		student.setSex(sex);
 		
 		int flag = studentService.addStudentToTheCourse(student, courseId);
 		response.getWriter().print(flag);
