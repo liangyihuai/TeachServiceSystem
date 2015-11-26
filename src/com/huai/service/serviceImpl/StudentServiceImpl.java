@@ -32,19 +32,31 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public int addStudentToTheCourse(String studentNO, int courseId) {
-		//判断学生是否已经在该课程中
-		List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
-		if (studentNOs.contains(studentNO))
-			return 2;//已存在
-		// 不在则添加
-		studentMapper.addStudentToCourse(studentNO, courseId);
-		//判断是否添加成功
-		List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
-		if (studentNOs1.contains(studentNO)) {
-			return 1;//添加成功
+	public int addStudentToTheCourse(Student student, int courseId) {
+		if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null) {
+			studentMapper.addStudent(student);
+			if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null)
+				return 0;
+			studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
+			//判断是否添加成功
+			List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+			if (studentNOs1.contains(student.getStudentNO()))
+				return 1;//添加成功
+			else
+				return 0;
+		} else {
+			//判断学生是否已经在该课程中
+			List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
+			if (studentNOs.contains(student.getStudentNO()))
+				return 2;//已存在
+			// 不在则添加
+			studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
+			//判断是否添加成功
+			List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+			if (studentNOs1.contains(student.getStudentNO()))
+				return 1;//添加成功
+			return 0;//添加失败
 		}
-		return 0;//添加失败
 	}
 
 	@Override
@@ -56,14 +68,5 @@ public class StudentServiceImpl implements StudentService{
 		if (!studentNOs1.contains(studentNO))
 			return 1;// 删除成功
 		return 0;
-	}
-
-	@Override
-	public boolean validate(String studentNO, int courseId) {
-		//验证学生是否在数据库中
-		Student student = studentMapper.getStudentByStudentNO(studentNO);
-		if (student == null)
-			return false;
-		return true;
 	}
 }

@@ -49,8 +49,6 @@ public class StudentServlet extends HttpServlet{
 			add(request, response);
 		}else if("delete".equals(operate)){
 			delete(request, response);
-		}else if("validate".equals(operate)) {
-			validate(request, response);
 		}else if("import".equals(operate)){
 			//从Excel文件进行导入的操作
 		}
@@ -77,8 +75,10 @@ public class StudentServlet extends HttpServlet{
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNO = request.getParameter("stuNum");
+		Student student = new Student();
+		student.setStudentNO(studentNO);
 		
-		int flag = studentService.addStudentToTheCourse(studentNO, courseId);
+		int flag = studentService.addStudentToTheCourse(student, courseId);
 		response.getWriter().print(flag);
 	}
 	
@@ -87,14 +87,6 @@ public class StudentServlet extends HttpServlet{
 		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNo = request.getParameter("stuNum");
 		int flag = studentService.deleteStudentFromTheCourse(studentNo, courseId);
-		response.getWriter().print(flag);
-	}
-	
-	//输入验证
-	private void validate(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
-		String studentNo = request.getParameter("stuNum");
-		boolean flag = studentService.validate(studentNo, courseId);
 		response.getWriter().print(flag);
 	}
 
