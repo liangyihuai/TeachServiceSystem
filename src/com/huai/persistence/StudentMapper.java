@@ -22,13 +22,13 @@ public interface StudentMapper {
 	 * 往数据库中添加一个学生
 	 * @param student
 	 */
-	void addStudent(Student student);
+	void addStudent(Student student) throws Exception;
 	/**
 	 * 将学生添加到一个课程中
 	 * @param student
 	 * @param courseId
 	 */
-	void addStudentToCourse(String studentNO, int courseId);
+	void addStudentToCourse(String studentNO, int courseId)throws Exception;
 	/**
 	 * 根据课程号得到在此门课程中的学生的学号
 	 * @param studentNO
@@ -42,4 +42,12 @@ public interface StudentMapper {
 	 * @param courseId
 	 */
 	void deleteStudentFromCourse(String studentNO, int courseId);
+
+	/**
+	 * 根据课程id查询学生
+	 * @param courseID
+	 * @return
+	 * liangyihuai
+	 */
+	List<Student> getStudents(int courseID);
 }

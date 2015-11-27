@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 往数据库中添加一个学生 -->
 	<select id="addStudent" parameterType="Student">
-		Insert Into student(name,password,sex,studentNO,clazz) 
-		values(#{name},#{password},#{sex},#{studentNO},#{clazz})
+		Insert Into student(name,password,sex,studentNO,clazz,major)
+		values(#{name},#{password},#{sex},#{studentNO},#{clazz},#{major})
 	</select>
 	<!-- 将学生添加到一个课程中 -->
 	<select id="addStudentToCourse">
@@ -29,5 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 把学生从一个课程中删除 -->
 	<select id="deleteStudentFromCourse">
 		Delete From studentCourseRelation Where studentNO=#{0} And courseID=#{1}
+	</select>
+	<select id="getStudents" parameterType="int" resultType="Student">
+		SELECT * FROM student WHERE studentNO IN(SELECT studentNO FROM studentCourseRelation WHERE courseID=#{courseID})
 	</select>
 </mapper>

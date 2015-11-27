@@ -9,6 +9,15 @@ public class Student {
 	private String studentNO;
 	//班级，注意和课程（course）的区别
 	private String clazz;
+	private String major;
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
 
 	public String getClazz(){
 		return this.clazz;

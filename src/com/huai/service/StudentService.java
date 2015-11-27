@@ -1,5 +1,6 @@
 package com.huai.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.huai.beans.Student;
@@ -17,11 +18,18 @@ public interface StudentService {
 	 * @param student
 	 * @param courseId
 	 */
-	public int addStudentToTheCourse(Student student, int courseId);
+	public int addStudentToTheCourse(Student student, int courseId) throws Exception;
 	/**
 	 * 把一个学生从此课程中删除
 	 * @param studentNo
 	 * @param courseId
 	 */
 	public int deleteStudentFromTheCourse(String studentNO, int courseId);
+
+	/**
+	 * import students from excel from
+	 * @return
+	 * LiangYH
+	 */
+	boolean importStudents(List<ArrayList<String>> dyadic, int courseID);
 }

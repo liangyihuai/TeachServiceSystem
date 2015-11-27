@@ -2,7 +2,9 @@ package com.huai.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.huai.core.ExcelOperation;
+import com.huai.core.UploadFile;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -40,23 +44,24 @@ public class StudentServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
-		
+		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		System.out.println("operate = "+operate);
 		
 		if("list".equals(operate)){
-			list(request, response);
+			list(request, response,courseId);
 		}else if("add".equals(operate)){
-			add(request, response);
+			add(request, response,courseId);
 		}else if("delete".equals(operate)){
-			delete(request, response);
+			delete(request, response,courseId);
 		}else if("import".equals(operate)){
 			//从Excel文件进行导入的操作
+			importStudents(request, response, courseId);
 		}
 	}
 
 	//列出此课程中所有学生
-	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+	private void list(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
+		//int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		List<Student> students = studentService.getStudentsInTheCourse(courseId);
 		
 		if(students!=null && students.size()>0){
@@ -72,8 +77,8 @@ public class StudentServlet extends HttpServlet{
 	}
 	
 	//添加学生到课程
-	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+	private void add(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
+		//int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNO = request.getParameter("stuNum");
 		String name = request.getParameter("stuName");
 		String sex = request.getParameter("sex");
@@ -85,17 +90,60 @@ public class StudentServlet extends HttpServlet{
 		student.setName(name);
 		student.setPassword("111111");
 		student.setSex(sex);
-		
-		int flag = studentService.addStudentToTheCourse(student, courseId);
+
+		int flag = 0;
+		try {
+			flag = studentService.addStudentToTheCourse(student, courseId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		response.getWriter().print(flag);
 	}
 	
 	//从课程中删除学生
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+	private void delete(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
+//		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNo = request.getParameter("stuNum");
 		int flag = studentService.deleteStudentFromTheCourse(studentNo, courseId);
 		response.getWriter().print(flag);
+	}
+
+	/**
+	 * //从Excel文件进行导入的操作
+	 * @param request
+	 * @param response
+	 * @param courseId
+	 * LiangYH
+	 */
+	private void importStudents(HttpServletRequest request, HttpServletResponse response,int courseId){
+		//upload excel file to server
+		UploadFile uploadFile = new UploadFile();
+		ExcelOperation excelOperation = new ExcelOperation();
+
+		Map<String,String> params = uploadFile.uploadFile(request, response);
+		if (params.size() == 0) return;
+		//get the file absolute path
+		String path = params.get(UploadFile.FILE_NAME);
+		//get the content in the excel file
+		List<ArrayList<String>> dyadic = null;
+		dyadic = excelOperation.importForm(path, 0);
+		//the first row is headline
+		if(dyadic == null || dyadic.size() < 2)return ;
+
+		boolean runStatus = studentService.importStudents(dyadic,courseId);
+
+		PrintWriter writer = null;
+		try {
+			writer = response.getWriter();
+			if(runStatus)
+				writer.write("1");
+			else
+				writer.write("0");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			writer.close();
+		}
 	}
 
 	@Override
