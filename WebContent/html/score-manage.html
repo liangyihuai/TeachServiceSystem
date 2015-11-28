@@ -29,6 +29,8 @@
     <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
     <!--主js文件-->
     <script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
+    <!--成绩录入-->
+    <script src="../js/scoreEnter.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -75,7 +77,8 @@
                 <form>
                     <div class="form-group">
                         <label for="plan_text">安排</label>
-                        <textarea class="form-control" rows="3" name="change_plan_text" id="change_plan_text"></textarea>
+                        <textarea class="form-control" rows="3" name="change_plan_text"
+                                  id="change_plan_text"></textarea>
                     </div>
                 </form>
             </div>
@@ -101,7 +104,8 @@
                 <form>
                     <div class="form-group">
                         <label for="homeworkStopTime">截止日期</label>
-                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" readonly="readonly" class="form-control">
+                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" readonly="readonly"
+                               class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
@@ -131,18 +135,21 @@
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="stuNum" class="col-md-3">学号：</label>
+
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="stuNum" id="stuNum">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="stuName" class="col-md-3">姓名：</label>
+
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="stuName" id="stuName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3">性别：</label>
+
                         <div class="col-md-9">
                             <select name="sex" class="form-control ">
                                 <option value="male" slected="selected">男</option>
@@ -152,12 +159,14 @@
                     </div>
                     <div class="form-group">
                         <label for="classNum" class="col-md-3">班级：</label>
+
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="classNum" id="classNum">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="department" class="col-md-3">学院：</label>
+
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="department" id="department">
                         </div>
@@ -173,6 +182,42 @@
     </div>
 </div>
 <!--end of Modal-->
+<!--设置成绩占比modal-->
+<div class="modal fade" id="setPercent" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" aria-hidden="true" data-dismiss="modal"><span>&times;</span></button>
+                <h4>设置平时期末成绩比重</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="normalTime">平时成绩:</label>
+                            <input type="text" class="form-control" name="normalTime" id="normalTime"
+                                   data-toggle="tooltip" data-placement="top" title="请输入1-100的数字"/>
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="finalTime">平时成绩:</label>
+                            <input type="text" class="form-control" name="finalTime" id="finalTime"
+                                   data-toggle="tooltip" data-placement="top" title="请输入1-100的数字"/>
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="wrapper">
     <div class="header">
         <nav class="navbar navbar-default">
@@ -224,7 +269,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false" id="current_center">个人中心<span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false" id="current_center">个人中心<span
+                                    class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="javascript:void(0);" id="logout">注销</a></li>
                             </ul>
@@ -242,9 +288,12 @@
                 <li id="current_mange_course">物理课</li>
                 <li class="active">成绩管理</li>
             </ol>
-            <div class="panel panel-primary">
-                <div class="panel-heading">成绩管理
-                    <a href="#" class="btn btn-default btn-sm pull-right">设置成绩占比</a>
+            <div class="panel panel-primary scoreManage">
+                <div class="panel-heading">
+                    <span>成绩管理</span>
+                    <button class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#setPercent">
+                        设置成绩占比
+                    </button>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -264,21 +313,24 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <tr>
-                                <td>2013211729</td>
-                                <td>张三</td>
-                                <td>
-                                    <input class="form-control" type="text" name="pingshi" id="pingshi"
-                                           placeholder="60"/>
-                                </td>
-                                <td>
-                                    <input class="form-control" type="text" name="qimo" id="qimo" placeholder="80"/>
-                                </td>
-                                <td>100</td>
-                            </tr>
+                            <form>
+                                <tr>
+                                    <td>2013211729</td>
+                                    <td>张三</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="pingshi" id="pingshi"
+                                               placeholder="60"/>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" name="qimo" id="qimo" placeholder="80"/>
+                                    </td>
+                                    <td>100</td>
+                                </tr>
+                            </form>
                             </tbody>
                         </table>
                     </div>
+                    <button class="btn btn-primary center-block" id="update">更新</button>
                 </div>
             </div>
         </div>
