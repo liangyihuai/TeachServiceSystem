@@ -8,11 +8,11 @@ import com.huai.beans.Homework;
 public interface HomeworkService {
 	
 	/**
-	 * 根据教师ID获取作业列表
-	 * @param teacherID
+	 * 根据课程ID获取作业列表
+	 * @param courseID
 	 * @return
 	 */
-	public List<Homework> getHomework(int teacherID);
+	public List<Homework> getHomework(int courseID);
 	
 	/**
 	 * 布置作业
@@ -23,9 +23,9 @@ public interface HomeworkService {
 	
 	/**
 	 * 判断布置作业是否成功
-	 * @param teacherID
+	 * @param courseID
 	 * @param content
 	 * @return
 	 */
-	public Boolean isAddHomeworkSuccess(int teacherID, String content);
+	public Boolean isAddHomeworkSuccess(int courseID, String content);
 }

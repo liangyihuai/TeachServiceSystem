@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.huai.persistence.HomeworkMapper">
 	<select id="getHomeworks" parameterType="int" resultType="Homework">
-		select * from homework where teacherID = #{teacherID}
+		select * from homework where courseID = #{courseID}
 	</select>
 	
 	<insert id="giveHomework" parameterType="Homework">
-		insert into homework(homeworkID,deadline,buildDate,content,teacherID) values (#{homeworkID},#{deadline},#{buildDate},#{content},#{teacherID})
+		insert into homework(homeworkID,deadline,buildDate,content,teacherID,courseID) values (#{homeworkID},#{deadline},#{buildDate},#{content},#{teacherID},#{courseID})
 	</insert>
 </mapper>
