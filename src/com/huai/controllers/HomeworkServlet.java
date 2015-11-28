@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,12 +40,14 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import sun.tools.jar.resources.jar;
 
 import com.huai.beans.Homework;
+import com.huai.beans.Student;
+import com.huai.beans.StudentHomeWorkRelation;
 import com.huai.beans.Teacher;
 import com.huai.service.HomeworkService;
 import com.huai.utils.RoleUtil;
 import com.huai.utils.ServletUtil;
 
-@WebServlet(urlPatterns={"/homework"})
+@WebServlet(urlPatterns = { "/homework" })
 public class HomeworkServlet extends HttpServlet {
 	private HomeworkService homeworkService = null;
 
@@ -55,7 +58,7 @@ public class HomeworkServlet extends HttpServlet {
 				.getWebApplicationContext(servletContext);
 		homeworkService = webApplicationContext.getBean(HomeworkService.class);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -63,19 +66,20 @@ public class HomeworkServlet extends HttpServlet {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(
 				RoleUtil.TEACHER_ROLE_NAME);
 		int teacherID = teacher.getTeacherID();
-		int courseID = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+		int courseID = Integer.parseInt((String) request.getSession()
+				.getAttribute(ServletUtil.COURSE_ID));
 		System.out.println("coureID:" + courseID);
-		
-		//如果操作为correct,则批改作业
+
+		// 如果操作为correct,则批改作业
 		if ("correct".equals(operate)) {
 			System.out.println("coureID:" + courseID);
 			List<Homework> homeworks = homeworkService.getHomework(courseID);
-			
+
 			JSONArray jsonArray = new JSONArray();
 
 			for (Homework homework : homeworks) {
 				JSONObject jo = new JSONObject();
-				
+
 				jo.element("buildDate", homework.getBuildDate())
 						.element("content", homework.getContent())
 						.element("deadline", homework.getDeadline())
@@ -85,14 +89,15 @@ public class HomeworkServlet extends HttpServlet {
 			}
 			PrintWriter writer = response.getWriter();
 			writer.write(jsonArray.toString());
-			//System.out.println(jsonArray.toString());
-		} else if("addHomework".equals(operate)){
-			
+			// System.out.println(jsonArray.toString());
+		} else if ("addHomework".equals(operate)) {
+
 			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
 			Date buildDate = new Date();
 			Date deadline;
 			try {
-				deadline = format.parse(request.getParameter("homeworkStopTime"));
+				deadline = format.parse(request
+						.getParameter("homeworkStopTime"));
 				String content = request.getParameter("homeworkTitle");
 				Homework homework = new Homework();
 				homework.setBuildDate(buildDate);
@@ -101,12 +106,13 @@ public class HomeworkServlet extends HttpServlet {
 				homework.setTeacherID(teacherID);
 				homework.setContent(content);
 				homework.setCourseID(courseID);
-				
+
 				homeworkService.giveHomework(homework);
-				
+
 				PrintWriter writer = response.getWriter();
-				Boolean isSuccess = homeworkService.isAddHomeworkSuccess(courseID, content);
-				if(isSuccess){
+				Boolean isSuccess = homeworkService.isAddHomeworkSuccess(
+						courseID, content);
+				if (isSuccess) {
 					writer.print(1);
 				} else {
 					writer.print(0);
@@ -116,18 +122,54 @@ public class HomeworkServlet extends HttpServlet {
 				PrintWriter writer = response.getWriter();
 				writer.print(-1);
 			}
-			/*
-			Homework homework = new Homework();
-			homework.setBuildDate(new Date());
-			homework.setDeadline(new Date());
-			homework.setContent("this is a test,too");
-			homework.setTeacherID(teacher.getTeacherID());
-			*/
+		} else if ("listHomework".equals(operate)) {
+			int homeworkID = Integer.parseInt(request.getParameter("homeworkID"));
+			//int homeworkID = 1;
+			List<StudentHomeWorkRelation> studentHomeworks = homeworkService
+					.getStudentHomework(homeworkID);
+			JSONArray commitedHomeworks = new JSONArray();
+			JSONArray correctedHomeworks = new JSONArray();
+			JSONArray unCommitedStudents = new JSONArray();
+			JSONObject homeworkJson = new JSONObject();
+
+			for (StudentHomeWorkRelation homework : studentHomeworks) {
+				if (homework.getStatus() == null) {
+					Student student = homeworkService.getStudent(homework
+							.getStudentID());
+					System.out.println("学生学号:" + student.getStudentNO());
+					JSONObject commitedHomework = new JSONObject();
+					commitedHomework
+							.element("studentNO", student.getStudentNO())
+							.element("name", student.getName())
+							.element("content", homework.getContent());
+					commitedHomeworks.add(commitedHomework);
+				} else if (homework.getStatus().equals("corrected")) {
+					Student student = homeworkService.getStudent(homework
+							.getStudentID());
+					JSONObject correctedHomework = new JSONObject();
+					correctedHomework.element("studentID",
+							student.getStudentID()).element("name",
+							student.getName());
+					correctedHomeworks.add(correctedHomework);
+				}
+			}
+			List<Student> students = homeworkService.getUncommitedStudents();
+			for (Student student : students) {
+				JSONObject jo = new JSONObject();
+				jo.element("studentNO", student.getStudentNO()).element("name",
+						student.getName());
+				unCommitedStudents.add(jo);
+			}
+			homeworkJson.element("commited", commitedHomeworks)
+					.element("corrected", correctedHomeworks)
+					.element("unCommited", unCommitedStudents);
 			
+			PrintWriter writer = response.getWriter();
+			writer.write(homeworkJson.toString());
 		}
-		
+
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

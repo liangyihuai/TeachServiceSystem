@@ -3,6 +3,8 @@ package com.huai.service;
 import java.util.List;
 
 import com.huai.beans.Homework;
+import com.huai.beans.Student;
+import com.huai.beans.StudentHomeWorkRelation;
 
 
 public interface HomeworkService {
@@ -28,4 +30,20 @@ public interface HomeworkService {
 	 * @return
 	 */
 	public Boolean isAddHomeworkSuccess(int courseID, String content);
+	
+	/**
+	 * 通过homeworkID获取学生作业
+	 * @param homeworkID
+	 * @return
+	 */
+	public List<StudentHomeWorkRelation> getStudentHomework(int homeworkID);
+	
+	/**
+	 * 通过学生ID获取学生对象
+	 * @param studentID
+	 * @return
+	 */
+	public Student getStudent(int studentID);
+
+	public List<Student> getUncommitedStudents();
 }
