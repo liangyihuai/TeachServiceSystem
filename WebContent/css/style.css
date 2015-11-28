@@ -85,4 +85,7 @@ ul.course {
 .course-item-desc-text {
 	font-size: 0.8em;
 }
-/*学生列表*/
+/*成绩录入模态框*/
+.scoreManage .panel-heading  button{
+	margin-top: -0.4em;
+}

@@ -4,6 +4,8 @@
 $(function(){
     getStudentList();
     deleteStudent();
+    $('[data-toggle="tooltip"]').tooltip();
+    uploadFile();
 });
 //得到学生列表模块
 /*点击当前学生列表发起请求得到学生列表*/
@@ -44,4 +46,32 @@ function deleteStudent(){
         });
         getStudentList();
     })
+}
+//导入学生Excel列表模块
+/*点击导入之后检查文件名，如果是excel文件就允许导入，否则不允许提交*/
+function uploadFile(){
+    var fileForm=$('.uploadFile form');
+    var supporFile=/.(excel|xls|xlsx)$/g;
+    $('.uploadFile button').click(function () {
+        if(supporFile.test($('#file').val())){
+            $(this).removeClass('disabled');
+            fileForm.ajaxForm({
+                type: 'POST',
+                url: '../student?operate=import',
+                success: function (data, statusText) {
+                    if (data == 1) {
+                        $(this).resetForm();
+                        alert('导入成功');
+                        getStudentList();
+                    } else {
+                        alert(statusText);
+                    }
+                }
+            });
+        }else{
+            $(this).addClass('disabled');
+            alert('文件格式不正确，请检查！');
+            return false;
+        }
+    });
 }
