@@ -123,8 +123,8 @@ public class HomeworkServlet extends HttpServlet {
 				writer.print(-1);
 			}
 		} else if ("listHomework".equals(operate)) {
-			int homeworkID = Integer.parseInt(request.getParameter("homeworkID"));
-			//int homeworkID = 1;
+			//int homeworkID = Integer.parseInt(request.getParameter("homeworkID"));
+			int homeworkID = 1;
 			List<StudentHomeWorkRelation> studentHomeworks = homeworkService
 					.getStudentHomework(homeworkID);
 			JSONArray commitedHomeworks = new JSONArray();
@@ -141,7 +141,8 @@ public class HomeworkServlet extends HttpServlet {
 					commitedHomework
 							.element("studentNO", student.getStudentNO())
 							.element("name", student.getName())
-							.element("content", homework.getContent());
+							.element("content", homework.getContent())
+							.element("studentHomeworkID", homework.getStudentHomeworkID());
 					commitedHomeworks.add(commitedHomework);
 				} else if (homework.getStatus().equals("corrected")) {
 					Student student = homeworkService.getStudent(homework
