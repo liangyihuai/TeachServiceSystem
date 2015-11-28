@@ -1,8 +1,4 @@
 $(function () {
-    // 清除输入框内容
-    $('.modal').on('hidden.bs.modal', function () {
-        $(this).find('form').get(0).reset();
-    });
     /*作业布置截至时间选框*/
     $('#homeworkStopTime').datetimepicker({
         format: 'yyyy-mm-dd',
@@ -25,7 +21,7 @@ $(function () {
         });
     });
     //老师登录模块
-    $('#teacher_login_form .confirm').click(function () {
+    $('#teacher_login .confirm').click(function () {
         $.ajax({
             type: "POST",
             url: "../login?operate=teacherLogin",
@@ -122,13 +118,13 @@ $(function () {
                     url: '../student?operate=add',
                     clearForm: true,
                     success: function (data, statusText) {
-                        if(data==1) {
+                        if (data == 1) {
                             alert('添加学生成功');
                             $('#addStudent').modal('hide');
                             getStudentList();
-                        }else if(data==2){
+                        } else if (data == 2) {
                             alert('学生已存在，请刷新浏览器进行查看！');
-                        }else{
+                        } else {
                             alert('发生错误，请重试');
                         }
                     }
@@ -139,30 +135,30 @@ $(function () {
                     required: true,
                     digits: true,
                 },
-                stuName:{
-                    required:true,
+                stuName: {
+                    required: true,
                 },
-                classNum:{
-                    required:true,
+                classNum: {
+                    required: true,
                     digits: true,
                 },
-                department:{
-                    required:true,
+                department: {
+                    required: true,
                 }
             },
             messages: {
                 stuNum: {
                     required: '请填写学生的学号！',
-                    digits:'学号应为纯数字组成！',
+                    digits: '学号应为纯数字组成！',
                 },
-                stuName:{
-                    required:'请填写学生姓名',
+                stuName: {
+                    required: '请填写学生姓名',
                 },
-                classNum:{
-                    required:'请填写学生所属班级',
+                classNum: {
+                    required: '请填写学生所属班级',
                 },
-                department:{
-                    required:'请填写学生所属学院',
+                department: {
+                    required: '请填写学生所属学院',
                 },
             },
             highlight: function (element, errorClass) {
@@ -173,40 +169,41 @@ $(function () {
             }
         });
     }
-    function addHomework(){
+
+    function addHomework() {
         $('#addHomework .confirm').click(function () {
-           $('#addHomework').find('form').submit();
+            $('#addHomework').find('form').submit();
         })
         $('#addHomework').find('form').validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
-                    type:'POST',
-                    url:'../homework?operate=addHomework',
-                    success: function (data,statusText) {
-                        if(data==1){
+                    type: 'POST',
+                    url: '../homework?operate=addHomework',
+                    success: function (data, statusText) {
+                        if (data == 1) {
                             alert('添加成功！');
                             $('#addHomework').modal('hide');
                             getHomeworkList();
-                        }else if(data==0){
+                        } else if (data == 0) {
                             alert('发生错误，请重试！')
                         }
                     }
                 });
             },
-            rules:{
-                homeworkStopTime:{
-                    required:true,
+            rules: {
+                homeworkStopTime: {
+                    required: true,
                 },
-                homeworkTitle:{
-                    required:true,
+                homeworkTitle: {
+                    required: true,
                 }
             },
-            messages:{
-                homeworkStopTime:{
-                    required:'请选择作业截至日期！',
+            messages: {
+                homeworkStopTime: {
+                    required: '请选择作业截至日期！',
                 },
-                homeworkTitle:{
-                    required:'请填写作业题目',
+                homeworkTitle: {
+                    required: '请填写作业题目',
                 }
             },
             highlight: function (element, errorClass) {

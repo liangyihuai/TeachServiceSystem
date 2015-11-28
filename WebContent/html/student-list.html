@@ -29,6 +29,8 @@
     <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
     <!--主js文件-->
     <script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
+    <!--文件上传插件-->
+    <script src="../js/jquery.uploadfile.min.js" type="text/javascript" charset="utf-8"></script>
     <!--学生列表-->
     <script src="../js/studentList.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -270,10 +272,17 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="form-group form-inline excel-file">
-                        <label for="studentlist-file">选择Excel文件进行导入</label>
-                        <input class="form-control" type="file" id="studentlist-file"/>
-                        <button type="submit" class="btn btn-primary">导入</button>
+                    <div class="uploadFile">
+                        <form class="form-inline" action="../student?operate=import" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="file">选择Excel文件进行导入</label>
+                                <input class="form-control" type="file" name="file" id="file"/>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="上传学生表必须和模板一致">导入</button>
+                            </div>
+                        </form>
+                        <a href="#" class="btn btn-info">下载模板</a>
                     </div>
                 </div>
             </div>
