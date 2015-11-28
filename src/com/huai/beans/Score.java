@@ -9,6 +9,15 @@ public class Score {
 	private int studentID;
 	private int teacherID;
 	private String remark;
+	private int courseID;
+	
+	
+	public int getCourseID() {
+		return courseID;
+	}
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
 	public int getScoreID() {
 		return scoreID;
 	}
