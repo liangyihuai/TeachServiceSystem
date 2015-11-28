@@ -9,8 +9,22 @@ public class Course {
 	private int teacherID;
 	private Date buildDate;
 	private String courseDescription;
+	private int commonPercent;
+	private int finalPercent;
 	
 	
+	public int getCommonPercent() {
+		return commonPercent;
+	}
+	public void setCommonPercent(int commonPercent) {
+		this.commonPercent = commonPercent;
+	}
+	public int getFinalPercent() {
+		return finalPercent;
+	}
+	public void setFinalPercent(int finalPercent) {
+		this.finalPercent = finalPercent;
+	}
 	public String getCourseDescription() {
 		return courseDescription;
 	}
