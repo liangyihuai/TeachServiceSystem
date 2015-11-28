@@ -11,4 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="giveHomework" parameterType="Homework">
 		insert into homework(homeworkID,deadline,buildDate,content,teacherID,courseID) values (#{homeworkID},#{deadline},#{buildDate},#{content},#{teacherID},#{courseID})
 	</insert>
+	
+	<select id="getStudentHomework" parameterType="int" resultType="StudentHomeWorkRelation">
+		select * from studentHomeworkRelation where homeworkID = #{homeworkID}
+	</select>
+	
+	<select id="getStudent" parameterType="int" resultType="Student">
+		select * from student where studentID = #{studentID}
+	</select>
+	
+	<select id="getUncommitedStudents" resultType="Student">
+		select * from student where studentID NOT IN (select studentID from studentHomeworkRelation)
+	</select>
 </mapper>

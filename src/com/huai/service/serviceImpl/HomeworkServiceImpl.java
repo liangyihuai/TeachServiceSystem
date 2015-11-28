@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huai.beans.Homework;
+import com.huai.beans.Student;
+import com.huai.beans.StudentHomeWorkRelation;
 import com.huai.persistence.HomeworkMapper;
 import com.huai.persistence.TeacherMapper;
 import com.huai.service.HomeworkService;
@@ -49,6 +51,24 @@ public class HomeworkServiceImpl implements HomeworkService{
 			}
 		}	
 		return false;
+	}
+
+	@Override
+	public List<StudentHomeWorkRelation> getStudentHomework(int homeworkID) {
+		List<StudentHomeWorkRelation> studentHomeworks = homeworkMapper.getStudentHomework(homeworkID);
+		return studentHomeworks;
+	}
+
+	@Override
+	public Student getStudent(int studentID) {
+		Student student = homeworkMapper.getStudent(studentID);
+		return student;
+	}
+
+	@Override
+	public List<Student> getUncommitedStudents() {
+		List<Student> students = homeworkMapper.getUncommitedStudents();
+		return students;
 	}
 	
 }
