@@ -24,10 +24,10 @@ public class HomeworkServiceImpl implements HomeworkService{
 	}
 	
 	@Override
-	public List<Homework> getHomework(int teacherID) {
+	public List<Homework> getHomework(int courseID) {
 		
 		List<Homework> homeworks = null;
-		homeworks = homeworkMapper.getHomeworks(teacherID);
+		homeworks = homeworkMapper.getHomeworks(courseID);
 		return homeworks;
 	}
 
@@ -39,10 +39,10 @@ public class HomeworkServiceImpl implements HomeworkService{
 	}
 
 	@Override
-	public Boolean isAddHomeworkSuccess(int teacherID, String content) {
+	public Boolean isAddHomeworkSuccess(int courseID, String content) {
 		
 		List<Homework> homeworks = null;
-		homeworks = homeworkMapper.getHomeworks(teacherID);
+		homeworks = homeworkMapper.getHomeworks(courseID);
 		for(Homework homework : homeworks){
 			if (homework.getContent().equals(content)) {
 				return true;

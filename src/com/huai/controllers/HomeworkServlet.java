@@ -22,6 +22,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.catalina.Session;
+import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -41,6 +42,7 @@ import com.huai.beans.Homework;
 import com.huai.beans.Teacher;
 import com.huai.service.HomeworkService;
 import com.huai.utils.RoleUtil;
+import com.huai.utils.ServletUtil;
 
 @WebServlet(urlPatterns={"/homework"})
 public class HomeworkServlet extends HttpServlet {
@@ -61,10 +63,13 @@ public class HomeworkServlet extends HttpServlet {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(
 				RoleUtil.TEACHER_ROLE_NAME);
 		int teacherID = teacher.getTeacherID();
+		int courseID = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+		System.out.println("coureID:" + courseID);
 		
 		//如果操作为correct,则批改作业
 		if ("correct".equals(operate)) {
-			List<Homework> homeworks = homeworkService.getHomework(teacherID);
+			System.out.println("coureID:" + courseID);
+			List<Homework> homeworks = homeworkService.getHomework(courseID);
 			
 			JSONArray jsonArray = new JSONArray();
 
@@ -95,10 +100,12 @@ public class HomeworkServlet extends HttpServlet {
 				homework.setHeadline(content);
 				homework.setTeacherID(teacherID);
 				homework.setContent(content);
+				homework.setCourseID(courseID);
+				
 				homeworkService.giveHomework(homework);
 				
 				PrintWriter writer = response.getWriter();
-				Boolean isSuccess = homeworkService.isAddHomeworkSuccess(teacherID, content);
+				Boolean isSuccess = homeworkService.isAddHomeworkSuccess(courseID, content);
 				if(isSuccess){
 					writer.print(1);
 				} else {
