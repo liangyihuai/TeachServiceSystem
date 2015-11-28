@@ -1,5 +1,6 @@
 package com.huai.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.huai.core.ExcelOperation;
 import com.huai.core.UploadFile;
+import com.huai.utils.DownloadUtils;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -56,6 +58,8 @@ public class StudentServlet extends HttpServlet{
 		}else if("import".equals(operate)){
 			//从Excel文件进行导入的操作
 			importStudents(request, response, courseId);
+		}else if("download".equals(operate)){
+			download(request,response);
 		}
 	}
 
@@ -144,6 +148,15 @@ public class StudentServlet extends HttpServlet{
 		} finally {
 			writer.close();
 		}
+	}
+
+	public void download(HttpServletRequest request, HttpServletResponse response){
+		String fileName = "学生信息导入文件模板.xlsx";
+		// 防止因为浏览器不同导致文件名乱码
+		fileName = DownloadUtils.getNormalFilename(request, fileName);
+		String realPath = DownloadUtils.getRealPath(DownloadUtils.TEMPLET_EXCEL);
+		// 改变响应头，发起下载流
+		DownloadUtils.launchDownloadStream(response, realPath, fileName);
 	}
 
 	@Override
