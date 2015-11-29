@@ -8,9 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getStudentByName" parameterType="String" resultType="Student">
 		Select * From student Where name=#{name}
 	</select>
-	<!-- 根据学号获取学生对象 -->
-	<select id="getStudentByStudentNO" parameterType="String" resultType="Student">
-		Select * From student Where studentNO=#{studentNO}
+	<!-- 根据studentID获取学生对象 -->
+	<select id="getStudentByStudentID" parameterType="Integer" resultType="Student">
+		Select * From student Where studentID=#{studentID}
 	</select>
 	<!-- 往数据库中添加一个学生 -->
 	<insert id="addStudent" parameterType="Student">
@@ -19,18 +19,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 将学生添加到一个课程中 -->
 	<insert id="addStudentToCourse">
-		Insert Into studentCourseRelation(studentNO,courseID) 
+		Insert Into studentCourseRelation(studentID,courseID) 
 		values(#{0},#{1})
 	</insert>
-	<!-- 根据课程号得到在此门课程中的学生的学号 -->
-	<select id="getStudentNOByCourseId" parameterType="int" resultType="String">
-		Select studentNO From studentCourseRelation Where courseID=#{courseId}
+	<!-- 根据课程号得到在此门课程中的学生的studentID -->
+	<select id="getStudentIDByCourseId" parameterType="int" resultType="Integer">
+		Select studentID From studentCourseRelation Where courseID=#{courseId}
 	</select>
 	<!-- 把学生从一个课程中删除 -->
 	<delete id="deleteStudentFromCourse">
-		Delete From studentCourseRelation Where studentNO=#{0} And courseID=#{1}
+		Delete From studentCourseRelation Where studentID=#{0} And courseID=#{1}
+	</delete>
+	<!-- 把学生从student表中删除 -->
+	<delete id="deleteStudent" parameterType="Integer">
+		Delete From student Where studentID=#{studentID}
 	</delete>
 	<select id="getStudents" parameterType="int" resultType="Student">
 		SELECT * FROM student WHERE studentNO IN(SELECT studentNO FROM studentCourseRelation WHERE courseID=#{courseID})
+	</select>
+	<!-- 根据studentID获取学生对象 -->
+	<select id="getMaxStudentID" resultType="Integer">
+		Select MAX(studentID) From student
 	</select>
 </mapper>

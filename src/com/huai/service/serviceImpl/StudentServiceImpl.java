@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.huai.beans.Student;
 import com.huai.persistence.StudentMapper;
 import com.huai.service.StudentService;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -24,62 +25,49 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public List<Student> getStudentsInTheCourse(int courseId) {
 		List<Student> students = new ArrayList<Student>();
-		List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
-		for (String NO : studentNOs) {
-			Student s = studentMapper.getStudentByStudentNO(NO);
+		List<Integer> studentIDs = studentMapper.getStudentIDByCourseId(courseId);
+		for (int ID : studentIDs) {
+			Student s = studentMapper.getStudentByStudentID(ID);
 			students.add(s);
 		}
 		return students;
 	}
 
+	@Transactional
 	@Override
 	public int addStudentToTheCourse(Student student, int courseId){
-		if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null) {
-			try {
-				studentMapper.addStudent(student);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null)
-				return 0;
-			try {
-				studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			//判断是否添加成功
-			List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
-			if (studentNOs1.contains(student.getStudentNO()))
-				return 1;//添加成功
-			else
-				return 0;
-		} else {
-			//判断学生是否已经在该课程中
-			List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
-			if (studentNOs.contains(student.getStudentNO()))
-				return 2;//已存在
-			// 不在则添加
-			try {
-				studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			//判断是否添加成功
-			List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
-			if (studentNOs1.contains(student.getStudentNO()))
-				return 1;//添加成功
-			return 0;//添加失败
+		//判断学生是否已经在此课程中
+		List<Student> students = getStudentsInTheCourse(courseId);
+		for (Student s : students)
+			if (student.getStudentNO().equals(s.getStudentNO()))
+				return 2;//在
+		//不在
+		try {
+			studentMapper.addStudent(student);
+			int studentID = studentMapper.getMaxStudentID();
+			studentMapper.addStudentToCourse(studentID, courseId);
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 
+	@Transactional
 	@Override
 	public int deleteStudentFromTheCourse(String studentNO, int courseId) {
-		//删除
-		studentMapper.deleteStudentFromCourse(studentNO, courseId);
-		// 判断学生是否在该课程中
-		List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
-		if (!studentNOs1.contains(studentNO))
-			return 1;// 删除成功
+		List<Student> students = getStudentsInTheCourse(courseId);
+		for (Student s : students)
+			if (studentNO.equals(s.getStudentNO())) {
+				try {
+					studentMapper.deleteStudent(s.getStudentID());
+					studentMapper.deleteStudentFromCourse(s.getStudentID(), courseId);
+					return 1;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return 0;
+				}
+			}
 		return 0;
 	}
 

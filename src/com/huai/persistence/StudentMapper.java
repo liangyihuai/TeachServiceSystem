@@ -13,13 +13,13 @@ public interface StudentMapper {
 	 */
 	Student getStudentByName(String name);
 	/**
-	 * 根据学号获取学生对象
+	 * 根据studentID获取学生对象
 	 * @param studentNO
 	 * @return
 	 */
-	Student getStudentByStudentNO(String studentNO);
+	Student getStudentByStudentID(int studentID);
 	/**
-	 * 往数据库中添加一个学生
+	 * 往student表中添加一个学生
 	 * @param student
 	 */
 	void addStudent(Student student) throws Exception;
@@ -28,20 +28,19 @@ public interface StudentMapper {
 	 * @param student
 	 * @param courseId
 	 */
-	void addStudentToCourse(String studentNO, int courseId)throws Exception;
+	void addStudentToCourse(int studentID, int courseId) throws Exception;
 	/**
-	 * 根据课程号得到在此门课程中的学生的学号
-	 * @param studentNO
+	 * 根据课程号得到在此门课程中的学生的studentID
 	 * @param courseId
 	 * @return
 	 */
-	List<String> getStudentNOByCourseId(int courseId);
+	List<Integer> getStudentIDByCourseId(int courseId);
 	/**
 	 * 把学生从一个课程中删除
-	 * @param studentNO
+	 * @param studentID
 	 * @param courseId
 	 */
-	void deleteStudentFromCourse(String studentNO, int courseId);
+	void deleteStudentFromCourse(int studentID, int courseId) throws Exception;
 
 	/**
 	 * 根据课程id查询学生
@@ -50,4 +49,14 @@ public interface StudentMapper {
 	 * liangyihuai
 	 */
 	List<Student> getStudents(int courseID);
+	/**
+	 * 获得当前最大的studentID
+	 * @return
+	 */
+	int getMaxStudentID();
+	/**
+	 * 删除student表中的学生记录
+	 * @param studentID
+	 */
+	void deleteStudent(int studentID) throws Exception;
 }

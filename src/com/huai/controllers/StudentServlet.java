@@ -65,7 +65,6 @@ public class StudentServlet extends HttpServlet{
 
 	//列出此课程中所有学生
 	private void list(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
-		//int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		List<Student> students = studentService.getStudentsInTheCourse(courseId);
 		
 		if(students!=null && students.size()>0){
@@ -75,14 +74,11 @@ public class StudentServlet extends HttpServlet{
 			PrintWriter writer = response.getWriter();
 			writer.write(jo.toString());
 			writer.close();
-		}else{
-			//此课程中没有学生
 		}
 	}
 	
 	//添加学生到课程
 	private void add(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
-		//int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNO = request.getParameter("stuNum");
 		String name = request.getParameter("stuName");
 		String sex = request.getParameter("sex");
@@ -106,7 +102,6 @@ public class StudentServlet extends HttpServlet{
 	
 	//从课程中删除学生
 	private void delete(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
-//		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNo = request.getParameter("stuNum");
 		int flag = studentService.deleteStudentFromTheCourse(studentNo, courseId);
 		response.getWriter().print(flag);
