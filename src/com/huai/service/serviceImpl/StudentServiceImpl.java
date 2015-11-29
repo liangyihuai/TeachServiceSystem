@@ -117,6 +117,7 @@ public class StudentServiceImpl implements StudentService{
 				}
 			}
 		}
+		boolean runStatus = true;
 		//insert into the db
 		int rowLen = dyadic.size();
 		for(int i = 1; i < rowLen; i++){
@@ -130,17 +131,15 @@ public class StudentServiceImpl implements StudentService{
 				stu.setSex(dyadic.get(i).get(sexIndex));
 			if(majorIndex != -1)
 				stu.setMajor(dyadic.get(i).get(majorIndex));
-
-			boolean runStatus = true;
 			try{
-				int stuID = studentMapper.addStudent(stu);
-				studentMapper.addStudentToCourse(stuID,courseID);
+				studentMapper.addStudent(stu);
+				studentMapper.addStudentToCourse(stu.getStudentID(),courseID);
 			}catch (Exception e){
 				e.printStackTrace();
 				runStatus = false;
 			}
-			return runStatus;
+
 		}
-		return true;
+		return runStatus;
 	}
 }
