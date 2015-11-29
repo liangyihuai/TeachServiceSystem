@@ -130,6 +130,8 @@ public class StudentServlet extends HttpServlet{
 		if(dyadic == null || dyadic.size() < 2)return ;
 
 		boolean runStatus = studentService.importStudents(dyadic,courseId);
+		//删除刚刚上传的excel表
+		uploadFile.delect(path);
 
 		PrintWriter writer = null;
 		try {

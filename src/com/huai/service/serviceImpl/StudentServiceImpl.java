@@ -117,7 +117,6 @@ public class StudentServiceImpl implements StudentService{
 				}
 			}
 		}
-
 		//insert into the db
 		int rowLen = dyadic.size();
 		for(int i = 1; i < rowLen; i++){
@@ -134,8 +133,8 @@ public class StudentServiceImpl implements StudentService{
 
 			boolean runStatus = true;
 			try{
-				studentMapper.addStudent(stu);
-				studentMapper.addStudentToCourse(stu.getStudentNO(),courseID);
+				int stuID = studentMapper.addStudent(stu);
+				studentMapper.addStudentToCourse(stuID,courseID);
 			}catch (Exception e){
 				e.printStackTrace();
 				runStatus = false;

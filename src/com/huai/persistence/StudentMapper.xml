@@ -14,6 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 往数据库中添加一个学生 -->
 	<insert id="addStudent" parameterType="Student">
+		<selectKey resultType="java.lang.Integer" keyProperty="studentID" order="AFTER" >
+			SELECT @@IDENTITY AS studentID
+		</selectKey>
 		Insert Into student(name,password,sex,studentNO,clazz,major)
 		values(#{name},#{password},#{sex},#{studentNO},#{clazz},#{major})
 	</insert>

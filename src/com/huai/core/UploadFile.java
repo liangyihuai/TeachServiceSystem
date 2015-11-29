@@ -23,6 +23,17 @@ public class UploadFile{
 	public static final String FILE_NAME = "fileName";
 
 	/**
+	 * delete the file
+	 * @param absolutePath
+	 */
+	public void delect(String absolutePath){
+		File file = new File(absolutePath);
+		if (file.exists()){
+			file.delete();
+		}
+	}
+
+	/**
 	 * 上传文件到服务器上面，并返回文件的绝对路径+文件名以及前段传来的parameter的name和value。
 	 * 其中文件保存在uploadFilePlace下面
 	 * @param request

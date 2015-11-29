@@ -22,7 +22,7 @@ public interface StudentMapper {
 	 * 往student表中添加一个学生
 	 * @param student
 	 */
-	void addStudent(Student student) throws Exception;
+	int addStudent(Student student) throws Exception;
 	/**
 	 * 将学生添加到一个课程中
 	 * @param student
