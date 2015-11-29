@@ -79,6 +79,7 @@ public class StudentServiceImpl implements StudentService{
 		int clazzIndex = -1;
 		int majorIndex = -1;
 		int studentNOIndex = -1;
+		int collegeIndex = -1;
 
 		ArrayList<String> headline = dyadic.get(0);
 		int colLen = headline.size();
@@ -99,6 +100,9 @@ public class StudentServiceImpl implements StudentService{
 				case "姓名":
 					nameIndex = i;
 					break;
+				case "学院":
+					collegeIndex = i;
+					break;
 			}
 		}
 
@@ -111,7 +115,26 @@ public class StudentServiceImpl implements StudentService{
 		for (Student student: students){
 			String stuNO = student.getStudentNO();
 			for(int i = 1; i < dyadic.size(); i++){
+				//update Student by studentNO
 				if (dyadic.get(i).get(studentNOIndex).equals(stuNO)){
+					Student stu = new Student();
+					stu.setName(dyadic.get(i).get(nameIndex));
+					stu.setStudentNO(stuNO);
+					stu.setPassword(student.getPassword());
+					if(clazzIndex != -1)
+						stu.setClazz(dyadic.get(i).get(clazzIndex));
+					if(sexIndex != -1)
+						stu.setSex(dyadic.get(i).get(sexIndex));
+					if(majorIndex != -1)
+						stu.setMajor(dyadic.get(i).get(majorIndex));
+					if(collegeIndex != -1)
+						stu.setCollege(dyadic.get(i).get(collegeIndex));
+					try {
+						studentMapper.updateStu(stu);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
 					dyadic.remove(i);
 					i--;
 				}
@@ -131,6 +154,8 @@ public class StudentServiceImpl implements StudentService{
 				stu.setSex(dyadic.get(i).get(sexIndex));
 			if(majorIndex != -1)
 				stu.setMajor(dyadic.get(i).get(majorIndex));
+			if(collegeIndex != -1)
+				stu.setCollege(dyadic.get(i).get(collegeIndex));
 			try{
 				studentMapper.addStudent(stu);
 				studentMapper.addStudentToCourse(stu.getStudentID(),courseID);

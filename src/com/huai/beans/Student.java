@@ -10,6 +10,16 @@ public class Student {
 	//班级，注意和课程（course）的区别
 	private String clazz;
 	private String major;
+	//学院
+	private String college;
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
 
 	public String getMajor() {
 		return major;

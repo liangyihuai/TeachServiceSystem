@@ -59,4 +59,12 @@ public interface StudentMapper {
 	 * @param studentID
 	 */
 	void deleteStudent(int studentID) throws Exception;
+
+	/**
+	 * update Student by studentNO
+	 * @param student
+	 * @throws Exception
+	 * LiangYH
+	 */
+	void updateStu(Student student)throws Exception;
 }

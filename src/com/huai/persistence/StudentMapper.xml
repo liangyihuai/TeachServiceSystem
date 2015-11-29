@@ -41,4 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMaxStudentID" resultType="Integer">
 		Select MAX(studentID) From student
 	</select>
+
+	<update id="updateStu" parameterType="Student">
+		UPDATE student SET name=#{name},password=#{password},sex=#{sex},clazz=#{clazz},major=#{major},college=#{college} WHERE studentNO=#{studentNO}
+	</update>
 </mapper>
