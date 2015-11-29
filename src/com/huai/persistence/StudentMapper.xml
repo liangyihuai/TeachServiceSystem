@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 往数据库中添加一个学生 -->
 	<insert id="addStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="studentID">
 		Insert Into student(name,password,sex,studentNO,clazz,major)
-		values(#{name},#{password},#{sex},#{studentNO},#{clazz},#{major})
+		values(#{name},#{password},#{sex},#{studentNO},#{clazz},#{major},#{college})
 	</insert>
 	<!-- 将学生添加到一个课程中 -->
 	<insert id="addStudentToCourse">
@@ -43,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<update id="updateStu" parameterType="Student">
-		UPDATE student SET name=#{name},password=#{password},sex=#{sex},clazz=#{clazz},major=#{major},college=#{college} WHERE studentNO=#{studentNO}
+		UPDATE student SET name=#{name},password=#{password},sex=#{sex},
+			clazz=#{clazz},major=#{major},college=#{college} WHERE studentNO=#{studentNO}
 	</update>
 </mapper>
