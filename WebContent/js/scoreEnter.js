@@ -24,7 +24,7 @@ function setPercent() {
                         if (data == 1) {
                             $(form).resetForm();
                             alert('设置成功');
-                            $('#addPlan').modal('hide');
+                            $('#setPercent').modal('hide');
                             getScore();
                         } else {
                             alert(statusText);
