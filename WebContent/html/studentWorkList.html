@@ -29,6 +29,8 @@
     <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
     <!--主js文件-->
     <script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
+    <!--批改作业-->
+    <script src="../js/checkHomework.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -158,21 +160,21 @@
             </div>
             <div class="modal-body">
                 <!-- 作业详情-->
-                <div class="homework">
+                <div class="oneHomework">
                     1、作业在这里 1、作业在这里 1、作业在这里 1、作业在这里
                 </div>
                 <!-- 批改内容-->
                 <div class="check-result">
                     <form>
                         <div class="form-group">
-                            <label for="check-result-text">批阅：</label>
-                            <textarea rows="3" class="form-control check-result-text" name="check-result-score"
-                                      id="check-result-text"></textarea>
+                            <label for="comment">批阅：</label>
+                            <textarea rows="3" class="form-control" name="comment"
+                                      id="comment"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="check-result-score">分数：</label>
-                            <input type="text" class="form-control check-result-score" name="check-result-score"
-                                   id="check-result-score"/>
+                            <label for="score">分数：</label>
+                            <input type="text" class="form-control" name="score"
+                                   id="score"/>
                         </div>
                     </form>
                 </div>
@@ -258,18 +260,17 @@
                 <div class="panel-heading">作业批改</div>
                 <div class="panel-body">
                     <!--作业是否上交组-->
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel-group" id="accordion" aria-multiselectable="true">
                         <!--已交-->
                         <div class="panel panel-warning ">
-                            <div class="panel-heading" role="tab" id="headingyijiao">
+                            <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#yijiao"
-                                       aria-expanded="true" aria-controls="yijiao">待批改作业<span
-                                            class="badge">30</span></a>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#commited"
+                                       aria-expanded="true">待批改作业<span
+                                            class="badge commitedBadge">0</span></a>
                                 </h4>
                             </div>
-                            <div id="yijiao" class="panel-collapse collapse in" role="tabpanel"
-                                 aria-labelledby="headingyijiao">
+                            <div id="commited" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <div class="table-responsive col-md-8 col-md-offset-2 ">
                                         <table class="table">
@@ -278,30 +279,6 @@
                                                 <th>姓名</th>
                                                 <th></th>
                                             </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                                <td><a data-toggle="modal" data-target="#check" class="btn btn-default">批改</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                                <td><a data-toggle="modal" data-target="#check" class="btn btn-default">批改</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                                <td><a data-toggle="modal" data-target="#check" class="btn btn-default">批改</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                                <td><a data-toggle="modal" data-target="#check" class="btn btn-default">批改</a>
-                                                </td>
-                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -309,37 +286,20 @@
                         </div>
                         <!--已批改-->
                         <div class="panel panel-success">
-                            <div class="panel-heading" role="tab" id="headingyipigai">
+                            <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#yipigai"
-                                       aria-expanded="true" aria-controls="yipigai">已批改作业<span
-                                            class="badge">20</span></a>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#corrected"
+                                       aria-expanded="true">已批改作业<span
+                                            class="badge correctedBadge">0</span></a>
                                 </h4>
                             </div>
-                            <div id="yipigai" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingyipiagai">
+                            <div id="corrected" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="table-responsive col-md-8 col-md-offset-2">
                                         <table class="table">
                                             <tr>
                                                 <th>学号</th>
                                                 <th>姓名</th>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -348,37 +308,20 @@
                         </div>
                         <!--未交-->
                         <div class="panel panel-danger">
-                            <div class="panel-heading" role="tab" id="headingweijiao">
+                            <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#weijiao"
-                                       aria-expanded="true" aria-controls="weijiao">未交作业<span
-                                            class="badge">13</span></a>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#unCommited"
+                                       aria-expanded="true">未交作业<span
+                                            class="badge unCommitedBadge">0</span></a>
                                 </h4>
                             </div>
-                            <div id="weijiao" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingweijiao">
+                            <div id="unCommited" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="table-responsive col-md-8 col-md-offset-2">
                                         <table class="table">
                                             <tr>
                                                 <th>学号</th>
                                                 <th>姓名</th>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2013211729</td>
-                                                <td>张三</td>
                                             </tr>
                                         </table>
                                     </div>

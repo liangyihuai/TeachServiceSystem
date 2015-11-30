@@ -31,22 +31,75 @@ public class TeranceTest {
 		}*/
 		
 		Student s = new Student();
-		s.setName("kate");
-		s.setPassword("1234567");
+		s.setName("faith");
+		s.setPassword("111111");
 		s.setSex("女");
 		s.setStudentNO("12346789");
 		s.setClazz("0491301");
 		
-//		ss.addStudentToTheCourse(s, 3);
+		try {
+			System.out.println(ss.addStudentToTheCourse(s, 3));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-//		ss.deleteStudentFromTheCourse("42341343", 2);
+//		System.out.println(ss.deleteStudentFromTheCourse("12346789", 3));
 		
-		List<Student> students = ss.getStudentsInTheCourse(1);
+		List<Student> students = ss.getStudentsInTheCourse(3);
 		for (Student student : students)
 			System.out.println(student.getName()+", "+student.getStudentNO());
 		
 		
+		/*----------------------------------------my cache--------------------------------------------*/
+		/*
+		public int addStudentToTheCourse(Student student, int courseId){
+			if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null) {
+				try {
+					studentMapper.addStudent(student);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (studentMapper.getStudentByStudentNO(student.getStudentNO()) == null)
+					return 0;
+				try {
+					studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				//判断是否添加成功
+				List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+				if (studentNOs1.contains(student.getStudentNO()))
+					return 1;//添加成功
+				else
+					return 0;
+			} else {
+				//判断学生是否已经在该课程中
+				List<String> studentNOs = studentMapper.getStudentNOByCourseId(courseId);
+				if (studentNOs.contains(student.getStudentNO()))
+					return 2;//已存在
+				// 不在则添加
+				try {
+					studentMapper.addStudentToCourse(student.getStudentNO(), courseId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				//判断是否添加成功
+				List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+				if (studentNOs1.contains(student.getStudentNO()))
+					return 1;//添加成功
+				return 0;//添加失败
+			}
+		}*/
 		
-		
+		/*
+		public int deleteStudentFromTheCourse(String studentNO, int courseId) {
+			//删除
+			studentMapper.deleteStudentFromCourse(studentNO, courseId);
+			// 判断学生是否在该课程中
+			List<String> studentNOs1 = studentMapper.getStudentNOByCourseId(courseId);
+			if (!studentNOs1.contains(studentNO))
+				return 1;// 删除成功
+			return 0;
+		}*/
 	}
 }

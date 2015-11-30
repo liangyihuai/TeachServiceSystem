@@ -1,5 +1,6 @@
 package com.huai.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.huai.core.ExcelOperation;
 import com.huai.core.UploadFile;
+import com.huai.utils.DownloadUtils;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -56,12 +58,13 @@ public class StudentServlet extends HttpServlet{
 		}else if("import".equals(operate)){
 			//从Excel文件进行导入的操作
 			importStudents(request, response, courseId);
+		}else if("download".equals(operate)){
+			download(request,response);
 		}
 	}
 
 	//列出此课程中所有学生
 	private void list(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
-		//int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		List<Student> students = studentService.getStudentsInTheCourse(courseId);
 		
 		if(students!=null && students.size()>0){
@@ -71,14 +74,11 @@ public class StudentServlet extends HttpServlet{
 			PrintWriter writer = response.getWriter();
 			writer.write(jo.toString());
 			writer.close();
-		}else{
-			//此课程中没有学生
 		}
 	}
 	
 	//添加学生到课程
 	private void add(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
-		//int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNO = request.getParameter("stuNum");
 		String name = request.getParameter("stuName");
 		String sex = request.getParameter("sex");
@@ -102,7 +102,6 @@ public class StudentServlet extends HttpServlet{
 	
 	//从课程中删除学生
 	private void delete(HttpServletRequest request, HttpServletResponse response,int courseId) throws ServletException, IOException {
-//		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
 		String studentNo = request.getParameter("stuNum");
 		int flag = studentService.deleteStudentFromTheCourse(studentNo, courseId);
 		response.getWriter().print(flag);
@@ -131,6 +130,8 @@ public class StudentServlet extends HttpServlet{
 		if(dyadic == null || dyadic.size() < 2)return ;
 
 		boolean runStatus = studentService.importStudents(dyadic,courseId);
+		//删除刚刚上传的excel表
+		uploadFile.delect(path);
 
 		PrintWriter writer = null;
 		try {
@@ -144,6 +145,15 @@ public class StudentServlet extends HttpServlet{
 		} finally {
 			writer.close();
 		}
+	}
+
+	public void download(HttpServletRequest request, HttpServletResponse response){
+		String fileName = "学生信息导入文件模板.xlsx";
+		// 防止因为浏览器不同导致文件名乱码
+		fileName = DownloadUtils.getNormalFilename(request, fileName);
+		String realPath = DownloadUtils.getRealPath(DownloadUtils.TEMPLET_EXCEL);
+		// 改变响应头，发起下载流
+		DownloadUtils.launchDownloadStream(response, realPath, fileName);
 	}
 
 	@Override
