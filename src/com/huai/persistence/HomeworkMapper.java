@@ -22,7 +22,7 @@ public interface HomeworkMapper {
 	 */
 	void giveHomework(Homework homework);
 	
-	/*
+	/**
 	 * 通过作业ID获取学生已提交的作业列表
 	 */
 	List<StudentHomeWorkRelation> getStudentHomework(int homeworkID);
@@ -35,10 +35,10 @@ public interface HomeworkMapper {
 	Student getStudent(int studentID);
 	
 	/**
-	 * 获取未提交作业的学生
+	 * 获取未提交作业的学生ID
 	 * @return
 	 */
-	List<Student> getUncommitedStudents();
+	List<Integer> getUncommitedStudents(int courseID, int homeworkID);
 	
 	/**
 	 * 批改作业

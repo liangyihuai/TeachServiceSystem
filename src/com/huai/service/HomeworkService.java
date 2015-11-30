@@ -46,10 +46,10 @@ public interface HomeworkService {
 	public Student getStudent(int studentID);
 	
 	/**
-	 * 获取未提交作业的学生
+	 * 获取未提交作业的学生ID
 	 * @return
 	 */
-	public List<Student> getUncommitedStudents();
+	public List<Integer> getUncommitedStudents(int courseID, int homeworkID);
 	
 	/**
 	 * 批改作业

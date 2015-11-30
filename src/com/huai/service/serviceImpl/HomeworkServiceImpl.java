@@ -66,9 +66,9 @@ public class HomeworkServiceImpl implements HomeworkService{
 	}
 
 	@Override
-	public List<Student> getUncommitedStudents() {
-		List<Student> students = homeworkMapper.getUncommitedStudents();
-		return students;
+	public List<Integer> getUncommitedStudents(int courseID, int homeworkID) {
+		List<Integer> studentIDs = homeworkMapper.getUncommitedStudents(courseID, homeworkID);
+		return studentIDs;
 	}
 
 	@Override
