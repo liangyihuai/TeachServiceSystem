@@ -196,7 +196,7 @@
                         <div class="input-group">
                             <label class="input-group-addon" for="normalTime">平时成绩:</label>
                             <input type="text" class="form-control" name="normalTime" id="normalTime" value="30"
-                                   data-toggle="tooltip" data-placement="top" title="请输入1-100的数字"/>
+                                   data-toggle="tooltip" data-placement="top" title="请输入0-100的数字"/>
                             <span class="input-group-addon">%</span>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                         <div class="input-group">
                             <label class="input-group-addon" for="finalTime">期末成绩:</label>
                             <input type="text" class="form-control" name="finalTime" id="finalTime" value="70"
-                                   data-toggle="tooltip" data-placement="top" title="请输入1-100的数字"/>
+                                   data-toggle="tooltip" data-placement="top" title="请输入0-100的数字"/>
                             <span class="input-group-addon">%</span>
                         </div>
                     </div>
@@ -305,11 +305,12 @@
                                 <th>平时成绩</th>
                                 <th>期末成绩</th>
                                 <th>最终成绩</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <td colspan="5">平均分<span class="average">90</span></td>
+                                <td colspan="6">平均分<span class="average">90</span></td>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -317,7 +318,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <button class="btn btn-primary center-block" id="update">更新</button>
                 </div>
             </div>
         </div>
