@@ -14,9 +14,9 @@ function setPercent(){
     });
     $('#setPercent form').validate({
         submitHandler: function (form) {
-            var normalTime=$(form).find('input').eq(0).val();
-            var finalTime=$(form).find('input').eq(1).val();
-            if(normalTime*1+finalTime*1==100){
+            var commonPercent=$(form).find('input').eq(0).val();
+            var finalPercent=$(form).find('input').eq(1).val();
+            if(commonPercent*1+finalPercent*1==100){
                 $(form).ajaxSubmit({
                     type: 'POST',
                     url: '../score?operate=updateCoursePercent',
@@ -37,24 +37,24 @@ function setPercent(){
 
         },
         rules: {
-            normalTime: {
+            commonPercent: {
                 number:true,
                 required: true,
                 range:[0,100],
             },
-            finalTime: {
+            finalPercent: {
                 number:true,
                 required: true,
                 range:[0,100],
             }
         },
         messages: {
-            normalTime: {
+            commonPercent: {
                 number:'',
                 required: '',
                 range:'',
             },
-            finalTime: {
+            finalPercent: {
                 number:'',
                 required: '',
                 range:'',
@@ -100,6 +100,7 @@ function update() {
         $(this).find('span').toggleClass(function () {
             if ($(this).hasClass('glyphicon-edit')) {
                 $(this).removeClass('glyphicon-edit');
+                $(this).prev().html()
                 return 'glyphicon-ok';
             }else{
                 $(this).removeClass('glyphicon-ok')
