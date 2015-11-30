@@ -73,7 +73,6 @@ $(function () {
         rules: {
             username: {
                 required: true,
-                number:true,
             },
             password: {
                 required: true,
@@ -81,7 +80,7 @@ $(function () {
         },
         messages: {
             username: {
-                required: '请填写你的工号！',
+                required: '请填写你的用户名！',
             },
             password: {
                 required: '密码不得为空！',
