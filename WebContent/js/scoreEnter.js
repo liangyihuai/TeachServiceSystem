@@ -79,7 +79,7 @@ function getScore() {
                 $.each(jsondata, function (index, value) {
                     html += "<tr><td>" + jsondata[index].studentNO + "</td><td>" + jsondata[index].name + "</td><td><input class='form-control' disabled='disabled' value='"+jsondata[index].commonScore+"' type='text' name='commonScore' /></td><td><input class='form-control' disabled='disabled' value='"+jsondata[index].finalScore+"' type='text' name='finalScore' /></td><td class='countScore'>" + jsondata[index].totalScore + "</td>+<td><button type='button' class='btn btn-default edit' aria-label='yes'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></button></td></tr>";
                 });
-                $('.scoreManage tbody').append(html);
+                $('.scoreManage tbody').empty().append(html);
                 countScore();
             } else {
                 alert('获取成绩列表失败！')
@@ -100,12 +100,41 @@ function update() {
         $(this).find('span').toggleClass(function () {
             if ($(this).hasClass('glyphicon-edit')) {
                 $(this).removeClass('glyphicon-edit');
-                $(this).prev().html()
                 return 'glyphicon-ok';
             }else{
-                $(this).removeClass('glyphicon-ok')
+                $(this).removeClass('glyphicon-ok');
+                var tdList=$(this).parents('tr').find('td');
+                var studentNO=tdList.eq(0).text();
+                var commonScore=tdList.eq(2).children().val();
+                var finalScore=tdList.eq(3).children().val();
+                var totalScore=tdList.eq(4).text();
+                $.ajax({
+                    type:'POST',
+                    url:'../score?operate=updateScore',
+                    data:{
+                        studentNO:studentNO,
+                        commonScore:commonScore,
+                        finalScore:finalScore,
+                        totalScore:totalScore
+                    },
+                    success: function (data,status) {
+                        if(data==1){
+                            alert('修改成功');
+                        }else{
+                            alert('发生错误');
+                        }                    }
+                });
                 return 'glyphicon-edit';
             }
         });
+        if($(this).find('span').hasClass('glyphicon-ok')){
+            var inputList=$(this).parents('tr').find('input');
+            inputList.eq(0).removeAttr('disabled');
+            inputList.eq(1).removeAttr('disabled');
+        }else{
+            var inputList=$(this).parents('tr').find('input');
+            inputList.eq(0).attr('disabled','disabled');
+            inputList.eq(1).attr('disabled','disabled');
+        }
     });
 }
