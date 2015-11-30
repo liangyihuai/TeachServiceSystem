@@ -122,9 +122,12 @@ public class HomeworkServlet extends HttpServlet {
 				PrintWriter writer = response.getWriter();
 				writer.print(-1);
 			}
+		} else if ("setHomeworkID".equals(operate)) {
+			int homeworkID = Integer.parseInt(request.getParameter("homeworkID"));
+			request.getSession().setAttribute("homeworkID", homeworkID);
 		} else if ("listHomework".equals(operate)) {
-			//int homeworkID = Integer.parseInt(request.getParameter("homeworkID"));
-			int homeworkID = 1;
+			int homeworkID = (int) request.getSession().getAttribute("homeworkID");
+			//int homeworkID = 1;
 			List<StudentHomeWorkRelation> studentHomeworks = homeworkService
 					.getStudentHomework(homeworkID);
 			JSONArray commitedHomeworks = new JSONArray();
@@ -148,8 +151,8 @@ public class HomeworkServlet extends HttpServlet {
 					Student student = homeworkService.getStudent(homework
 							.getStudentID());
 					JSONObject correctedHomework = new JSONObject();
-					correctedHomework.element("studentID",
-							student.getStudentID()).element("name",
+					correctedHomework.element("studentNO",
+							student.getStudentNO()).element("name",
 							student.getName());
 					correctedHomeworks.add(correctedHomework);
 				}
@@ -167,6 +170,20 @@ public class HomeworkServlet extends HttpServlet {
 			
 			PrintWriter writer = response.getWriter();
 			writer.write(homeworkJson.toString());
+		} else if ("correctHomework".equals(operate)) {
+			int homeworkID = (int)request.getSession().getAttribute("homeworkID");
+			String comment = request.getParameter("content");
+			int score = Integer.parseInt(request.getParameter("score"));
+			String studentNO = request.getParameter("studentNO");
+			homeworkService.correctHomework(comment, score, studentNO, homeworkID);
+			Boolean isSuccess = homeworkService.isUpdateSuccess(studentNO, homeworkID);
+			
+			PrintWriter writer = response.getWriter();
+			if (isSuccess) {
+				writer.print(1);;
+			} else {
+				writer.print(0);
+			}
 		}
 
 	}

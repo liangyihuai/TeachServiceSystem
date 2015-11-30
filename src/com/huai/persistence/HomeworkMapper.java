@@ -33,6 +33,24 @@ public interface HomeworkMapper {
 	 * @return
 	 */
 	Student getStudent(int studentID);
-
+	
+	/**
+	 * 获取未提交作业的学生
+	 * @return
+	 */
 	List<Student> getUncommitedStudents();
+	
+	/**
+	 * 批改作业
+	 * @param comment
+	 * @param score
+	 */
+	void correctHomework(String comment, int score ,String studentNO, int homeworkID);
+	
+	/**
+	 * 获取作业的状态
+	 * @param studentNO
+	 * @return
+	 */
+	String getStatus(String studentNO, int homeworkID);
 }

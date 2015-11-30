@@ -23,4 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUncommitedStudents" resultType="Student">
 		select * from student where studentID NOT IN (select studentID from studentHomeworkRelation)
 	</select>
+	
+	<update id="correctHomework">
+		update studentHomeworkRelation set comment=#{0},score=#{1},status='corrected' where studentID=(select studentID from student where studentNO=#{2}) &amp;&amp; homeworkID=#{3}
+	</update>
+	
+	<select id="getStatus" resultType="String">
+		select status from studentHomeworkRelation where studentID=(select studentID from student where studentNO=#{0}) &amp;&amp; homeworkID=#{1}
+	</select>
 </mapper>

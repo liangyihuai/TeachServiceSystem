@@ -44,6 +44,24 @@ public interface HomeworkService {
 	 * @return
 	 */
 	public Student getStudent(int studentID);
-
+	
+	/**
+	 * 获取未提交作业的学生
+	 * @return
+	 */
 	public List<Student> getUncommitedStudents();
+	
+	/**
+	 * 批改作业
+	 * @param comment
+	 * @param score
+	 */
+	public void correctHomework(String comment, int score, String studentNO, int homeworkID);
+	
+	/**
+	 * 判断作业批改是否成功
+	 * @param studentNO
+	 * @return
+	 */
+	public Boolean isUpdateSuccess(String studentNO, int homeworkID);
 }

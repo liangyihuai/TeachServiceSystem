@@ -70,5 +70,19 @@ public class HomeworkServiceImpl implements HomeworkService{
 		List<Student> students = homeworkMapper.getUncommitedStudents();
 		return students;
 	}
+
+	@Override
+	public void correctHomework(String comment, int score, String studentNO, int homeworkID) {
+		homeworkMapper.correctHomework(comment, score, studentNO, homeworkID);
+	}
+
+	@Override
+	public Boolean isUpdateSuccess(String studentNO, int homeworkID) {
+		String status = homeworkMapper.getStatus(studentNO, homeworkID);
+		if (status.equals("corrected")) {
+			return true;
+		}
+		return false;
+	}
 	
 }
