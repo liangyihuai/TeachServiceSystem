@@ -76,23 +76,25 @@ function getScore() {
             if (data) {
                 var html = '';
                 var jsondata = $.parseJSON(data).score;
+                 commonPercent=$.parseJSON(data).commonPercent/100;
+                 finalPercent=$.parseJSON(data).finalPercent/100;
                 $.each(jsondata, function (index, value) {
                     html += "<tr><td>" + jsondata[index].studentNO + "</td><td>" + jsondata[index].name + "</td><td><input class='form-control' disabled='disabled' value='"+jsondata[index].commonScore+"' type='text' name='commonScore' /></td><td><input class='form-control' disabled='disabled' value='"+jsondata[index].finalScore+"' type='text' name='finalScore' /></td><td class='countScore'>" + jsondata[index].totalScore + "</td>+<td><button type='button' class='btn btn-default edit' aria-label='yes'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></button></td></tr>";
                 });
                 $('.scoreManage tbody').empty().append(html);
-                countScore();
+                countScore(commonPercent,finalPercent);
             } else {
                 alert('获取成绩列表失败！')
             }
         }
     });
 }
-function countScore() {
-    $(".scoreManage input").bind('blur', function () {
+function countScore(commonPercent,finalPercent) {
+    $("tbody").on('blur','input',function () {
         var normalItem=$(this).parent().parent().find('input').eq(0).val();
         var finalItem=$(this).parent().parent().find('input').eq(1).val();
         var that=$(this).parent().parent().find('.countScore')
-        that.text(Math.round(normalItem*0.3+finalItem*0.7));
+        that.text(Math.round(normalItem*commonPercent+finalItem*finalPercent));
     })
 }
 function update() {

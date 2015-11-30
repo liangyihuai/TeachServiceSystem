@@ -21,14 +21,14 @@ function getCheckList() {
                 html1 += "<tr><td>" + commited[index].studentNO + "</td><td>" + commited[index].name + "</td><td><a data-toggle='modal' data-target='#check' class='btn btn-default checkBtn'>批改</a></td><td class='homeworkContent' hidden='hidden'>" + commited[index].content + "</td></tr>";
             });
             $.each(corrected, function (index, value) {
-                html2 += "<tr><td>" + corrected[index].studentNO + "</td><td>" + corrected[index].name + "</td></tr>";
+                html2 += "<tr><td>" + corrected[index].studentNO + "</td><td>" + corrected[index].name + "</td><td>"+corrected[index].score+"</td></tr>";
             });
             $.each(unCommited, function (index, value) {
                 html3 += "<tr><td>" + unCommited[index].studentNO + "</td><td>" + unCommited[index].name + "</td></tr>";
             });
-            $('#commited table').empty().append(html1);
-            $('#corrected table').empty().append(html2);
-            $('#unCommited table').empty().append(html3);
+            $('#commited tbody').empty().append(html1);
+            $('#corrected tbody').empty().append(html2);
+            $('#unCommited tbody').empty().append(html3);
             $('.commitedBadge').text(commited.length);
             $('.correctedBadge').text(corrected.length);
             $('.unCommitedBadge').text(unCommited.length);
