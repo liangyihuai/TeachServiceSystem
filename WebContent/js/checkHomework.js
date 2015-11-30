@@ -26,9 +26,9 @@ function getCheckList() {
             $.each(unCommited, function (index, value) {
                 html3 += "<tr><td>" + unCommited[index].studentNO + "</td><td>" + unCommited[index].name + "</td></tr>";
             });
-            $('#commited table').append(html1);
-            $('#corrected table').append(html2);
-            $('#unCommited table').append(html3);
+            $('#commited table').empty().append(html1);
+            $('#corrected table').empty().append(html2);
+            $('#unCommited table').empty().append(html3);
             $('.commitedBadge').text(commited.length);
             $('.correctedBadge').text(corrected.length);
             $('.unCommitedBadge').text(unCommited.length);
