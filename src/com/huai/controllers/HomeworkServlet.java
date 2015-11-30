@@ -153,7 +153,7 @@ public class HomeworkServlet extends HttpServlet {
 					JSONObject correctedHomework = new JSONObject();
 					correctedHomework.element("studentNO",
 							student.getStudentNO()).element("name",
-							student.getName());
+							student.getName()).element("score", homework.getScore());
 					correctedHomeworks.add(correctedHomework);
 				}
 			}
