@@ -4,30 +4,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.huai.persistence.HomeworkMapper">
+
+	<!-- 根据课程ID获取老师布置的作业列表 -->	
 	<select id="getHomeworks" parameterType="int" resultType="Homework">
 		select * from homework where courseID = #{courseID}
 	</select>
 	
+	<!-- 布置作业 -->
 	<insert id="giveHomework" parameterType="Homework">
 		insert into homework(homeworkID,deadline,buildDate,content,teacherID,courseID) values (#{homeworkID},#{deadline},#{buildDate},#{content},#{teacherID},#{courseID})
 	</insert>
 	
+	<!-- 根据作业ID获取当前作业下的学生作业列表 -->
 	<select id="getStudentHomework" parameterType="int" resultType="StudentHomeWorkRelation">
 		select * from studentHomeworkRelation where homeworkID = #{homeworkID}
 	</select>
 	
+	<!-- 通过学生ID获取学生对象 -->
 	<select id="getStudent" parameterType="int" resultType="Student">
 		select * from student where studentID = #{studentID}
 	</select>
 	
-	<select id="getUncommitedStudents" resultType="Student">
-		select * from student where studentID NOT IN (select studentID from studentHomeworkRelation)
+	<!-- 获取未交作业的学生ID -->
+	<select id="getUncommitedStudents" resultType="Integer">
+		select studentID from studentCourseRelation where courseID=#{0} &amp;&amp; studentID NOT IN (select studentID from studentHomeworkRelation where homeworkID=#{1})
 	</select>
 	
+	<!-- 批改作业，将教师评语及分数插入数据库，并修改status为'corrected' -->
 	<update id="correctHomework">
 		update studentHomeworkRelation set comment=#{0},score=#{1},status='corrected' where studentID=(select studentID from student where studentNO=#{2}) &amp;&amp; homeworkID=#{3}
 	</update>
 	
+	<!-- 获取学生作业状态，用于检验批改作业是否成功 -->
 	<select id="getStatus" resultType="String">
 		select status from studentHomeworkRelation where studentID=(select studentID from student where studentNO=#{0}) &amp;&amp; homeworkID=#{1}
 	</select>

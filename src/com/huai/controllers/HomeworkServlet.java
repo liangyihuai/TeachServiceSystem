@@ -157,13 +157,15 @@ public class HomeworkServlet extends HttpServlet {
 					correctedHomeworks.add(correctedHomework);
 				}
 			}
-			List<Student> students = homeworkService.getUncommitedStudents();
-			for (Student student : students) {
+			
+			List<Integer> studentIDs = homeworkService.getUncommitedStudents(courseID, homeworkID);
+			for (Integer studentID : studentIDs) {
+				Student student = homeworkService.getStudent(studentID);
 				JSONObject jo = new JSONObject();
-				jo.element("studentNO", student.getStudentNO()).element("name",
-						student.getName());
+				jo.element("studentNO", student.getStudentNO()).element("name", student.getName());
 				unCommitedStudents.add(jo);
 			}
+			
 			homeworkJson.element("commited", commitedHomeworks)
 					.element("corrected", correctedHomeworks)
 					.element("unCommited", unCommitedStudents);
