@@ -28,7 +28,7 @@ function chooseHomework() {
             type:"POST",
             url:"../homework?operate=setHomeworkID",
             data:{
-                selectHomework:homeworkNum,
+                homeworkID:homeworkNum,
             }
         });
     })
