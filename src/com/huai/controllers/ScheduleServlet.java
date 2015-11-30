@@ -129,19 +129,14 @@ public class ScheduleServlet extends HttpServlet {
 		int courseID = Integer.parseInt((String) request.getSession()
 				.getAttribute(ServletUtil.COURSE_ID));
 		List<Schedule> scheduleList = scheduleService
-				.getScheduleByCourseId(courseID);
-		if (scheduleList != null && scheduleList.size() > 0) {
-			JSONObject jo = new JSONObject();
-			jo.element("schedule", scheduleList);
+				.getScheduleByCourseId(courseID);	
+		JSONObject jo = new JSONObject();
+		jo.element("schedule", scheduleList);
 
-			PrintWriter writer = response.getWriter();
-			writer.write(jo.toString());
-			writer.close();
-		} else {
-			// 未查询到课程进度信息
-			// To be continued---
-
-		}
+		PrintWriter writer = response.getWriter();
+		writer.write(jo.toString());
+		writer.close();
+	
 
 	}
 
