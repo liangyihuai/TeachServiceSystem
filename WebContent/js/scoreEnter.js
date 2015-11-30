@@ -3,23 +3,23 @@
  */
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-    checkPercent();
+    setPercent();
     getScore();
     update();
 });
-function checkPercent(){
+function setPercent(){
     $('#setPercent .confirm').click(function () {
         //验证相加是否等于100
             $('#setPercent form').submit();
     });
     $('#setPercent form').validate({
         submitHandler: function (form) {
-            var normalTime=$(form).find('input').eq(0).val();
-            var finalTime=$(form).find('input').eq(1).val();
-            if(normalTime*1+finalTime*1==100){
+            var commonPercent=$(form).find('input').eq(0).val();
+            var finalPercent=$(form).find('input').eq(1).val();
+            if(commonPercent*1+finalPercent*1==100){
                 $(form).ajaxSubmit({
                     type: 'POST',
-                    url: '567.php',
+                    url: '../score?operate=updateCoursePercent',
                     success: function (data, statusText) {
                         if (data == 1) {
                             $(form).resetForm();
@@ -37,23 +37,27 @@ function checkPercent(){
 
         },
         rules: {
-            normalTime: {
+            commonPercent: {
                 number:true,
                 required: true,
+                range:[0,100],
             },
-            finalTime: {
+            finalPercent: {
                 number:true,
                 required: true,
+                range:[0,100],
             }
         },
         messages: {
-            normalTime: {
+            commonPercent: {
                 number:'',
                 required: '',
+                range:'',
             },
-            finalTime: {
+            finalPercent: {
                 number:'',
                 required: '',
+                range:'',
             }
         },
         highlight: function (element, errorClass) {
@@ -67,15 +71,15 @@ function checkPercent(){
 function getScore() {
     $.ajax({
         type: "POST",
-        url: "123.php",
+        url: "../score?operate=getScore",
         success: function (data, statusText) {
             if (data) {
                 var html = '';
-                var jsondata = $.parseJSON(data);
+                var jsondata = $.parseJSON(data).score;
                 $.each(jsondata, function (index, value) {
-                    html += "<tr><td>" + jsondata[index].stuNum + "</td><td>" + jsondata[index].stuName + "</td><td><input class='form-control' type='text' name='normalItem' /></td><td><input class='form-control' type='text' name='finalItem' /></td><td class='countScore'>" + jsondata[index].countScore + "</td></tr>";
+                    html += "<tr><td>" + jsondata[index].studentNO + "</td><td>" + jsondata[index].name + "</td><td><input class='form-control' disabled='disabled' value='"+jsondata[index].commonScore+"' type='text' name='commonScore' /></td><td><input class='form-control' disabled='disabled' value='"+jsondata[index].finalScore+"' type='text' name='finalScore' /></td><td class='countScore'>" + jsondata[index].totalScore + "</td>+<td><button type='button' class='btn btn-default edit' aria-label='yes'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></button></td></tr>";
                 });
-                $('.scoreManage tbody').append(html);
+                $('.scoreManage tbody').empty().append(html);
                 countScore();
             } else {
                 alert('获取成绩列表失败！')
@@ -92,30 +96,45 @@ function countScore() {
     })
 }
 function update() {
-    $('#update').click(function () {
-        var scoreList = $('.scoreManage tbody tr')
-        var scoreTable = [];
-        $.each(scoreList, function (index) {
-            var scoreItem = {};
-            scoreItem.stuNum = $(scoreList[index]).find('td').eq(0).text();
-            scoreItem.normalScore = $(scoreList[index]).find('input').eq(0).val();
-            scoreItem.finalScore = $(scoreList[index]).find('input').eq(1).val();
-            scoreItem.coutScore= $(scoreList[index]).find(':last-child').text();
-            scoreTable.push(scoreItem);
-        })
-        $.ajax({
-            type: "POST",
-            url: "234.php",
-            data: {
-                scoreTable: JSON.stringify(scoreTable),
-            },
-            success: function (data, statusText) {
-                if (data == 1) {
-                    alert('更新成功！');
-                } else {
-
-                }
+    $('tbody').on('click','.edit',function () {
+        $(this).find('span').toggleClass(function () {
+            if ($(this).hasClass('glyphicon-edit')) {
+                $(this).removeClass('glyphicon-edit');
+                return 'glyphicon-ok';
+            }else{
+                $(this).removeClass('glyphicon-ok');
+                var tdList=$(this).parents('tr').find('td');
+                var studentNO=tdList.eq(0).text();
+                var commonScore=tdList.eq(2).children().val();
+                var finalScore=tdList.eq(3).children().val();
+                var totalScore=tdList.eq(4).text();
+                $.ajax({
+                    type:'POST',
+                    url:'../score?operate=updateScore',
+                    data:{
+                        studentNO:studentNO,
+                        commonScore:commonScore,
+                        finalScore:finalScore,
+                        totalScore:totalScore
+                    },
+                    success: function (data,status) {
+                        if(data==1){
+                            alert('修改成功');
+                        }else{
+                            alert('发生错误');
+                        }                    }
+                });
+                return 'glyphicon-edit';
             }
         });
+        if($(this).find('span').hasClass('glyphicon-ok')){
+            var inputList=$(this).parents('tr').find('input');
+            inputList.eq(0).removeAttr('disabled');
+            inputList.eq(1).removeAttr('disabled');
+        }else{
+            var inputList=$(this).parents('tr').find('input');
+            inputList.eq(0).attr('disabled','disabled');
+            inputList.eq(1).attr('disabled','disabled');
+        }
     });
 }

@@ -2,6 +2,7 @@ package com.huai.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 
 import javax.jws.WebService;
 import javax.servlet.ServletContext;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -58,8 +60,19 @@ public class LoginServlet extends HttpServlet{
 			writer.write(jo.toString());
 			writer.close();
 			return ;
-		}if("studentLogin".equals(operate)){
+		}else if("studentLogin".equals(operate)){
 			
+		}else if("logout".equals(operate)){
+			HttpSession session = request.getSession(false);
+			if(session != null){
+				java.util.Enumeration<String> attris = session.getAttributeNames();
+				while(attris.hasMoreElements()) {
+					String element = attris.nextElement();
+					session.removeAttribute(element);
+				}
+			}
+			response.sendRedirect(request.getServletContext().getContextPath()+"/html/index.html");
+			return;
 		}
 	}
 

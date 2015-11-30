@@ -2,6 +2,7 @@ package com.huai.test;
 
 import com.huai.beans.Student;
 import com.huai.service.StudentService;
+import com.huai.utils.RoleUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -28,6 +29,7 @@ public class FinleyTest {
 //		boolean flag = loginService.validateStudent("liangyihuai", "123", null);
 //		//打印结果
 //		System.out.println("flag = "+flag);
-		
+
+
 	}
 }

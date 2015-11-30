@@ -174,7 +174,7 @@ public class HomeworkServlet extends HttpServlet {
 			writer.write(homeworkJson.toString());
 		} else if ("correctHomework".equals(operate)) {
 			int homeworkID = (int)request.getSession().getAttribute("homeworkID");
-			String comment = request.getParameter("content");
+			String comment = request.getParameter("comment");
 			int score = Integer.parseInt(request.getParameter("score"));
 			String studentNO = request.getParameter("studentNO");
 			homeworkService.correctHomework(comment, score, studentNO, homeworkID);
