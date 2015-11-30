@@ -108,7 +108,7 @@ $(function () {
     /*点击注销按钮，清除cookies*/
     $('#logout').click(function () {
         $.removeCookie('currentUser');
-        $('#current_center').parent().html('<a href="index.html">登录</a>')
+        window.location.href='../schedule?operate=logout'
     });
     //添加课程进度模块
     /*字段合法性监测，通过点击确定允许提交*/
