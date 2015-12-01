@@ -78,8 +78,8 @@ function getScore() {
                 var jsondata = $.parseJSON(data).score;
                 var commonPercent = $.parseJSON(data).commonPercent;
                 var finalPercent = $.parseJSON(data).finalPercent;
-                $('#tipCommonPercent').text(commonPercent+"%");
-                $('#tipFinalPercent').text(finalPercent+"%");
+                $('#tipCommonPercent').text(commonPercent + "%");
+                $('#tipFinalPercent').text(finalPercent + "%");
                 $.each(jsondata, function (index, value) {
                     html += "<tr><td>" + jsondata[index].studentNO + "</td><td>" + jsondata[index].name + "</td><td><input class='form-control' disabled='disabled' value='" + jsondata[index].commonScore + "' type='text' name='commonScore' /></td><td><input class='form-control' disabled='disabled' value='" + jsondata[index].finalScore + "' type='text' name='finalScore' /></td><td class='countScore'>" + jsondata[index].totalScore + "</td>+<td><button type='button' class='btn btn-default edit' aria-label='yes'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></button></td></tr>";
                 });
@@ -92,12 +92,29 @@ function getScore() {
     });
 }
 function countScore(commonPercent, finalPercent) {
-    $("tbody").on('blur', 'input', function () {
+    $("tbody").on('input', 'input', function (event) {
+        var event = event || window.event;
         var normalItem = $(this).parent().parent().find('input').eq(0).val();
         var finalItem = $(this).parent().parent().find('input').eq(1).val();
-        var that = $(this).parent().parent().find('.countScore')
-        that.text(Math.round((normalItem * commonPercent + finalItem * finalPercent)/100));
-    })
+        var pattern = /(^[0-9]$)|(^([1-9][0-9])$)|(^100$)/;
+        if (!pattern.test(normalItem)) {
+            $(this).parent().parent().find('input').eq(0).addClass('highLight');
+            $('.edit').attr('disabled', 'disabled');
+        } else {
+            $(this).parent().parent().find('input').eq(0).removeClass('highLight');
+        }
+        if (!pattern.test(finalItem)) {
+            $(this).parent().parent().find('input').eq(1).addClass('highLight');
+            $('.edit').attr('disabled', 'disabled');
+        } else {
+            $(this).parent().parent().find('input').eq(1).removeClass('highLight');
+        }
+        if (pattern.test(normalItem) && pattern.test(finalItem)) {
+            var that = $(this).parent().parent().find('.countScore')
+            that.text(Math.round((normalItem * commonPercent + finalItem * finalPercent) / 100));
+            $('.edit').removeAttr('disabled');
+        }
+    });
 }
 function update() {
     $('tbody').on('click', '.edit', function () {

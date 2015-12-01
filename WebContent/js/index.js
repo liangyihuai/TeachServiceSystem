@@ -95,7 +95,6 @@ $(function () {
     });
     // 监测登录状态模块
     /*如果登录了进行后续操作，如果没有登录，跳转到登陆界面进行登录*/
-    $.cookie('currentUser', '2013211729', {expires: 7})// TODO 测试数据，记得删除
     if ($.cookie('currentUser')) {
         $('#current_center').html($.cookie('currentUser') + '<span class="caret"></span>');
         addPlan();//TODO 考虑是否在这里执行

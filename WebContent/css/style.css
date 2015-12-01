@@ -89,3 +89,6 @@ ul.course {
 .scoreManage .panel-heading  button{
 	margin-top: -0.4em;
 }
+.highLight{
+	border: 1px solid red;
+}
