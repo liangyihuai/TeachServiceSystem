@@ -76,7 +76,11 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="plan_text">安排</label>
+                        <label for="change_plan_time">时间：</label>
+                        <input class="form-control" type="text" name="change_plan_time" id="change_plan_time" />
+                    </div>
+                    <div class="form-group">
+                        <label for="change_plan_text">安排：</label>
                         <textarea class="form-control" rows="3" name="change_plan_text" id="change_plan_text"></textarea>
                     </div>
                 </form>
@@ -241,7 +245,7 @@
     <div class="content">
         <div class="container">
             <ol class="breadcrumb">
-                <li id="current_mange_course">物理课</li>
+                <li id="current_mange_course"></li>
                 <li class="active">当前课程进度</li>
             </ol>
             <div class="panel panel-primary" id="courseProcessPanel">
