@@ -169,6 +169,5 @@ function getAverage(){
 
         sum+=($(this).text()*1);
     })
-    alert(sum+':'+length)
     $('.average').text(sum/length);
 }
