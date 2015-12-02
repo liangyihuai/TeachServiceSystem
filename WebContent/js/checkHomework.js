@@ -59,10 +59,10 @@ function confirmCommit() {
                     if(data==1){
                         $(form).resetForm();
                         $('#check').modal('hide');
-                        alert('添加成功！');
+                        alert('批改成功！');
                         getCheckList();
                     }else if(data==0){
-                        alert('添加失败，请重试！');
+                        alert('批改失败，请重试！');
                     }
                 }
             });
