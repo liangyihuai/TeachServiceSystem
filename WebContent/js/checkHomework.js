@@ -53,7 +53,7 @@ function confirmCommit() {
                 type:"POST",
                 url:"../homework?operate=correctHomework",
                 data:{
-                    studentNO: $.cookie('commitTheOne')
+                    studentHomeworkID: $.cookie('commitTheOne')
                 },
                 success: function (data,status) {
                     if(data==1){
