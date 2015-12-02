@@ -19,7 +19,6 @@ import com.huai.service.ScheduleService;
 @WebServlet(urlPatterns={"/schedule"})
 public class ScheduleServlet extends HttpServlet {
 	
-
 	private static final long serialVersionUID = 3L;
 	private ScheduleService scheduleService;
 		
@@ -35,24 +34,20 @@ public class ScheduleServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
 		System.out.println("operate = " + operate);
-		request.setCharacterEncoding("utf-8");
-
-		// 查询课程进度信息
+		
 		if ("getSchedule".equals(operate)) {
+			// 查询课程进度信息
 			querySchedule(request, response);
 		} else if ("addSchedule".equals(operate)) {
 			// 添加课程进度
 			addSchedule(request, response);
-
 		} else if ("modifySchedule".equals(operate)) {
 			//修改课程进度
 			modifySchedule(request, response);
-
 		} else if ("deleteSchedule".equals(operate)) {
 			// 删除课程进度
 			//暫不允許刪除
 		}
-
 	}
 	
 	private void modifySchedule(HttpServletRequest request,
@@ -61,14 +56,16 @@ public class ScheduleServlet extends HttpServlet {
 		int courseID = Integer.parseInt((String) request.getSession()
 				.getAttribute(ServletUtil.COURSE_ID));
 		int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));	
-		String arrangement = request.getParameter("change_plan_text");	
-		
+		String arrangement = request.getParameter("change_plan_text");
+		String courseTime="haha";
+		courseTime= request.getParameter("change_plan_time");
+		System.out.println(arrangement+":"+courseTime);
 		schedule.setArrangement(arrangement);
+		schedule.setCourseTime(courseTime);
 		schedule.setCourseID(courseID);
-		schedule.setScheduleID(scheduleID);
+		schedule.setScheduleID(scheduleID);	
 		
 		scheduleService.modifySchedule(schedule);
-		
 		List<Schedule> scheduleList =  scheduleService.getScheduleByCourseId(courseID);		
 		if (scheduleList != null && scheduleList.size() > 0) {
 			for(Schedule s : scheduleList){
@@ -79,14 +76,12 @@ public class ScheduleServlet extends HttpServlet {
 					writer.close();
 					return;
 				}
-				
 			}			
 		}
 		//在数据库中未查询到与修改信息一致的结果，即修改失败，返回0
 		PrintWriter writer = response.getWriter();
 		writer.write("0");
 		writer.close();
-		
 	}
 
 	private void addSchedule(HttpServletRequest request,
@@ -130,20 +125,15 @@ public class ScheduleServlet extends HttpServlet {
 				.getAttribute(ServletUtil.COURSE_ID));
 		List<Schedule> scheduleList = scheduleService
 				.getScheduleByCourseId(courseID);	
+		
 		JSONObject jo = new JSONObject();
 		jo.element("schedule", scheduleList);
-
 		PrintWriter writer = response.getWriter();
 		writer.write(jo.toString());
-		writer.close();
-	
-
+		writer.close();	
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
-	}
-	
-	
-
+	}	
 }

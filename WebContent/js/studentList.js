@@ -39,6 +39,7 @@ function deleteStudent(){
             success: function (data,statusText) {
                 if(data==1){
                     alert('删除成功！');
+                    getStudentList();
                 }else if(data==0){
                     alert('发生错误，请重试！')
                 }

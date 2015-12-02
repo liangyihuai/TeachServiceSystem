@@ -58,13 +58,19 @@ function changeCourseProcess() {
                 });
             },
             rules: {
+                change_plan_time: {
+                    required: true,
+                },
                 change_plan_text: {
                     required: true,
                 }
             },
             messages: {
+                change_plan_time: {
+                    required: '亲，你没有填写修改时间！',
+                },
                 change_plan_text: {
-                    required: '亲，你没有填写修改内容哟！',
+                    required: '亲，你没有填写修改内容！',
                 }
             },
             highlight: function (element, errorClass) {
