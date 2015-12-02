@@ -82,6 +82,7 @@ public class StudentServlet extends HttpServlet{
 		String studentNO = request.getParameter("stuNum");
 		String name = request.getParameter("stuName");
 		String sex = request.getParameter("sex");
+		sex = "male".equals(sex) ? "男" : "女";
 		String clazz = request.getParameter("classNum");
 		
 		Student student = new Student();
