@@ -29,10 +29,11 @@ function getCourseProcess() {
 /*点击修改按钮修改课程进度*/
 function changeCourseProcess() {
     $('#courseProcessPanel').on('click', '.changePlan', function () {
-        processNum = $(this).parent().prevAll().eq(2).html();
+        var processNum = $(this).parent().prevAll().eq(2).html();
+        $.cookie('processNum',processNum);
         var changeTime = $(this).parent().prevAll().eq(1).html();
         var changeText = $(this).parent().prevAll().eq(0).html();
-        $('#changePlan .modal-title').text(changeTime);
+        $('#change_plan_time').val(changeTime);
         $('#change_plan_text').val(changeText);
         //提交修改合法性检测
         $('#changePlan .confirm').unbind('click').bind('click', function () {
@@ -44,7 +45,7 @@ function changeCourseProcess() {
                     type: 'POST',
                     url: '../schedule?operate=modifySchedule',
                     data: {
-                        scheduleID: processNum,
+                        scheduleID: $.cookie('processNum'),
                     },
                     clearForm: true,
                     success: function (data, statusText) {
@@ -57,13 +58,19 @@ function changeCourseProcess() {
                 });
             },
             rules: {
+                change_plan_time: {
+                    required: true,
+                },
                 change_plan_text: {
                     required: true,
                 }
             },
             messages: {
+                change_plan_time: {
+                    required: '亲，你没有填写修改时间！',
+                },
                 change_plan_text: {
-                    required: '亲，你没有填写修改内容哟！',
+                    required: '亲，你没有填写修改内容！',
                 }
             },
             highlight: function (element, errorClass) {

@@ -11,8 +11,6 @@ public interface CourseMapper {
 	 * @param id
 	 * @return Course
 	 */
-//	ArrayList<Course> getCourseByTeacherID(int teacherID);
-	List<Course> getCourseByTeacherId(int teacherId);
-	
+	List<Course> getCourseByTeacherId(int teacherId); 
 	
 }

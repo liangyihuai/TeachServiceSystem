@@ -1,14 +1,9 @@
 package com.huai.service.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
 import com.huai.beans.Course;
 import com.huai.persistence.CourseMapper;
 import com.huai.service.CourseService;
@@ -23,6 +18,7 @@ public class CourseServiceImpl implements CourseService{
 	}
 	
 	/**
+	 * 根据老师ID查询课程列表
 	 * @param teacherId  老师ID
 	 * @return 
 	 */

@@ -95,9 +95,9 @@ $(function () {
     });
     // 监测登录状态模块
     /*如果登录了进行后续操作，如果没有登录，跳转到登陆界面进行登录*/
-    $.cookie('currentUser', '2013211729', {expires: 7})// TODO 测试数据，记得删除
     if ($.cookie('currentUser')) {
         $('#current_center').html($.cookie('currentUser') + '<span class="caret"></span>');
+        $('#current_mange_course').text(decodeURI($.cookie('courseName')));
         addPlan();//TODO 考虑是否在这里执行
         addStudent();
         addHomework();
@@ -108,7 +108,7 @@ $(function () {
     /*点击注销按钮，清除cookies*/
     $('#logout').click(function () {
         $.removeCookie('currentUser');
-        $('#current_center').parent().html('<a href="index.html">登录</a>')
+        window.location.href='../login?operate=logout';
     });
     //添加课程进度模块
     /*字段合法性监测，通过点击确定允许提交*/

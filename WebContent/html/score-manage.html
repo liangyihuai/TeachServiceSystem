@@ -195,7 +195,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <label class="input-group-addon" for="commonPercent">平时成绩:</label>
-                            <input type="text" class="form-control" name="commonPercent" id="commonPercent" value="30"
+                            <input type="text" class="form-control" name="commonPercent" id="commonPercent"
                                    data-toggle="tooltip" data-placement="top" title="请输入0-100的数字"/>
                             <span class="input-group-addon">%</span>
                         </div>
@@ -203,7 +203,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <label class="input-group-addon" for="finalPercent">期末成绩:</label>
-                            <input type="text" class="form-control" name="finalPercent" id="finalPercent" value="70"
+                            <input type="text" class="form-control" name="finalPercent" id="finalPercent"
                                    data-toggle="tooltip" data-placement="top" title="请输入0-100的数字"/>
                             <span class="input-group-addon">%</span>
                         </div>
@@ -285,7 +285,7 @@
     <div class="content">
         <div class="container">
             <ol class="breadcrumb">
-                <li id="current_mange_course">物理课</li>
+                <li id="current_mange_course"></li>
                 <li class="active">成绩管理</li>
             </ol>
             <div class="panel panel-primary scoreManage">
@@ -302,15 +302,15 @@
                             <tr>
                                 <th>学号</th>
                                 <th>姓名</th>
-                                <th>平时成绩</th>
-                                <th>期末成绩</th>
+                                <th>平时成绩:<span class="label label-default" id="tipCommonPercent"></span></th>
+                                <th>期末成绩:<span class="label label-default" id="tipFinalPercent"></span></th>
                                 <th>最终成绩</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <td colspan="6">平均分<span class="average">90</span></td>
+                                <td colspan="6">平均分<span class="average"></span></td>
                             </tr>
                             </tfoot>
                             <tbody>

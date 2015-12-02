@@ -17,7 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<update id="modifySchedule" parameterType="Schedule">
-	UPDATE schedule SET arrangement=#{arrangement} WHERE courseID=#{courseID} AND scheduleID=#{scheduleID}
+	UPDATE schedule SET arrangement=#{arrangement}, courseTime=#{courseTime}
+	WHERE courseID=#{courseID} AND scheduleID=#{scheduleID}
 	</update>
 	
 </mapper>
