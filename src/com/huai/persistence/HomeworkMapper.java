@@ -45,12 +45,12 @@ public interface HomeworkMapper {
 	 * @param comment
 	 * @param score
 	 */
-	void correctHomework(String comment, int score ,String studentNO, int homeworkID);
+	void correctHomework(String comment, int score , int studentHomeworkID);
 	
 	/**
 	 * 获取作业的状态
 	 * @param studentNO
 	 * @return
 	 */
-	String getStatus(String studentNO, int homeworkID);
+	String getStatus(int studentHomeworkID);
 }
