@@ -98,7 +98,6 @@ $(function () {
     if ($.cookie('currentUser')) {
         $('#current_center').html($.cookie('currentUser') + '<span class="caret"></span>');
         $('#current_mange_course').text(decodeURI($.cookie('courseName')));
-        alert(decodeURI($.cookie('courseName')))
         addPlan();//TODO 考虑是否在这里执行
         addStudent();
         addHomework();
