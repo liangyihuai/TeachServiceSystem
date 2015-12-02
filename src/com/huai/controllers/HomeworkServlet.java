@@ -174,11 +174,12 @@ public class HomeworkServlet extends HttpServlet {
 			writer.write(homeworkJson.toString());
 		} else if ("correctHomework".equals(operate)) {
 			int homeworkID = (int)request.getSession().getAttribute("homeworkID");
+			int studentHomeworkID = Integer.parseInt(request.getParameter("studentHomeworkID"));
 			String comment = request.getParameter("comment");
 			int score = Integer.parseInt(request.getParameter("score"));
 			String studentNO = request.getParameter("studentNO");
-			homeworkService.correctHomework(comment, score, studentNO, homeworkID);
-			Boolean isSuccess = homeworkService.isUpdateSuccess(studentNO, homeworkID);
+			homeworkService.correctHomework(comment, score, studentHomeworkID);
+			Boolean isSuccess = homeworkService.isUpdateSuccess(studentHomeworkID);
 			
 			PrintWriter writer = response.getWriter();
 			if (isSuccess) {

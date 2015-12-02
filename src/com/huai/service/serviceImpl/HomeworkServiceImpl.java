@@ -72,13 +72,13 @@ public class HomeworkServiceImpl implements HomeworkService{
 	}
 
 	@Override
-	public void correctHomework(String comment, int score, String studentNO, int homeworkID) {
-		homeworkMapper.correctHomework(comment, score, studentNO, homeworkID);
+	public void correctHomework(String comment, int score, int studentHomeworkID) {
+		homeworkMapper.correctHomework(comment, score, studentHomeworkID);
 	}
 
 	@Override
-	public Boolean isUpdateSuccess(String studentNO, int homeworkID) {
-		String status = homeworkMapper.getStatus(studentNO, homeworkID);
+	public Boolean isUpdateSuccess(int studentHomeworkID) {
+		String status = homeworkMapper.getStatus(studentHomeworkID);
 		if (status.equals("corrected")) {
 			return true;
 		}

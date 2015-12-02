@@ -56,12 +56,12 @@ public interface HomeworkService {
 	 * @param comment
 	 * @param score
 	 */
-	public void correctHomework(String comment, int score, String studentNO, int homeworkID);
+	public void correctHomework(String comment, int score, int studentHomeworkID);
 	
 	/**
 	 * 判断作业批改是否成功
 	 * @param studentNO
 	 * @return
 	 */
-	public Boolean isUpdateSuccess(String studentNO, int homeworkID);
+	public Boolean isUpdateSuccess(int studentHomeworkID);
 }

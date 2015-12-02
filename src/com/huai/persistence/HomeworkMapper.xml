@@ -32,11 +32,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 批改作业，将教师评语及分数插入数据库，并修改status为'corrected' -->
 	<update id="correctHomework">
-		update studentHomeworkRelation set comment=#{0},score=#{1},status='corrected' where studentID=(select studentID from student where studentNO=#{2}) &amp;&amp; homeworkID=#{3}
+		update studentHomeworkRelation set comment=#{0},score=#{1},status='corrected' where studentHomeworkID=#{2}
 	</update>
 	
 	<!-- 获取学生作业状态，用于检验批改作业是否成功 -->
-	<select id="getStatus" resultType="String">
-		select status from studentHomeworkRelation where studentID=(select studentID from student where studentNO=#{0}) &amp;&amp; homeworkID=#{1}
+	<select id="getStatus" parameterType="int" resultType="String">
+		select status from studentHomeworkRelation where studentHomeworkID=#{studentHomeworkID}
 	</select>
 </mapper>
