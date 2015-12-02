@@ -36,7 +36,7 @@ function chooseCourse() {
         var current_course=$(this).parent().parent().find('.course-item-desc-courseID').html().substr(5);
         var courseName=$(this).parent().parent().find('.course-item-desc-title').html().substr(5);
         $.cookie('courseID',current_course);
-        $.cookie('courseName',courseName);
+        $.cookie('courseName',encodeURI(courseName));
         $.ajax({
             url:"../course?operate=choose",
             type:"POST",
