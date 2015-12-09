@@ -64,7 +64,7 @@ function addCourse(){
         submitHandler: function (form) {
             $(form).ajaxSubmit({
                 type: 'POST',
-                url: '../schedule?operate=addCourse',
+                url: '../course?operate=addCourse',
                 clearForm: true,
                 success: function (data, statusText) {
                     if (data == 1) {
