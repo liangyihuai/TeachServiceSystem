@@ -10,8 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="addCourseByTeacherID" parameterType="Course">
 		INSERT INTO course
-		(courseID, courseName, teacherID, buildDate,courseDescription,commonPercent,finalPercent)
-		VALUES (#{courseID}, #{courseName}, #{teacherID}, #{buildDate},#{courseDescription},#{commonPercent},#{finalPercent})
+		(courseName, teacherID, buildDate,courseDescription,commonPercent,finalPercent)
+		VALUES (#{courseName}, #{teacherID}, #{buildDate},#{courseDescription},#{commonPercent},#{finalPercent})
 	</insert>
 	
 	<delete id="deleteCourseByCourseID" parameterType="int">
