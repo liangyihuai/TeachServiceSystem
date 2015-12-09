@@ -25,11 +25,26 @@ public class CourseServiceImpl implements CourseService{
 	@Override
 	public List<Course> getCourseByTeacherId(int teacherId) {
 		Assert.notNull(teacherId, "teacherId must not be null");
-
-		
 		List<Course> courseList= courseMapper.getCourseByTeacherId(teacherId);
-		
 		return courseList;
+	}
+
+	@Override
+	public boolean addCourseByTeacherID(Course course) {
+		int flag = courseMapper.addCourseByTeacherID(course);
+		if(flag > 0 ){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteCourseByCourseID(int courseID) {
+		int flag = courseMapper.deleteCourseByCourseID(courseID);
+		if(flag > 0){
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -52,6 +52,40 @@ public class CourseServlet extends HttpServlet{
 			writer.write(jo.toString());
 			writer.close();
 			
+		}else if("addCourse".equals(operate)){
+			Teacher teacher = (Teacher) request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
+			int teacherID = teacher.getTeacherID();
+			String courseName = "";
+			int courseID = 0;
+			
+			courseID = Integer.parseInt(request.getParameter("courseID"));
+			courseName = request.getParameter("courseName");
+			
+			Course course = new Course();
+			course.setCourseID(courseID);
+			course.setTeacherID(teacherID);
+			course.setCourseName(courseName);
+			if(courseService.addCourseByTeacherID(course)){
+				PrintWriter writer = response.getWriter();
+				writer.write("1");
+			}else{
+				PrintWriter writer = response.getWriter();
+				writer.write("0");
+			}
+			
+		}else if("deleteCourse".equals(operate)){
+			int courseID = Integer.parseInt(request.getParameter("courseID"));
+			if(courseService.deleteCourseByCourseID(courseID)){
+				PrintWriter writer = response.getWriter();
+				writer.write("1");
+			}else{
+				PrintWriter writer = response.getWriter();
+				writer.write("0");
+			}
+			
+			
+			
+			
 		}else if("choose".equals(operate)){
 			String courseID = request.getParameter("courseID");
 			Assert.notNull(courseID,"courser ID from Web must not be null !!!!");

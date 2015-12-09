@@ -8,4 +8,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Select * From course Where teacherID=#{teacherId}
 	</select>
 	
+	<insert id="addCourseByTeacherID" parameterType="Course">
+		INSERT INTO course
+		(courseID, courseName, teacherID, buildDate,courseDescription,commonPercent,finalPercent)
+		VALUES (#{courseID}, #{courseName}, #{teacherID}, #{buildDate},#{courseDescription},#{commonPercent},#{finalPercent})
+	</insert>
+	
+	<delete id="deleteCourseByCourseID" parameterType="int">
+		DELETE FROM course
+		WHERE (courseID =#{courseID})
+	</delete>
+	
 </mapper>

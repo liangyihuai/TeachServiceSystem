@@ -11,4 +11,18 @@ public interface CourseService {
 	 * @return
 	 */
 	List<Course> getCourseByTeacherId(int teacherId);
+	
+	/**
+	 * 通过老师ID添加课程
+	 * @param course
+	 * @return
+	 */
+	boolean addCourseByTeacherID(Course course);
+	
+	
+	/**
+	 * 通过课程ID删除课程
+	 * @param course
+	 */
+	boolean deleteCourseByCourseID(int courseID);
 }
