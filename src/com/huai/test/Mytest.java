@@ -1,12 +1,16 @@
 package com.huai.test;
 
+
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.huai.beans.Course;
 import com.huai.beans.Score;
+import com.huai.service.CourseService;
 import com.huai.service.ScoreService;
 
 public class Mytest {
@@ -15,38 +19,57 @@ public class Mytest {
 		//得到spring容器的对象
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:config/applicationContext.xml");
 		
-		ScoreService scoreService = context.getBean(ScoreService.class);
-		Score score = new Score();
-		score.setCommonScore(11);
-		score.setFinalScore(22);
-		score.setTotalScore(33);
-		score.setStudentID(2);
-		score.setTeacherID(1);
+		CourseService courseService = context.getBean(CourseService.class);
+		Course course = new Course();
+		course.setTeacherID(1);
+		course.setCourseName("123");
 		
-		try {
-			scoreService.insertIntoScore(score);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		scoreService.insertIntoScore(score);
+//		courseService.addCourseByTeacherID(course);
+		courseService.deleteCourseByCourseID(8);
 		
-		List<Map<String,Object>> gradeList = scoreService.getGradesByCourseID(1);
-		
-		for(Map<String,Object> map:gradeList) {
-			System.out.println( map.get("studentNO"));
-			System.out.println( map.get("name"));
-			System.out.println( map.get("commonScore"));
-			System.out.println((int)map.get("finalScore") == 22);
-			System.out.println( map.get("totalScore"));
+		List<Course> courseList =  courseService.getCourseByTeacherId(1);		
+		if(courseList != null){
+			for(Course c:courseList){
+				System.out.println("课程ID为   ："+c.getCourseID());
+				System.out.println("老师ID为   ："+c.getTeacherID());
+				System.out.println("课程名称为："+c.getCourseName());
+				System.out.println("创建时间为："+c.getBuildDate());				
+				System.out.println("-------------------");
+			}			
 		}
 		
-		System.out.println();
-		
-		
-		
-		
-		
+//		ScoreService scoreService = context.getBean(ScoreService.class);
+//		Score score = new Score();
+//		score.setCommonScore(11);
+//		score.setFinalScore(22);
+//		score.setTotalScore(33);
+//		score.setStudentID(2);
+//		score.setTeacherID(1);
+//		
+//		try {
+//			scoreService.insertIntoScore(score);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+////		scoreService.insertIntoScore(score);
+//		
+//		List<Map<String,Object>> gradeList = scoreService.getGradesByCourseID(1);
+//		
+//		for(Map<String,Object> map:gradeList) {
+//			System.out.println( map.get("studentNO"));
+//			System.out.println( map.get("name"));
+//			System.out.println( map.get("commonScore"));
+//			System.out.println((int)map.get("finalScore") == 22);
+//			System.out.println( map.get("totalScore"));
+//		}
+//		
+//		System.out.println();
+//		
+//		
+//		
+//		
+//		
 		
 		
 //		
