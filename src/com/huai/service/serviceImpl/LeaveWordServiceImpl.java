@@ -13,6 +13,7 @@ import com.huai.persistence.LeaveWordMapper;
 import com.huai.persistence.StudentMapper;
 import com.huai.service.LeaveWordService;
 import com.huai.utils.LeaveWordInfo;
+import com.huai.utils.MyDateFormat;
 
 @Service
 public class LeaveWordServiceImpl implements LeaveWordService{
@@ -46,10 +47,17 @@ public class LeaveWordServiceImpl implements LeaveWordService{
 		List<LeaveWordInfo> leaveWordInfos = new ArrayList<LeaveWordInfo>();
 		
 		List<LeaveWord> leaveWords = leaveWordMapper.getLeaveWordByPageAndCourseId(courseId, (page-1)*10, 10);
+		leaveWords.sort(new Comparator<LeaveWord>() {
+			@Override
+			public int compare(LeaveWord o1, LeaveWord o2) {
+				return o2.getTime().compareTo(o1.getTime());
+			}
+		});
+		
 		for (LeaveWord leaveWord : leaveWords) {
 			LeaveWordInfo leaveWordInfo = new LeaveWordInfo();
 			leaveWordInfo.setContent(leaveWord.getContent());
-			leaveWordInfo.setTime(leaveWord.getTime());
+			leaveWordInfo.setTime(MyDateFormat.changeDateToLongString(leaveWord.getTime()));
 			if (leaveWord.getStudentID() != -1)
 				leaveWordInfo.setWriter(studentMapper.getStudentByStudentID(leaveWord.getStudentID()).getName());
 			else
@@ -57,13 +65,6 @@ public class LeaveWordServiceImpl implements LeaveWordService{
 			leaveWordInfos.add(leaveWordInfo);
 		}
 		
-		//排序
-		leaveWordInfos.sort(new Comparator<LeaveWordInfo>() {
-			@Override
-			public int compare(LeaveWordInfo o1, LeaveWordInfo o2) {
-				return o2.getTime().compareTo(o1.getTime());
-			}
-		});
 		return leaveWordInfos;
 	}
 	
