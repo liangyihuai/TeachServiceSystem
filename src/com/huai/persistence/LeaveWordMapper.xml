@@ -4,5 +4,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.huai.persistence.LeaveWordMapper">
-
+	<!-- 往数据库中添加一条留言 -->
+	<insert id="addLeaveWord" parameterType="LeaveWord" useGeneratedKeys="true" keyProperty="leaveWordID">
+		Insert Into leaveWord(time,content,teacherID,studentID,courseID)
+		values(#{time},#{content},#{teacherID},#{studentID},#{courseID})
+	</insert>
+	<!-- 分页查询该课程下的留言 -->
+	<select id="getLeaveWordByPageAndCourseId" resultType="LeaveWord">
+		Select * From leaveWord Where courseID=#{0} limit #{1},#{2}
+	</select>
+	<!-- 根据老师ID查询老师name -->
+	<select id="getTeacherNameByID" parameterType="int" resultType="String">
+		Select name From teacher Where teacherID=#{teacherID}
+	</select>
 </mapper>

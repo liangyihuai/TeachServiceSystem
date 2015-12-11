@@ -61,10 +61,14 @@ ul.course {
 	list-style: none;
     padding: 10px;
 }
+ul.course li{
+	margin-top: 10px;
+}
 .course-item{
-    margin: 5px 10px;
-    border-bottom: 1px solid #cccccc;
-    box-shadow: 0 5px 2px #ccc;
+	padding: 5px;
+	margin: 5px;
+    border: 1px solid #cccccc;
+    box-shadow: 2px 5px 2px #ccc;
 }
 .course-item-desc{
     text-align: center;
@@ -85,8 +89,12 @@ ul.course {
 .course-item-desc-text {
 	font-size: 0.8em;
 }
+.enter_manage,.delete{
+	margin: 5px;
+	display: inline-block;
+}
 /*成绩录入模态框*/
-.scoreManage .panel-heading  button{
+.panel-heading>button{
 	margin-top: -0.4em;
 }
 .highLight{
