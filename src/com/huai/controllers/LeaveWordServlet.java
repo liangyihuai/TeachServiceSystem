@@ -2,6 +2,7 @@ package com.huai.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -74,8 +75,9 @@ public class LeaveWordServlet extends HttpServlet{
 	private void add(HttpServletRequest request, HttpServletResponse response, int courseId) throws ServletException, IOException {
 		Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
 		Student student= (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
-		int teacherID = teacher.getTeacherID();
-		int studentID = student.getStudentID();
+		
+		int teacherID = teacher==null ? -1 : teacher.getTeacherID();
+		int studentID = student==null ? -1 : student.getStudentID();
 		String content = request.getParameter("content");
 		Date time = new Date();
 		

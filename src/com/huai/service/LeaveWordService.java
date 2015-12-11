@@ -8,7 +8,7 @@ import com.huai.utils.LeaveWordInfo;
 public interface LeaveWordService {
 
 	/**
-	 * 获得留言，并包装成LeaveWordInfo
+	 * 获得留言，并包装成LeaveWordInfo，并安装留言时间降序排序
 	 * @param page
 	 * @param courseId
 	 * @return
