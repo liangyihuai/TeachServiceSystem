@@ -19,4 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE (courseID =#{courseID})
 	</delete>
 	
+	<select id="getCourseByStudentNO" parameterType="String" resultType="Course">
+		Select * From course Where courseID In (
+			Select courseID From studentCourseRelation Where studentID In (
+				Select studentID From student Where studentNO=#{studentNO}))
+	</select>
+	
 </mapper>

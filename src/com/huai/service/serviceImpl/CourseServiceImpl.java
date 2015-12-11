@@ -1,20 +1,29 @@
 package com.huai.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
 import com.huai.beans.Course;
 import com.huai.persistence.CourseMapper;
+import com.huai.persistence.StudentMapper;
 import com.huai.service.CourseService;
 
 @Service
 public class CourseServiceImpl implements CourseService{
 	private CourseMapper courseMapper;
+	private StudentMapper studentMapper;
 
 	@Autowired
-	public void setStudentMapper(CourseMapper courseMapper) {
+	public void setCourseMapper(CourseMapper courseMapper) {
 		this.courseMapper = courseMapper;
+	}
+	@Autowired
+	public void setStudentMapper(StudentMapper studentMapper) {
+		this.studentMapper = studentMapper;
 	}
 	
 	/**
@@ -45,6 +54,11 @@ public class CourseServiceImpl implements CourseService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Course> getCourseByStudentNO(String studentNO) {
+		return courseMapper.getCourseByStudentNO(studentNO);
 	}
 
 }

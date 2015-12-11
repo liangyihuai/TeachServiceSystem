@@ -25,5 +25,12 @@ public interface CourseMapper {
 	 * @param course
 	 */
 	int deleteCourseByCourseID(int courseID);
+
+	/**
+	 * 根据学号查找课程对象列表
+	 * @param studentNO
+	 * @return
+	 */
+	List<Course> getCourseByStudentNO(String studentNO);
 	
 }

@@ -4,6 +4,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.huai.persistence.StudentMapper">
+	<!-- 根据学号获得学生ID -->
+	<select id="getStuIDByStuNO" parameterType="String" resultType="Integer">
+		Select studentID From student Where studentNO=#{studentNO}
+	</select>
 	<!-- 根根据学生名字获取学生对象 -->
 	<select id="getStudentByName" parameterType="String" resultType="Student">
 		Select * From student Where name=#{name}

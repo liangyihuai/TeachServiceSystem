@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.huai.beans.Course;
 import com.huai.beans.LeaveWord;
 import com.huai.beans.Student;
 import com.huai.beans.Teacher;
 import com.huai.persistence.StudentMapper;
+import com.huai.service.CourseService;
 import com.huai.service.LeaveWordService;
 import com.huai.service.LoginService;
 import com.huai.service.StudentService;
@@ -109,7 +111,7 @@ public class TeranceTest {
 			return 0;
 		}*/
 		
-		LeaveWordService ls = context.getBean(LeaveWordService.class);
+//		LeaveWordService ls = context.getBean(LeaveWordService.class);
 //		LeaveWord leaveWord = new LeaveWord();
 //		leaveWord.setContent("教师1的留言...");
 //		leaveWord.setCourseID(1);
@@ -125,16 +127,19 @@ public class TeranceTest {
 //			ls.addLeaveWord(leaveWord);
 //		}
 		
-		List<LeaveWordInfo> leaveWordInfos = ls.listLeaveWord(1, 1);
-		if(leaveWordInfos!=null && leaveWordInfos.size()>0){
-			JSONObject jo = new JSONObject();
-			jo.element("leaveWords", leaveWordInfos);
-			
-			System.out.println(jo);
+//		List<LeaveWordInfo> leaveWordInfos = ls.listLeaveWord(1, 1);
+//		if(leaveWordInfos!=null && leaveWordInfos.size()>0){
+//			JSONObject jo = new JSONObject();
+//			jo.element("leaveWords", leaveWordInfos);
+//			
+//			System.out.println(jo);
+//		}
+		
+		CourseService cs = context.getBean(CourseService.class);
+		List<Course> courses = cs.getCourseByStudentNO("2013211420");
+		for (Course course : courses) {
+			System.out.println(course.getCourseID()+"-"+course.getCourseName());
 		}
-		
-		
-		
 		
 		
 		

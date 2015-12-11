@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.huai.beans.Course;
+import com.huai.beans.Student;
 import com.huai.beans.Teacher;
 import com.huai.service.CourseService;
 
@@ -42,11 +43,15 @@ public class CourseServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
+		Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
 		
 		System.out.println("operate = "+operate);
 		
 		if("getCourses".equals(operate)){
-			getcourses(request,response);
+			if (teacher != null)
+				getcourses(request,response);
+			else
+				getCoursesForStu(request, response);
 			
 		}else if("addCourse".equals(operate)){
 			addCourse(request,response);
@@ -117,6 +122,21 @@ public class CourseServlet extends HttpServlet{
 		int TeacherID = teacher.getTeacherID();
 		
 		List<Course> courses = courseService.getCourseByTeacherId(TeacherID);
+		
+		JSONObject jo = new JSONObject();
+		jo.element("courses", courses);
+		
+		PrintWriter writer = response.getWriter();
+		writer.write(jo.toString());
+		writer.close();
+		
+	}
+	
+	private void getCoursesForStu(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Student student= (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
+		
+		List<Course> courses = courseService.getCourseByStudentNO(student.getStudentNO());
 		
 		JSONObject jo = new JSONObject();
 		jo.element("courses", courses);
