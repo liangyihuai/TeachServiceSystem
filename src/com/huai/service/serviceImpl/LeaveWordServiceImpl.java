@@ -1,6 +1,7 @@
 package com.huai.service.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -47,12 +48,14 @@ public class LeaveWordServiceImpl implements LeaveWordService{
 		List<LeaveWordInfo> leaveWordInfos = new ArrayList<LeaveWordInfo>();
 		
 		List<LeaveWord> leaveWords = leaveWordMapper.getLeaveWordByPageAndCourseId(courseId, (page-1)*10, 10);
-		leaveWords.sort(new Comparator<LeaveWord>() {
-			@Override
-			public int compare(LeaveWord o1, LeaveWord o2) {
-				return o2.getTime().compareTo(o1.getTime());
-			}
-		});
+//		LeaveWord[] t = new LeaveWord[leaveWords.size()];
+//		leaveWords.toArray(t);
+//		Arrays.sort(t, new Comparator<LeaveWord>() {
+//			@Override
+//			public int compare(LeaveWord o1, LeaveWord o2) {
+//				return o2.getTime().compareTo(o1.getTime());
+//			}
+//		});
 		
 		for (LeaveWord leaveWord : leaveWords) {
 			LeaveWordInfo leaveWordInfo = new LeaveWordInfo();

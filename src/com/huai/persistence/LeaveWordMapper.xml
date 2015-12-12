@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 分页查询该课程下的留言 -->
 	<select id="getLeaveWordByPageAndCourseId" resultType="LeaveWord">
-		Select * From leaveWord Where courseID=#{0} limit #{1},#{2}
+		Select * From leaveWord Where courseID=#{0} Order By leaveWordID DESC Limit #{1},#{2};
 	</select>
 	<!-- 根据老师ID查询老师name -->
 	<select id="getTeacherNameByID" parameterType="int" resultType="String">
