@@ -29,8 +29,8 @@
     <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
     <!--主js文件-->
     <script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
-    <!--批改作业-->
-    <script src="../js/checkHomework.js" type="text/javascript" charset="utf-8"></script>
+    <!--获取课程进度-->
+    <script src="../js/messageWall.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -64,6 +64,37 @@
     </div>
 </div>
 <!--end of Modal-->
+<!-- 修改课程安排Modal -->
+<div class="modal fade" id="changePlan" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">修改课程安排</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="change_plan_time">时间：</label>
+                        <input class="form-control" type="text" name="change_plan_time" id="change_plan_time"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="change_plan_text">安排：</label>
+                        <textarea class="form-control" rows="3" name="change_plan_text"
+                                  id="change_plan_text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- 添加模态框提交取消ID-->
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Modal-->
 <!-- 布置作业Modal -->
 <div class="modal fade" id="addHomework" tabindex="-1">
     <div class="modal-dialog">
@@ -77,7 +108,8 @@
                 <form>
                     <div class="form-group">
                         <label for="homeworkStopTime">截止日期</label>
-                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" class="form-control">
+                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" readonly="readonly"
+                               class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
@@ -87,8 +119,8 @@
             </div>
             <div class="modal-footer">
                 <!-- 添加模态框提交取消ID-->
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确认</button>
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
             </div>
         </div>
     </div>
@@ -107,21 +139,18 @@
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="stuNum" class="col-md-3">学号：</label>
-
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="stuNum" id="stuNum">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="stuName" class="col-md-3">姓名：</label>
-
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="stuName" id="stuName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3">性别：</label>
-
                         <div class="col-md-9">
                             <select name="sex" class="form-control ">
                                 <option value="male" slected="selected">男</option>
@@ -131,14 +160,12 @@
                     </div>
                     <div class="form-group">
                         <label for="classNum" class="col-md-3">班级：</label>
-
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="classNum" id="classNum">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="department" class="col-md-3">学院：</label>
-
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="department" id="department">
                         </div>
@@ -154,67 +181,30 @@
     </div>
 </div>
 <!--end of Modal-->
-<!-- 作业批改模态框Modal -->
-<div class="modal fade" id="check" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">张三的作业</h4>
-            </div>
-            <div class="modal-body">
-                <!-- 作业详情-->
-                <div class="oneHomework">
-                    1、作业在这里 1、作业在这里 1、作业在这里 1、作业在这里
-                </div>
-                <!-- 批改内容-->
-                <div class="check-result">
-                    <form>
-                        <div class="form-group">
-                            <label for="comment">批阅：</label>
-                            <textarea rows="3" class="form-control" name="comment"
-                                      id="comment"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="score">分数：</label>
-                            <input type="text" class="form-control" name="score"
-                                   id="score"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!-- 添加模态框提交取消ID-->
-                <button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary confirm">确认</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--end of Modal-->
 <div class="wrapper">
     <div class="header">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
+                    <!-- 在手机端将会显示下拉按钮-->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
+                            data-target="#bs-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">教学辅助系统</span>
+                        <!-- 手机响应式下拉图标-->
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="course-list.html">教学辅助系统</a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">课程进度<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="course-process.html">当前课程进度</a></li>
+                                <li class="active"><a href="course-process.html">当前课程进度</a></li>
+                                <li class="divider"></li>
                                 <li><a href="#addPlan" data-toggle="modal">添加课程安排</a></li>
                             </ul>
                         </li>
@@ -223,16 +213,16 @@
                                aria-haspopup="true" aria-expanded="false">学生管理<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="student-list.html">学生列表</a></li>
-                                <li role="separator" class="divider"></li>
+                                <li class="divider"></li>
                                 <li><a href="#addStudent" data-toggle="modal">添加学生</a></li>
                             </ul>
                         </li>
                         <li><a href="score-manage.html">成绩管理</a></li>
-                        <li class="dropdown active">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">作业管理<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li class="active"><a href="homework-list.html">批改作业</a></li>
+                                <li><a href="homework-list.html">批改作业</a></li>
                                 <li><a href="#addHomework" data-toggle="modal">布置作业</a></li>
                             </ul>
                         </li>
@@ -259,100 +249,37 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li id="current_mange_course"></li>
-                <li><a href="homework-list.html">作业列表</a></li>
-                <li class="active">作业批改</li>
+                <li class="active">留言板</li>
             </ol>
+            <span class="send"><img src="../images/send.png" alt="send"></span>
+            <div class="leave_msg col-md-4">
+                <span class="msg_title">留言板</span>
+                <div class="form-group">
+                    <textarea name="meg_content" id="meg_content" cols="25" rows="5"></textarea>
+                </div>
+                <button class="btn btn-sm btn-success" type="button">钉上去</button>
+            </div>
             <div class="panel panel-primary">
-                <div class="panel-heading">作业批改</div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">留言板</h3>
+                </div>
                 <div class="panel-body">
-                    <!--作业是否上交组-->
-                    <div class="panel-group" id="accordion" aria-multiselectable="true">
-                        <!--已交-->
-                        <div class="panel panel-warning ">
-                            <div class="panel-heading" role="tab">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#commited"
-                                       aria-expanded="true">待批改作业<span
-                                            class="badge commitedBadge">0</span></a>
-                                </h4>
-                            </div>
-                            <div id="commited" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    <div class="table-responsive col-md-8 col-md-offset-2 ">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>学号</th>
-                                                <th>姓名</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
+                    <div class="msg_box">
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--已批改-->
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#corrected"
-                                       aria-expanded="true">已批改作业<span
-                                            class="badge correctedBadge">0</span></a>
-                                </h4>
-                            </div>
-                            <div id="corrected" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="table-responsive col-md-8 col-md-offset-2">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>学号</th>
-                                                    <th>姓名</th>
-                                                    <th>成绩</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--未交-->
-                        <div class="panel panel-danger">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#unCommited"
-                                       aria-expanded="true">未交作业<span
-                                            class="badge unCommitedBadge">0</span></a>
-                                </h4>
-                            </div>
-                            <div id="unCommited" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="table-responsive col-md-8 col-md-offset-2">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>学号</th>
-                                                <th>姓名</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                <div class="panel-footer">
+                    <nav>
+                        <ul class="pager">
+                            <li class="previous prev"><a href="javascript:void(0);"><span aria-hidden="true">&larr;</span>上一页</a>
+                            </li>
+                            <li class="next"><a href="javascript:void(0);">下一页<span aria-hidden="true">&rarr;</span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
