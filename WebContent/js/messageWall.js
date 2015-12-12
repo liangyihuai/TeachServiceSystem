@@ -5,7 +5,30 @@ $(function () {
     showButton();
     loadList($.cookie('currentPage'));
     turnPage();
+    sendMessage();
 });
+function sendMessage() {
+    var $sendButton = $('.leave_msg').find('button');
+    var $msg_content = $('#msg_content');
+    $sendButton.click(function () {
+        $.ajax({
+            type: "post",
+            url: "../leaveword?operate=add",
+            data: {
+                content: $msg_content.val()
+            },
+            success: function (data) {
+                if(data==1){
+                    loadList(1);
+                    $msg_content.val('');
+                }
+                else if(data==0){
+                    alert('小纸条在路上被大风刮跑了,赶紧再发一张!')
+                }
+            }
+        });
+    });
+}
 function showButton() {
     var $sendButton = $('.send');
     var $leave_msg = $('.leave_msg');
@@ -17,13 +40,13 @@ function turnPage() {
     var prev = $('.prev');
     var next = $('.next');
     prev.click(function () {
-        if($.cookie('currentPage')!=1){
-        loadList($.cookie('currentPage') * 1 - 1);
-        $.cookie('currentPage', $.cookie('currentPage') * 1 - 1);
+        if ($.cookie('currentPage') != 1) {
+            loadList($.cookie('currentPage') * 1 - 1);
+            $.cookie('currentPage', $.cookie('currentPage') * 1 - 1);
         }
     });
     next.click(function () {
-        if($.cookie('currentPage')!=pageCount) {
+        if ($.cookie('currentPage') != pageCount) {
             loadList($.cookie('currentPage') * 1 + 1);
             $.cookie('currentPage', $.cookie('currentPage') * 1 + 1);
         }
@@ -42,7 +65,7 @@ function loadList(currentPage) {
         },
         success: function (data) {
             var jsonData = $.parseJSON(data).leaveWords;
-            pageCount=$.parseJSON(data).pageCount;
+            pageCount = $.parseJSON(data).pageCount;
             var html = '';
             $.each(jsonData, function (index, value) {
                 var msg_item_name = jsonData[index].writer;
@@ -52,14 +75,14 @@ function loadList(currentPage) {
             });
             $msg_box.empty().append(html);
             $.cookie('currentPage', currentPage);
-            if($.cookie('currentPage')==1){
+            if ($.cookie('currentPage') == 1) {
                 prev.addClass('disabled');
-            }else{
+            } else {
                 prev.removeClass('disabled');
             }
-            if($.cookie('currentPage')==pageCount){
+            if ($.cookie('currentPage') == pageCount) {
                 next.addClass('disabled');
-            }else{
+            } else {
                 next.removeClass('disabled');
             }
         }
