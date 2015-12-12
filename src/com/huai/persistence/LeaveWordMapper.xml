@@ -17,4 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTeacherNameByID" parameterType="int" resultType="String">
 		Select name From teacher Where teacherID=#{teacherID}
 	</select>
+	<!-- 获得该课程下的总留言数 -->
+	<select id="getLeaveWordCount" parameterType="int" resultType="int">
+		Select Count(*) From leaveWord Where courseID=#{courseId}
+	</select>
 </mapper>

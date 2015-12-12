@@ -15,6 +15,12 @@ public interface LeaveWordService {
 	 */
 	public List<LeaveWordInfo> listLeaveWord(int page, int courseId);
 	/**
+	 * 获得总页数
+	 * @param courseId
+	 * @return
+	 */
+	public int getPageCount(int courseId);
+	/**
 	 * 添加留言
 	 * @param leaveWord
 	 * @return

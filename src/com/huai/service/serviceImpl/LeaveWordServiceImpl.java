@@ -67,5 +67,9 @@ public class LeaveWordServiceImpl implements LeaveWordService{
 		
 		return leaveWordInfos;
 	}
+	@Override
+	public int getPageCount(int courseId) {
+		return leaveWordMapper.getLeaveWordCount(courseId)/10+1;
+	}
 	
 }

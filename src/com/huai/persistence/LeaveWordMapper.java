@@ -25,4 +25,10 @@ public interface LeaveWordMapper {
 	 * @return
 	 */
 	public String getTeacherNameByID(int teacherID);
+	/**
+	 * 获得该课程下的总留言数
+	 * @param courseId
+	 * @return
+	 */
+	public int getLeaveWordCount(int courseId);
 }

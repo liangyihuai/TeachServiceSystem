@@ -60,10 +60,12 @@ public class LeaveWordServlet extends HttpServlet{
 		int page = Integer.parseInt((String)request.getParameter("page"));
 		
 		List<LeaveWordInfo> leaveWordInfos = leaveWordService.listLeaveWord(page, courseId);
+		int pageCount = leaveWordService.getPageCount(courseId);
 		
 		if(leaveWordInfos!=null && leaveWordInfos.size()>0){
 			JSONObject jo = new JSONObject();
 			jo.element("leaveWords", leaveWordInfos);
+			jo.element("pageCount", pageCount);
 			
 			PrintWriter writer = response.getWriter();
 			writer.write(jo.toString());
