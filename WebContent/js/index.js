@@ -1,4 +1,5 @@
 $(function () {
+    initCurrentPage();
     /*作业布置截至时间选框*/
     $('#homeworkStopTime').datetimepicker({
         format: 'yyyy-mm-dd',
@@ -265,6 +266,13 @@ $(function () {
             unhighlight: function (element, errorClass) {
                 $(element).css('border', '1px solid #ccc');
             }
+        });
+    }
+/*点击了留言板之后将cookie的currentPage设置为1*/
+    function initCurrentPage(){
+        var messageWallLink=$('.message-wall');
+        messageWallLink.click(function () {
+            $.cookie('currentPage',1);
         });
     }
 });
