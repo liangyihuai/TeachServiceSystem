@@ -30,7 +30,7 @@
     <!--主js文件-->
     <script src="../js/index.js" type="text/javascript" charset="utf-8"></script>
     <!--获取课程进度-->
-    <script src="../js/courseProcess.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/data-manage.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -77,11 +77,12 @@
                 <form>
                     <div class="form-group">
                         <label for="change_plan_time">时间：</label>
-                        <input class="form-control" type="text" name="change_plan_time" id="change_plan_time" />
+                        <input class="form-control" type="text" name="change_plan_time" id="change_plan_time"/>
                     </div>
                     <div class="form-group">
                         <label for="change_plan_text">安排：</label>
-                        <textarea class="form-control" rows="3" name="change_plan_text" id="change_plan_text"></textarea>
+                        <textarea class="form-control" rows="3" name="change_plan_text"
+                                  id="change_plan_text"></textarea>
                     </div>
                 </form>
             </div>
@@ -107,7 +108,8 @@
                 <form>
                     <div class="form-group">
                         <label for="homeworkStopTime">截止日期</label>
-                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" readonly="readonly" class="form-control">
+                        <input type="text" name="homeworkStopTime" id="homeworkStopTime" readonly="readonly"
+                               class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="homeworkTitle">题目</label>
@@ -230,7 +232,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false" id="current_center">个人中心<span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false" id="current_center">个人中心<span
+                                    class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="javascript:void(0);" id="logout">注销</a></li>
                             </ul>
@@ -248,6 +251,43 @@
                 <li id="current_mange_course"></li>
                 <li class="active">资料管理</li>
             </ol>
+            <div class="upload">
+                <form action="../student?operate=import" method="post" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="file" class="form-control" name="file" id="file" />
+                        <a class="input-group-addon" href="javascript:void(0);"><span class="glyphicon glyphicon-upload"></span></a>
+                    </div>
+                </form>
+            </div>
+            <div class="file-list row">
+                <ul class="list-group col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-file"></span>
+                        中国现代文化史.pdf
+                        <a href="javascript:void(0);"><span class="glyphicon glyphicon-download"></span></a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-file"></span>
+                        高等数学参考答案.word
+                        <a href="javascript:void(0);"><span class="glyphicon glyphicon-download"></span></a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-file"></span>
+                        中国现代文化史.pdf
+                        <a href="javascript:void(0);"><span class="glyphicon glyphicon-download"></span></a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-file"></span>
+                        高等数学参考答案.word
+                        <a href="javascript:void(0);"><span class="glyphicon glyphicon-download"></span></a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-file"></span>
+                        中国现代文化史.pdf
+                        <a href="javascript:void(0);"><span class="glyphicon glyphicon-download"></span></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
