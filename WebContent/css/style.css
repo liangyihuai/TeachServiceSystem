@@ -242,6 +242,3 @@ ul.course li{
     font-size: 20px;
     margin: 0 20px;
 }
-.file-list ul li span:last-child{
-    float: right;
-}
