@@ -5,6 +5,7 @@ $(function () {
     getFileList();
     uploadFile();
     download();
+    remove();
 });
 //获取文件列表
 /*参数：无
@@ -14,12 +15,13 @@ function getFileList() {
     var $fileList=$('.file-list ul');
     $.ajax({
         type: "GET",
-        url: "../source?operate=getFileList",
+        url:"../data/file.php",
+        //url: "../source?operate=getFileList",
         success: function (data) {
             var jsondata= $.parseJSON(data).sourseList;
             var html = "";
             $.each(jsondata, function (index,value) {
-                html+=" <li class='list-group-item'><span class='glyphicon glyphicon-file'></span><span class='none fileId'>"+jsondata[index].sourceID+"</span><span class='headline'>"+jsondata[index].headline+"</span><a href='javascript:void(0);' class='download'><span class='glyphicon glyphicon-download'></span></a></li>";
+                html+=" <li class='list-group-item'><span class='glyphicon glyphicon-file'></span><span class='none fileId'>"+jsondata[index].sourceID+"</span><span class='headline'>"+jsondata[index].headline+"</span><div class='pull-right'><a href='javascript:void(0);' class='download'><span class='glyphicon glyphicon-download'></span></a><a href='javascript:void(0);' class='remove'><span class='glyphicon glyphicon-remove'></span></a></div></li>";
             })
             $fileList.empty().append(html);
         }
@@ -51,17 +53,48 @@ function uploadFile() {
 }
 //点击下载按钮下载文件
 /*参数：fileID
-* 返回：后台调用浏览器进行下载
-*/
+ * 返回：后台调用浏览器进行下载
+ */
 function download(){
     var $fileList=$('.file-list ul');
     $fileList.on('click','.download',function () {
-        var thisID=$(this).prev().prev().html();
+        var thisID=$(this).parents('li').find('span').eq(1).html();
+        alert(thisID)
         $.ajax({
-            type:"POST",
+            type:"GET",
             url:"../source?operate=download",
             data:{
                 sourceID:thisID,
+            }
+        });
+    })
+}
+//点击删除按钮删除文件
+/*参数：fileID
+ * 返回：后台调用进行删除
+*/
+function remove(){
+    var $fileList=$('.file-list ul');
+    $fileList.on('click','.remove',function () {
+        var thisID=$(this).parents('li').find('span').eq(1).html();
+        alert(thisID)
+        $.ajax({
+            type:"POST",
+            url:"../source?operate=deleteFile",
+            data:{
+                sourceID:thisID,
+            },
+            success: function (data) {
+                if(data==1){
+                    alert('删除成功！');
+                    getFileList();
+                }
+                else if(data==0){
+                    alert('删除失败，请重试！');
+                }
+                else{
+                    alert('你没有权限删除此文件！');
+                }
             }
         });
     })
