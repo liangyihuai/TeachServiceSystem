@@ -15,8 +15,8 @@ function getFileList() {
     var $fileList=$('.file-list ul');
     $.ajax({
         type: "GET",
-        //url:"../data/file.php",
-        url: "../source?operate=getFileList",
+        url:"../data/file.php",
+        //url: "../source?operate=getFileList",
         success: function (data) {
             var jsondata= $.parseJSON(data).sourseList;
             var html = "";
