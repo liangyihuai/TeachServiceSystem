@@ -17,7 +17,8 @@ function getHomeworkList() {
                 var deadlineText=deadline.getFullYear()+'年'+deadline.getMonth()+'月'+deadline.getDate()+'日';
                 html+="<tr><td>"+value.homeworkID+"</td><td>"+buildeTimeText+"<td>"+deadlineText+"<td>"+value.content+"<td><a class='btn btn-default selectBtn' href='studentWorkList.html'>批改</a>";
             });
-            $('tbody').empty().append(html)
+            $('tbody').empty().append(html);
+            $('.acount-work').text(jsonData.length);
         }
     });
 };

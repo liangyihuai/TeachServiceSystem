@@ -7,6 +7,12 @@ import com.huai.beans.Student;
 public interface StudentMapper {
 
 	/**
+	 * 根据学号获得学生ID
+	 * @param studentNO
+	 * @return
+	 */
+	List<Integer> getStuIDByStuNO(String studentNO);
+	/**
 	 * 根据学生名字获取学生对象
 	 * @param name
 	 * @return

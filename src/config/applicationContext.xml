@@ -20,9 +20,15 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		
 		<property name="jdbcUrl" value="jdbc:mysql://qdm167674409.my3w.com/qdm167674409_db" />
 		<property name="user" value="qdm167674409" />
-		<property name="password" value="jwy19950930" />
+		<property name="password" value="jwy19950930" /> 
+		
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/TeachLocal" />
+		<property name="user" value="root" />
+		<property name="password" value="741741" />  -->
+		
 	</bean>
 	<!-- transaction manager, use JtaTransactionManager for global tx -->
 	<bean id="transactionManager"

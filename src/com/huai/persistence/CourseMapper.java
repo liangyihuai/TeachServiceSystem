@@ -13,4 +13,24 @@ public interface CourseMapper {
 	 */
 	List<Course> getCourseByTeacherId(int teacherId); 
 	
+	/**
+	 * 通过老师ID添加课程
+	 * @param teacherID
+	 * @return 
+	 */
+	int addCourseByTeacherID(Course course);
+	
+	/**
+	 * 通过课程ID删除课程
+	 * @param course
+	 */
+	int deleteCourseByCourseID(int courseID);
+
+	/**
+	 * 根据学号查找课程对象列表
+	 * @param studentNO
+	 * @return
+	 */
+	List<Course> getCourseByStudentNO(String studentNO);
+	
 }
