@@ -20,8 +20,10 @@ public class UploadFile{
 	/**
 	 * 用此字段可以得到上传文件的文件名
 	 */
-	public static final String FILE_NAME = "fileName";
+	public static final String ABSOLUTE_PATH = "absolutePath";
 
+	
+	public static final String FILE_NAME = "fileName";
 	/**
 	 * delete the file
 	 * @param absolutePath
@@ -34,11 +36,11 @@ public class UploadFile{
 	}
 
 	/**
-	 * 上传文件到服务器上面，并返回文件的绝对路径+文件名以及前段传来的parameter的name和value。
+	 * 上传文件到服务器上面，并返回文件的绝对路径+文件名以及前端传来的parameter的name和value。
 	 * 其中文件保存在uploadFilePlace下面
 	 * @param request
 	 * @param response
-	 * @return 存放parameter的hash map，其中文件路径在hashMap中的key是"fileName"
+	 * @return 存放parameter的hash map，文件名的key是"fileName",路径的key是“absolutePath”
 	 * @author LiangYiHuai
 	 */
 	 public Map<String,String> uploadFile(HttpServletRequest request, HttpServletResponse response){
@@ -96,6 +98,8 @@ public class UploadFile{
 						return null;
 					}
 					
+					parameters.put(UploadFile.FILE_NAME, fileName);
+					
 					//判断并创建文件夹tempFilePath2
 					File temp = new File(tempFilePath2);
 					if(!temp.exists()&&!temp.isDirectory()){
@@ -107,7 +111,7 @@ public class UploadFile{
 					File tempFile2 = new File(filePathAndName);
 					
 					//将文件路径放到map中
-					parameters.put(FILE_NAME, filePathAndName);
+					parameters.put(UploadFile.ABSOLUTE_PATH, filePathAndName);
 					//将上传的文件放到tempFilePath2目录下面
 					try {
 						item.write(tempFile2);
