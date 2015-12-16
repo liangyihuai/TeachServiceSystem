@@ -4,5 +4,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.huai.persistence.SourceMapper">
+
+	<!-- 查询课程中的所有文件 -->
+	<select id="getFileList" parameterType="int" resultType="Source">
+		SELECT * FROM source 
+		WHERE courseID = #{courseID}
+	</select>
+	
+	<!-- 通过sourceID查询一个文件 -->
+	<select id="getSourceBySourceID" parameterType="int" resultType="Source">
+		SELECT * FROM source 
+		WHERE sourceID = #{sourceID}
+	</select>
+	
+	<!-- 上传一个文件 -->
+	<insert id="uploadFile" parameterType="Source">
+		INSERT INTO source (headline, path, studentID, teacherID, courseID, uploadDate, description) 
+		VALUES ( #{headline}, #{path}, #{studentID}, #{teacherID},#{courseID},#{uploadDate},#{description})
+	</insert>
+	
+	<!-- 删除一个文件 -->
+	<delete id="deleteFile" parameterType="int">
+		DELETE FROM source 
+		WHERE sourceID=#{sourceID}
+	</delete>
 	
 </mapper>
