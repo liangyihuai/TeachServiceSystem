@@ -20,7 +20,7 @@ function getFileList() {
             var jsondata= $.parseJSON(data).sourseList;
             var html = "";
             $.each(jsondata, function (index,value) {
-                html+=" <li class='list-group-item'><form action='../source?operate=download' method='get' ><span class='glyphicon glyphicon-file'></span><input type='hidden' name='sourceID' id='sourceID' value='"+jsondata[index].sourceID+"' /><span class='headline'>"+jsondata[index].headline+"</span><div class='pull-right'><button type='submit' class='download'><span class='glyphicon glyphicon-download'></span></button><a href='javascript:void(0);' class='remove'><span class='glyphicon glyphicon-remove'></span></a></div></form></li>";
+                html+=" <li class='list-group-item'><form action='../source?operate=download' method='get' ><span class='glyphicon glyphicon-file'></span><input type='hidden' name='sourceID' id='sourceID' value='"+jsondata[index].sourceID+"' /><input type='hidden' name='operate' value='download' /><span class='headline'>"+jsondata[index].headline+"</span><div class='pull-right'><button type='submit' class='download'><span class='glyphicon glyphicon-download'></span></button><a href='javascript:void(0);' class='remove'><span class='glyphicon glyphicon-remove'></span></a></div></form></li>";
             })
             $fileList.empty().append(html);
         }
