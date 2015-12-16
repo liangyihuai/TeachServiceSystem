@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.huai.persistence.ScheduleMapper">
 	<select id="getScheduleByCourseId" parameterType="int" resultType="Schedule">
-		Select * From schedule Where courseID=#{courseId}
+		Select * From schedule Where courseID=#{courseId} ORDER BY courseID, scheduleID
 	</select>
 	
 	<insert id="addToSchedule" parameterType="Schedule">
@@ -15,5 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteFromSchedule" parameterType="Schedule">
 	DELETE FROM schedule WHERE courseID=#{courseID} AND scheduleID=#{scheduleID}
 	</delete>
+	
+	<update id="modifySchedule" parameterType="Schedule">
+	UPDATE schedule SET arrangement=#{arrangement}, courseTime=#{courseTime}
+	WHERE courseID=#{courseID} AND scheduleID=#{scheduleID}
+	</update>
 	
 </mapper>

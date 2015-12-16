@@ -1,9 +1,11 @@
 package com.huai.beans;
 
+import java.util.Date;
+
 public class LeaveWord {
 
 	private int leaveWordID;
-	private String headline;
+	private Date time;
 	private String content;
 	private int teacherID;
 	private int studentID;
@@ -21,11 +23,11 @@ public class LeaveWord {
 	public void setLeaveWordID(int leaveWordID) {
 		this.leaveWordID = leaveWordID;
 	}
-	public String getHeadline() {
-		return headline;
+	public Date getTime() {
+		return time;
 	}
-	public void setHeadline(String headline) {
-		this.headline = headline;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 	public String getContent() {
 		return content;

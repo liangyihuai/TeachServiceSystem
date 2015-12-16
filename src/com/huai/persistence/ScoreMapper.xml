@@ -5,4 +5,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.huai.persistence.ScoreMapper">
 
+	<select id="getGradesByCourseID" parameterType="int" resultMap="ScoreResult">
+		Select student.studentNO, student.name, score.commonScore, score.finalScore, score.totalScore
+		from student, score,  studentCourseRelation
+		where student.studentID = score.studentID
+		AND student.studentID = studentCourseRelation.studentID
+		AND studentCourseRelation.courseID = #{courseID} 
+		ORDER BY student.studentNO
+	</select>
+		
+	<resultMap type="Map" id="ScoreResult">
+		<result property="studentNO" column="student.studentNO"/>
+		<result property="name" column="student.name"/>
+		<result property="commonScore" column="score.commonScore"/>
+		<result property="finalScore" column="score.finalScore"/>
+		<result property="totalScore" column="score.totalScore"/>
+	</resultMap>
+	
+	<update id="updateScore" parameterType="Score" >
+		UPDATE score 
+		SET commonScore=#{commonScore}, finalScore=#{finalScore}, totalScore = #{totalScore} 
+		WHERE studentID=#{studentID} AND teacherID=#{teacherID}
+	</update>	
+	
+	<insert id="insertIntoScore" parameterType="Score">
+		INSERT INTO score (commonScore, finalScore, totalScore, studentID, teacherID) 
+		VALUES (#{commonScore}, #{finalScore}, #{totalScore}, #{studentID}, #{teacherID})
+	</insert>
+	
+	<update id="setCoursePercent" parameterType="Course">
+		UPDATE course
+		set commonPercent=#{commonPercent},finalPercent=#{finalPercent}
+		where courseID = #{courseID}
+	</update>
+	
+	<select id="queryCoursePercent" parameterType="int" resultType="Course">
+		select *
+		from course
+		where courseID = #{courseID}
+	</select>
+	
+	
 </mapper>

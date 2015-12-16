@@ -9,6 +9,7 @@ public class Score {
 	private int studentID;
 	private int teacherID;
 	private String remark;
+	
 	public int getScoreID() {
 		return scoreID;
 	}

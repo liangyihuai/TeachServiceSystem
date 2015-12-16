@@ -9,5 +9,8 @@ public interface TeacherMapper {
 	 * @return
 	 */
 	Teacher getTeacherByName(String name);
-	
+	/**
+	 * 更新记录
+	 */
+	void update(Teacher teacher);
 }

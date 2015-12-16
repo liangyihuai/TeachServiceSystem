@@ -1,5 +1,7 @@
 package com.huai.beans;
 
+import java.util.Date;
+
 public class Source {
 
 	private int sourceID;
@@ -8,8 +10,22 @@ public class Source {
 	private int studentID;
 	private int teacherID;
 	private int courseID;
+	private Date uploadDate;
+	private String description;
 	
 	
+	public Date getUploadDate() {
+		return uploadDate;
+	}
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getCourseID() {
 		return courseID;
 	}

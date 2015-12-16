@@ -47,8 +47,10 @@ public class LoginFilter implements Filter{
 			return;
 		}
 		
-		Object teacher = req.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
-		if(teacher == null){
+//		Object teacher = req.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
+		
+		Object obj = req.getSession().getAttribute(RoleUtil.ROLE_NAME_kEY);
+		if(obj == null){
 			resp.sendRedirect(request.getServletContext().getContextPath()+"/html/index.html");
 			return ;
 		}

@@ -7,5 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTeacherByName" parameterType="String" resultType="Teacher">
 		Select * From teacher Where name=#{name}
 	</select>
-	
+	<select id="update" parameterType="Teacher">
+		Update teacher 
+		Set name=#{name},password=#{password},sex=#{sex},school=#{school},college=#{college} 
+		Where teacherID=#{teacherID}
+	</select>
 </mapper>
