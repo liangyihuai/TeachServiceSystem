@@ -20,7 +20,7 @@ function getFileList() {
             var jsondata= $.parseJSON(data).sourseList;
             var html = "";
             $.each(jsondata, function (index,value) {
-                html+=" <li class='list-group-item'><span class='glyphicon glyphicon-file'></span><span class='none fileId'>"+jsondata[index].sourceID+"</span><span class='headline'>"+jsondata[index].headline+"</span><div class='pull-right'><a href='javascript:void(0);' class='download'><span class='glyphicon glyphicon-download'></span></a><a href='javascript:void(0);' class='remove'><span class='glyphicon glyphicon-remove'></span></a></div></li>";
+                html+=" <li class='list-group-item'><form><span class='glyphicon glyphicon-file'></span><input type='hidden' name='sourceID' id='sourceID' value='"+jsondata[index].sourceID+"' /><span class='headline'>"+jsondata[index].headline+"</span><div class='pull-right'><a href='javascript:void(0);' class='download'><span class='glyphicon glyphicon-download'></span></a><a href='javascript:void(0);' class='remove'><span class='glyphicon glyphicon-remove'></span></a></div></form></li>";
             })
             $fileList.empty().append(html);
         }
@@ -57,14 +57,10 @@ function uploadFile() {
 function download(){
     var $fileList=$('.file-list ul');
     $fileList.on('click','.download',function () {
-        var thisID=$(this).parents('li').find('span').eq(1).html();
-        alert(thisID)
-        $.ajax({
+        var thisform=$(this).parents('form');
+        thisform.ajaxSubmit({
             type:"GET",
             url:"../source?operate=download",
-            data:{
-                sourceID:thisID,
-            }
         });
     })
 }
@@ -75,8 +71,7 @@ function download(){
 function remove(){
     var $fileList=$('.file-list ul');
     $fileList.on('click','.remove',function () {
-        var thisID=$(this).parents('li').find('span').eq(1).html();
-        alert(thisID)
+        var thisID=$(this).parents('form').find('input').val();
         $.ajax({
             type:"POST",
             url:"../source?operate=deleteFile",
