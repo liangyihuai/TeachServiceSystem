@@ -254,14 +254,25 @@
             <div class="upload">
                 <form action="../student?operate=import" method="post" enctype="multipart/form-data">
                     <div class="input-group">
-                        <input type="file" class="form-control" name="file" id="file" />
-                        <a class="input-group-addon" href="javascript:void(0);"><span class="glyphicon glyphicon-upload"></span></a>
+                        <input type="file" class="form-control" name="file" id="file"/>
+                        <a class="input-group-addon" href="javascript:void(0);"><span
+                                class="glyphicon glyphicon-upload"></span></a>
                     </div>
                 </form>
             </div>
             <div class="file-list row">
                 <ul class="list-group col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-
+                    <li class='list-group-item'>
+                        <form>
+                            <span class='glyphicon glyphicon-file'></span>
+                            <input type="text" name="sourceID" id="sourceID" class='none fileId' />
+                            <span class='headline'>中国近代史</span>
+                            <div class='pull-right'>
+                                <a href='javascript:void(0);' class='download'><span class='glyphicon glyphicon-download'></span></a>
+                                <a href='javascript:void(0);' class='remove'><span class='glyphicon glyphicon-remove'></span></a>
+                            </div>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
