@@ -2,12 +2,15 @@
  * Created by dust on 2015/12/11.
  */
 $(function () {
-    var color=['#F44336','#F50057','#2196F3','#03A9F4','#FFEA00'];
+    var color=['#F44336','#F50057','#2196F3','#03A9F4','#FFEA00'];//声明16机制颜色数组
     showButton();
     loadList($.cookie('currentPage'),color);
     turnPage(color);
     sendMessage();
 });
+/*发送信息
+* 模块功能：判断输入框中字符的数目，合法进行发送
+*/
 function sendMessage() {
     var $sendButton = $('.leave_msg').find('button');
     var $msg_content = $('#msg_content');
@@ -34,6 +37,7 @@ function sendMessage() {
         }
     });
 }
+/*按钮显示隐藏*/
 function showButton() {
     var $sendButton = $('.send');
     var $leave_msg = $('.leave_msg');
@@ -41,6 +45,9 @@ function showButton() {
         $leave_msg.slideToggle();
     });
 }
+/*页面跳转
+*模块功能：点击上一页下一页调用 loadList(currentPage,color)进行跳转
+*/
 function turnPage(color) {
     var prev = $('.prev');
     var next = $('.next');
@@ -76,7 +83,7 @@ function loadList(currentPage,color) {
                 var msg_item_name = jsonData[index].writer;
                 var msg_item_text = jsonData[index].content;
                 var msg_item_time = jsonData[index].time;
-                var thisIndex=Math.floor(Math.random()*4)
+                var thisIndex=Math.floor(Math.random()*(color.length-1));
                 var thisColor=color[thisIndex];
                 html += "<div class='msg_item row'><span class='msg_item_name' style='background-color:"+thisColor +"'>" + msg_item_name + "</span><div class='msg_item_content' style='background-color:"+thisColor+"'><span class='msg_item_text'>" + msg_item_text + "</span><span class='msg_item_time'>" + msg_item_time + "</span></div></div>"
             });
