@@ -72,6 +72,7 @@ ul.course li{
 	margin: 5px;
     border: 1px solid #cccccc;
     box-shadow: 2px 5px 2px #ccc;
+	height: 400px;
 }
 .course-item-desc{
     text-align: center;
@@ -85,12 +86,16 @@ ul.course li{
 	width: 120px;
 	height: 120px;
 }
-.course-item-desc-title h3{
+.course-item-desc-title{
     font-size: 1.2em;
     font-weight: bold;
+	height: 38px;
+	overflow: hidden;
 }
 .course-item-desc-text {
 	font-size: 0.8em;
+	height: 80px;
+	overflow: hidden;
 }
 .enter_manage,.delete{
 	margin: 5px;
