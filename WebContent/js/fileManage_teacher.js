@@ -4,7 +4,6 @@
 $(function () {
     getFileList();
     uploadFile();
-    //download();
     remove();
 });
 //获取文件列表
@@ -47,20 +46,6 @@ function uploadFile() {
                     alert("上传失败，请重试！");
                 }
             }
-        });
-    })
-}
-//点击下载按钮下载文件
-/*参数：fileID
- * 返回：后台调用浏览器进行下载
- */
-function download(){
-    var $fileList=$('.file-list ul');
-    $fileList.on('click','.download',function () {
-        var thisform=$(this).parents('form');
-        thisform.ajaxSubmit({
-            type:"GET",
-            url:"../source?operate=download",
         });
     })
 }

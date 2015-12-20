@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教学辅助系统——学生端</title>
+    <link rel="stylesheet" href="../css/style_student.css"/>
+    <!--jquery引入，必须在bootstrap.js文件之前引入-->
+    <script src="../js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--cookies插件-->
+    <script src="../js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <!--表单验证插件-->
+    <script src="../js/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--表单验证中文插件-->
+    <script src="../js/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--表单提交插件-->
+    <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+    <!--学生js文件-->
+    <script src="../js/student.js" type="text/javascript" charset="utf-8"></script>
+    <!--留言墙js文件-->
+    <script src="../js/leaveWordWall.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="curent_center">
+    <span id="current_user">2013211729</span>
+    <span id="logout">注销</span>
+</div>
+<div class="modal" id="doHomework">
+    <div>
+        <div class="modal_header">
+            <h2>提交作业</h2><span class="close_modal">&times;</span>
+        </div>
+        <div class="modal_body">
+            <div class="homeworkTitle">
+                <p>这里是作业题目这里是作业题目这里是作业题目这里是作业题目这里是作业题目这里是作业题目这里是作业题目这里是作业题目这里是作业题目这里是作业题目</p>
+            </div>
+            <form>
+                <div class="YourHomework">
+                    <textarea name="homeworkContent" id="homeworkContent" cols="20" rows="15"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal_footer">
+            <button class="btn cancel">取消</button>
+            <button class="btn confirm">确认</button>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <span id="close">X</span>
+    <div class="content">
+        <header>
+            <h1>教学辅助系统学生端</h1>
+            <span>欢迎你进行使用！</span>
+        </header>
+        <nav>
+            <ul>
+                <li class="active"><a href="#course_process">课程进度</a></li>
+                <li><a href="#homework">作业</a></li>
+                <li><a href="#fileCenter">资料中心</a></li>
+                <li><a href="#msgwall">留言墙</a></li>
+            </ul>
+        </nav>
+        <div class="tab_design">
+            <section id="course_process" class="active">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>时间</th>
+                        <th>安排</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">当前周数：<span class="currentTime"></span></td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </section>
+            <section id="homework">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>布置日期</th>
+                        <th>截至日期</th>
+                        <th>题目</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td colspan="5">一共<span class="acount-work"></span>次作业</td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </section>
+            <section id="fileCenter">
+                <div class="upload">
+                    <form enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input type="file" class="input-control" name="file" id="file"/>
+                            <button type="button" class="btn">上传</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="file-list">
+                    <ul>
+                        <!--<li>
+                            <form>
+                                <div class="left">
+                                    <span class='file_icon'></span>
+                                    <input type='hidden' name='sourceID' id='sourceID' value='1'/>
+                                    <span class='headline'>中国现代史纲要.pdf</span>
+                                </div>
+                                <div class='right'>
+                                    <button type='button' class='btn download'>下载</button>
+                                    <button type='button' class='btn remove'>删除</button>
+                                </div>
+                            </form>
+                        </li>-->
+                    </ul>
+                </div>
+            </section>
+            <section id="msgwall">
+                <div class="leave_msg">
+                    <span class="msg_title">留言板</span>
+                    <div>
+                        <textarea name="msg_content" id="msg_content" cols="15" rows="10"
+                                  placeholder="请输入留言内容，不得为空或者超过250个字符！"></textarea>
+                    </div>
+                    <button class="btn" type="button">钉上去</button>
+                </div>
+                <div class="msg_content">
+                    <div class="msg_box">
+
+                    </div>
+                    <div msg_footer>
+                        <ul class="pager">
+                            <li class="prev left">
+                                <button class="btn"><span>&larr;</span>上一页</button>
+                            </li>
+                            <li class="next right">
+                                <button class="btn">下一页<span>&rarr;</span></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
