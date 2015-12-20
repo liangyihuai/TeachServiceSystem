@@ -7,6 +7,7 @@ $(function () {
     getScore();
     update();
 });
+//设置成绩百分比模块
 function setPercent() {
     $('#setPercent .confirm').click(function () {
         //验证相加是否等于100
@@ -68,6 +69,7 @@ function setPercent() {
         }
     });
 }
+//得到成绩模块
 function getScore() {
     $.ajax({
         type: "POST",
@@ -92,6 +94,7 @@ function getScore() {
         }
     });
 }
+//动态计算成绩以及输入验证模块
 function countScore(commonPercent, finalPercent) {
     $("tbody").on('input', 'input', function (event) {
         var event = event || window.event;
@@ -117,6 +120,7 @@ function countScore(commonPercent, finalPercent) {
         }
     });
 }
+//更新成绩模块
 function update() {
     $('tbody').on('click', '.edit', function () {
         $(this).find('span').toggleClass(function () {
@@ -162,6 +166,7 @@ function update() {
         }
     });
 }
+//计算平均分模块
 function getAverage(){
     var length=$('.countScore').length;
     var sum=0;

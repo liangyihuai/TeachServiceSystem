@@ -19,7 +19,7 @@ function getCourseList() {
         type: "POST",
         url: "../course?operate=getCourses",
         data: {
-            teacherID: $.cookie('currentUser')
+            teacherID: $.cookie('current_teacher')
         },
         success: function (data, statusText) {
             var html = '';
@@ -48,7 +48,7 @@ function chooseCourse() {
             //TODO 发生选择课程错误的处理
             success: function (data, statusText) {
                 if(data==1){
-                    window.location.href='course-process.html';
+                    window.location.href='courseProcess_teacher.html';
                 }
             }
         });

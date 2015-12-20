@@ -91,6 +91,7 @@ function loadList(currentPage,color) {
             $.cookie('currentPage', currentPage);
             if ($.cookie('currentPage') == 1) {
                 prev.addClass('disabled');
+                // TODO 考虑学生端不引用bootstrap处理
             } else {
                 prev.removeClass('disabled');
             }
