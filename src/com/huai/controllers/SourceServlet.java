@@ -64,8 +64,9 @@ public class SourceServlet extends HttpServlet {
 			Source source = sourceService.getSourceBySourceID(sourceID);
 			String path = source.getPath();
 			String headline = source.getHeadline();
+			String filename = DownloadUtils.getNormalFilename(request, headline);
 			System.out.println("path:"+path);
-			DownloadUtils.launchDownloadStream(response, path, headline);
+			DownloadUtils.launchDownloadStream(response, path, filename);
 		} else if ("getFileList".equals(operate)) {
 			getFileList(request, response, courseID);
 		}
