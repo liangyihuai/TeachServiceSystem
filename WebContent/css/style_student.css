@@ -8,7 +8,9 @@
 	=基本样式
 ///////////////////////////////////////// */
 body {
-    background: url("../images/wood_bg.jpg");
+    background: #757F9A; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #757F9A , #D7DDE8); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #757F9A , #D7DDE8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     font-size: 16px;
 }
 .left{
@@ -108,12 +110,11 @@ header > h1 {
 .tab_design {
     width: 1024px;
     clear: both;
-    margin-top: 50px;
     overflow: hidden;
     background: #fff;
     color: #333;
     position: relative;
-    min-height: 1000px;
+    min-height: 1500px;
     border-radius: 0 2px 2px 2px;
 }
 
@@ -148,7 +149,7 @@ nav li a {
 section {
     width: 984px;
     padding: 20px;
-    margin: 20px auto;
+    margin: 0px auto;
     display: none;
 }
 
@@ -209,7 +210,7 @@ section.active {
 .leave_msg textarea, .leave_msg textarea:focus {
     padding: 2px;
     font-size: 16px;
-    line-height: 1.8em;
+    line-height: 25px;
     margin: 2px auto;
     border: none;
     background: none;
@@ -274,6 +275,8 @@ section.active {
 }
 
 .msg_item_content {
+    min-height: 50px;
+    overflow: hidden;
     margin: 5px 10px 0 65px;
     padding: 5px;
     border-radius: 0 8px 0 8px;
@@ -309,52 +312,85 @@ section.active {
 }
 /*课程列表*/
 .item {
-    text-align: center;
     display: inline-block;
-    height: 200px;
-    padding-top: 50px;
+    width: 200px;
+    height: 250px;
+    /*vertical-align: top;*/
+    margin: 1em 1.5em 2em 0;
     cursor: pointer;
-    perspective: 5000px;
+    font-family: Tahoma, Arial;
+    -webkit-perspective: 4000px;
+    -moz-perspective: 4000px;
+    -ms-perspective: 4000px;
+    -o-perspective: 4000px;
+    perspective: 4000px;
 }
 
 .inner {
+    height: 250px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    transition: all .3s;
-    transform: translateZ(-500px);
+
+    -webkit-transition: -webkit-transform .6s;
+    -moz-transition: -moz-transform .6s;
+    -ms-transition: -ms-transform .6s;
+    -o-transition: -o-transform .6s;
+    transition: transform .6s;
 }
 
-.inner:hover {
-    transform: rotateY(-180deg) translateZ(-1200px);
+/*.inner:hover {*/
+    /*-webkit-transform: rotateY(-180deg);*/
+    /*-moz-transform: rotateY(-180deg);*/
+    /*-ms-transform: rotateY(-180deg);*/
+    /*-o-transform: rotateY(-180deg);*/
+    /*transform: rotateY(-180deg);*/
+/*}*/
+.inner:hover img{
+    transform-origin: 100% 100%;
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -ms-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+    /*-webkit-transform: translateZ(-1px);*/
+    /*-moz-transform: translateZ(-1px);*/
+    /*-ms-transform: translateZ(-1px);*/
+    /*-o-transform: translateZ(-1px);*/
+    /*transform: translateZ(-1px);*/
 }
-
 .inner img {
+    display: block;
+    transform-origin: 100% 100%;
+    border-radius: 3px;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
+    -webkit-transform: translateZ(1px);
+    -moz-transform: translateZ(1px);
+    -ms-transform: translateZ(1px);
+    -o-transform: translateZ(1px);
+    transform: translateZ(1px);
+    transition:transform .6s ease-in-out .3s;
     width: 200px;
     height: 250px;
-    margin: 0 auto;
-    display: block;
-    transition: all .3s;
-    box-shadow: 0 5px 10px #333;
-    border-radius: 5px;
+    background-color: #F4F5F6;
 }
 .inner .desc {
     font-size: 0.8em;
     margin: -250px auto 0;
-    width: 200px;
-    height: 250px;
+    width: 180px;
+    height: 230px;
+    padding: 10px;
     text-align: left;
-    border-bottom-right-radius: 25px;
-    transform: rotateY(180deg) translateZ(1px) ;
-    background-color: #F4F5F6;
+    border-radius: 5px;
+    background: #757F9A; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #757F9A, #D7DDE8); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #757F9A, #D7DDE8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .inner .desc h2{
     font-size: 1.2em;
     color: #0F95F8;
-}
-.inner:hover .desc {
-    padding: 10px;
-    -webkit-box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
 }
 /*遮罩，用户面板*/
 #close {

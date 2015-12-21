@@ -34,19 +34,26 @@ function uploadFile() {
     var $fileForm = $upload.find('form');
     var $uploadBtn = $upload.find('a');
     $uploadBtn.click(function () {
-        $fileForm.ajaxSubmit({
-            type: 'POST',
-            url: '../source?operate=uploadFile',
-            success: function (data, statusText) {
-                if (data == 1) {
-                    $(this).resetForm();
-                    alert('共享成功！');
-                    getFileList();
-                } else if(data==0) {
-                    alert("上传失败，请重试！");
+        var theSelectFile=$fileForm.find('input[type="file"]').val();
+        if(theSelectFile.length!=0){
+            $fileForm.ajaxSubmit({
+                type: 'POST',
+                url: '../source?operate=uploadFile',
+                success: function (data, statusText) {
+                    if (data == 1) {
+                        $(this).resetForm();
+                        alert('共享成功！');
+                        getFileList();
+                    } else if(data==0) {
+                        alert("上传失败，请重试！");
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            alert('请选择一个文件进行上传');
+            return;
+        }
+
     })
 }
 //点击删除按钮删除文件
