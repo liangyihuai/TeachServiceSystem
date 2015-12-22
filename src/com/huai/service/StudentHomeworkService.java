@@ -36,4 +36,6 @@ public interface StudentHomeworkService {
 	 * @return 
 	 */
 	public String getContent(int homeworkID, int studentID);
+
+	public int getScore(int homeworkID, int studentID);
 }

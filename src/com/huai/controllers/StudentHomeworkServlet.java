@@ -66,10 +66,12 @@ public class StudentHomeworkServlet extends HttpServlet {
 				JSONObject ob = new JSONObject();
 				
 				String content = studentHomeworkService.getContent(homework.getHomeworkID(),studentID);
+				int score = studentHomeworkService.getScore(homework.getHomeworkID(), studentID);
 				ob.element("content", homework.getContent())
 				.element("homeworkID", homework.getHomeworkID())
 				.element("buildDate", homework.getBuildDate())
 				.element("deadline", homework.getDeadline());
+				
 				if(content == null){
 					ob.element("studentHomeworkContent", "");					
 				} else {

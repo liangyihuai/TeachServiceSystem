@@ -21,4 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update studentHomeworkRelation set content=#{2} where homeworkID=#{0} &amp;&amp; studentID=#{1}
 	</update>
 	
+	<select id="getScore" resultType="int">
+		select score from studentHomeworkRelation where homeworkID=#{0} &amp;&amp; studentID=#{1}
+	</select>
 </mapper>

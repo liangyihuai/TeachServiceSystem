@@ -37,6 +37,8 @@ public interface StudentHomeworkMapper {
 	 * @param content
 	 */
 	void modifyHomework(int studentHomeworkID, int studentID, String content);
+
+	int getScore(int homeworkID, int studentID);
 	
 	
 }
