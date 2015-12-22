@@ -72,6 +72,11 @@ public class StudentHomeworkServlet extends HttpServlet {
 				.element("buildDate", homework.getBuildDate())
 				.element("deadline", homework.getDeadline());
 				
+				if (score != 0) {
+					ob.element("score", score);
+				} else {
+					ob.element("score", "");
+				}
 				if(content == null){
 					ob.element("studentHomeworkContent", "");					
 				} else {
