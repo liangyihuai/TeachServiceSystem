@@ -13,6 +13,8 @@ import com.huai.persistence.TeacherMapper;
 import com.huai.service.LoginService;
 import com.huai.utils.RoleUtil;
 
+import java.util.List;
+
 @Service
 public class LoginServiceImpl implements LoginService{
 	 
@@ -37,18 +39,22 @@ public class LoginServiceImpl implements LoginService{
 	 * @return
 	 */
 	@Override
-	public boolean validateStudent(String studentName, String password, HttpServletRequest request){
-		Assert.notNull(studentName, "studentName must not be null");
+	public boolean validateStudent(String stuNO, String password, HttpServletRequest request){
+		Assert.notNull(stuNO, "studentName must not be null");
 		Assert.notNull(password, "password must not be null");
-		
-		Student stu = studentMapper.getStudentByName(studentName);
-		if(stu != null && password.equals(stu.getPassword())){
-			if(request != null)
-				RoleUtil.addStudentRole(request.getSession(), stu);
-			return true;
-		}else{
-			return false;
+
+		List<Student> studentList = studentMapper.getStudentsByStuNO(stuNO);
+
+		for(Student stu : studentList){
+			String pass = stu.getPassword();
+			if(pass != null && pass.equals(password)){
+				//只要一个成立就可以
+				RoleUtil.addStudentRole(request.getSession(),stu);
+				return true;
+			}
 		}
+
+		return false;
 	}
 	
 	@Override
