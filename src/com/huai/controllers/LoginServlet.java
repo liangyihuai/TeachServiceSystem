@@ -56,10 +56,10 @@ public class LoginServlet extends HttpServlet{
 			writer.close();
 			return ;
 		}else if("studentLogin".equals(operate)){
-			String name = request.getParameter("username");
+			String studentNO = request.getParameter("username");
 			String password = request.getParameter("password");
 
-			boolean flag = loginService.validateStudent(name, password,request);
+			boolean flag = loginService.validateStudent(studentNO, password,request);
 			JSONObject jo = new JSONObject();
 			if(flag){
 				jo.element("status","1");
