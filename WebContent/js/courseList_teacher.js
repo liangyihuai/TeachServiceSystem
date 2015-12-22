@@ -18,9 +18,6 @@ function getCourseList() {
     $.ajax({
         type: "POST",
         url: "../course?operate=getCourses",
-        data: {
-            teacherID: $.cookie('currentUser')
-        },
         success: function (data, statusText) {
             var html = '';
             var jsonData = $.parseJSON(data).courses;
@@ -48,7 +45,7 @@ function chooseCourse() {
             //TODO 发生选择课程错误的处理
             success: function (data, statusText) {
                 if(data==1){
-                    window.location.href='course-process.html';
+                    window.location.href='courseProcess_teacher.html';
                 }
             }
         });

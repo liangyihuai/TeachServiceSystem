@@ -4,28 +4,22 @@ import com.huai.beans.Course;
 import com.huai.beans.Score;
 import com.huai.beans.Student;
 import com.huai.beans.Teacher;
-import com.huai.service.CourseService;
 import com.huai.service.ScoreService;
 import com.huai.service.StudentService;
 import com.huai.utils.RoleUtil;
 import com.huai.utils.ServletUtil;
-
 import net.sf.json.JSONObject;
-
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +28,8 @@ import java.util.Map;
  */
 @WebServlet(urlPatterns = "/score")
 public class ScoreServlet extends HttpServlet{
-
-    private ScoreService scoreService = null;
+	
+	private ScoreService scoreService = null;
     private StudentService studentservice = null;
 
     public void init() throws ServletException {
@@ -46,9 +40,8 @@ public class ScoreServlet extends HttpServlet{
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String operate = request.getParameter("operate");
-
         System.out.println("operate = "+operate);
 
         if("getScore".equals(operate)){
@@ -56,28 +49,15 @@ public class ScoreServlet extends HttpServlet{
         	getScoreList( request, response);
         }else if("updateScore".equals(operate)){
         	//更新成绩
-        	try {
-				updateScore( request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			updateScore( request, response);
         }else if("updateCoursePercent".equals(operate)){
         	//设置成绩所占比例
-        	try {
-				setCoursePercent( request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	
+			setCoursePercent( request, response);
         }
     }
     
-   
-
 	private void setCoursePercent(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response)  {
 		int commonPercent = Integer.parseInt(request.getParameter("commonPercent"));
 		int finalPercent = Integer.parseInt(request.getParameter("finalPercent"));
 		int courseID = Integer.parseInt((String) request.getSession()
@@ -86,19 +66,23 @@ public class ScoreServlet extends HttpServlet{
 		course.setCourseID(courseID);
 		course.setCommonPercent(commonPercent);
 		course.setFinalPercent(finalPercent);
-		if(scoreService.setCoursePercent(course)){
-			PrintWriter writer = response.getWriter();
-			writer.write("1");
-			writer.close();
-		}else{
-			PrintWriter writer = response.getWriter();
-			writer.write("0");
-			writer.close();
+		try {
+			if(scoreService.setCoursePercent(course)){
+				PrintWriter writer = response.getWriter();
+				writer.write("1");
+				writer.close();
+			}else{
+				PrintWriter writer = response.getWriter();
+				writer.write("0");
+				writer.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void updateScore(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response) throws IOException {
     	
     	int courseID = Integer.parseInt((String) request.getSession()
 				.getAttribute(ServletUtil.COURSE_ID));   	
@@ -130,21 +114,29 @@ public class ScoreServlet extends HttpServlet{
     	   	
     	for (Map<String,Object> map : scoreList) {
 			if(map.get("studentNO").equals(studentNO)){						
-				if(scoreService.updateScore(score)){
-					PrintWriter writer = response.getWriter();
-					writer.write("1");
-					writer.close();
-					return;	
+				try {
+					if(scoreService.updateScore(score)){
+						PrintWriter writer = response.getWriter();
+						writer.write("1");
+						writer.close();
+						return;	
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				counter = 1;
 			}
     	}
     	if(counter != 1){
-			if(scoreService.insertIntoScore(score)){
-				PrintWriter writer = response.getWriter();
-				writer.write("1");
-				writer.close();
-				return;	
+			try {
+				if(scoreService.insertIntoScore(score)){
+					PrintWriter writer = response.getWriter();
+					writer.write("1");
+					writer.close();
+					return;	
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
     	PrintWriter writer = response.getWriter();
@@ -189,9 +181,6 @@ public class ScoreServlet extends HttpServlet{
 		writer.close();
 		
     }
-
-
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

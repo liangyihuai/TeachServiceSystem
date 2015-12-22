@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* style.css - 基本样式文档
+/* style_teacher.css - 基本样式文档
 ---------------------------------------------------------------- */
 /* /////////////////////////////////////////
 	=基本样式
@@ -72,6 +72,7 @@ ul.course li{
 	margin: 5px;
     border: 1px solid #cccccc;
     box-shadow: 2px 5px 2px #ccc;
+	height: 400px;
 }
 .course-item-desc{
     text-align: center;
@@ -85,12 +86,16 @@ ul.course li{
 	width: 120px;
 	height: 120px;
 }
-.course-item-desc-title h3{
+.course-item-desc-title{
     font-size: 1.2em;
     font-weight: bold;
+	height: 38px;
+	overflow: hidden;
 }
 .course-item-desc-text {
 	font-size: 0.8em;
+	height: 80px;
+	overflow: hidden;
 }
 .enter_manage,.delete{
 	margin: 5px;
@@ -166,56 +171,42 @@ ul.course li{
 	top: -15px;
 }
 .msg_body{
-    background: -webkit-repeating-linear-gradient(#F4F5F6, #F4F5F6 29px, #337AB7 31px); /* Safari 5.1 - 6.0 */
-    background: -o-repeating-linear-gradient(#F4F5F6, #F4F5F6 29px, #337AB7 31px); /* Opera 11.1 - 12.0 */
-    background: -moz-repeating-linear-gradient(#F4F5F6, #F4F5F6 29px, #337AB7 31px); /* Firefox 3.6 - 15 */
-    background: repeating-linear-gradient(#F4F5F6, #F4F5F6 29px, #337AB7 31px); /* 标准的语法（必须放在最后） */
+    backgrund-color:#fff;
 }
 .panel-footer{
     text-align: center;
 }
 .msg_box{
-	height: 600px;
     padding: 10px;
-	margin-buttom: 20px;
+	margin: 10px auto;
 }
 .msg_item{
 	text-align: left;
-	margin-bottom: 20px;
-	color: #ffffff;
+	margin: 10px auto 20px;
+	color: #fff;
 }
 .msg_item_name{
+	display: block;
 	overflow: hidden;
 	text-align: center;
-	display: inline-block;
-	color: #000;
+	float:left;
 	width: 60px;
 	height: 60px;
 	line-height: 60px;
 	border-radius: 30px;
-	background-color: orange;
+	background-color: #3394B7;
 }
 .msg_item_content{
-	margin-left: 20px;
-	display: inline-block;
-	padding: 5px 10px;
-	border-radius: 0 5px 5px 5px;
-	background-color: #8a6d3b;
+	overflow: hidden;
+	margin: 5px 10px 0 65px;
+	padding: 5px;
+	border-radius: 0 8px 0 8px;
+	background-color: #EBECED;
 	position: relative;
-    top: 10px;
     box-shadow: 3px 4px 2px 0 #cccccc;
 }
-.msg_item_content:before{
-	content: '';
-	width: 0px;
-	height: 0px;
-	border: solid 5px;
-	border-color: #8a6d3b #8a6d3b #F4F5F6 #F4F5F6;
-	position: absolute;
-	top: 0px;
-	left: -9px;
-}
 .msg_item_time{
+	background: none;
     display: block;
 	font-size: 0.8em;
 	color: #cccccc;
@@ -241,4 +232,9 @@ ul.course li{
 .file-list ul li span{
     font-size: 20px;
     margin: 0 20px;
+}
+button.download{
+	color: #337AB7;
+	border: none;
+	background:none;
 }

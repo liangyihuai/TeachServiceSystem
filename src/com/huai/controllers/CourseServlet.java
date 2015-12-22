@@ -84,9 +84,11 @@ public class CourseServlet extends HttpServlet{
 		if(courseService.deleteCourseByCourseID(courseID)){
 			PrintWriter writer = response.getWriter();
 			writer.write("1");
+			writer.close();
 		}else{
 			PrintWriter writer = response.getWriter();
 			writer.write("0");
+			writer.close();
 		}
 	}
 
@@ -109,9 +111,11 @@ public class CourseServlet extends HttpServlet{
 		if(courseService.addCourseByTeacherID(course)){
 			PrintWriter writer = response.getWriter();
 			writer.write("1");
+			writer.close();
 		}else{
 			PrintWriter writer = response.getWriter();
 			writer.write("0");
+			writer.close();
 		}
 		
 	}
