@@ -8,6 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getStuIDByStuNO" parameterType="String" resultType="Integer">
 		Select studentID From student Where studentNO=#{studentNO}
 	</select>
+	<select id="getStudentsByStuNO" parameterType="String" resultType="Student">
+		SELECT * FROM student WHERE studentNO = #{studentNO}
+	</select>
 	<!-- 根根据学生名字获取学生对象 -->
 	<select id="getStudentByName" parameterType="String" resultType="Student">
 		Select * From student Where name=#{name}

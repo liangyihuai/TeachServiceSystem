@@ -64,11 +64,9 @@ public class SourceServlet extends HttpServlet {
 			Source source = sourceService.getSourceBySourceID(sourceID);
 			String path = source.getPath();
 			String headline = source.getHeadline();
+			String filename = DownloadUtils.getNormalFilename(request, headline);
 			System.out.println("path:"+path);
-//			downloadFile(request, response, sourceID);
-			DownloadUtils.launchDownloadStream(response, path, headline);
-			
-			
+			DownloadUtils.launchDownloadStream(response, path, filename);
 		} else if ("getFileList".equals(operate)) {
 			getFileList(request, response, courseID);
 		}
@@ -84,8 +82,7 @@ public class SourceServlet extends HttpServlet {
 		System.out.println("operate = " + operate);
 
 		if ("uploadFile".equals(operate)) {
-			
-				uploadFile(request, response, courseID);
+			uploadFile(request, response, courseID);
 		} else if ("deleteFile".equals(operate)) {
 			int sourceID = Integer.parseInt(request.getParameter("sourceID"));
 			deleteFile(request, response, sourceID);
@@ -105,15 +102,12 @@ public class SourceServlet extends HttpServlet {
 
 	private void uploadFile(HttpServletRequest request,
 			HttpServletResponse response, int courseID) {
-
 		com.huai.core.UploadFile upload = new com.huai.core.UploadFile();
 		java.util.Map<String,String> resultMap = upload.uploadFile(request, response);
 		String path = resultMap.get(com.huai.core.UploadFile.ABSOLUTE_PATH);
-
-		String headline = "";
 		int teacherID = 0;
 		int studentID = 0;
-		headline = resultMap.get(com.huai.core.UploadFile.FILE_NAME);
+		String headline = resultMap.get(com.huai.core.UploadFile.FILE_NAME);
 		Date uploaddate = new Date(System.currentTimeMillis());
 
 		Source source = new Source();
@@ -131,14 +125,11 @@ public class SourceServlet extends HttpServlet {
 		if (teacher != null) {
 			teacherID = teacher.getTeacherID();
 			source.setTeacherID(teacherID);
-
 		} else if (student != null) {
 			studentID = student.getStudentID();
 			source.setStudentID(studentID);
 		}
-
 		boolean runStatus = sourceService.uploadFile(source);
-
 		PrintWriter writer = null;
 		try {
 			writer = response.getWriter();
@@ -153,44 +144,12 @@ public class SourceServlet extends HttpServlet {
 		}
 	}
 
-	private void downloadFile(HttpServletRequest request,
-			HttpServletResponse response, int sourceID) throws IOException {
-		Source source = sourceService.getSourceBySourceID(sourceID);
-		String path = source.getPath();
-		String headline = source.getHeadline();
-		FileInputStream in = null;
-		ServletOutputStream out = null;
-		try {
-			response.setContentType("application/x-msdownload");
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ headline);
-			in = new FileInputStream(path);
-			out = response.getOutputStream();
-			out.flush();
-			int aRead = 0;
-			while ((aRead = in.read()) != -1 & in != null) {
-				out.write(aRead);
-			}
-			out.flush();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				in.close();
-				out.close();
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	private void deleteFile(HttpServletRequest request,
 			HttpServletResponse response, int sourceID) throws IOException {
 		Teacher teacher = (Teacher) request.getSession().getAttribute(
 				RoleUtil.TEACHER_ROLE_NAME);
 		Student student = (Student) request.getSession().getAttribute(
 				RoleUtil.STUDENT_ROLE_NAME);
-
 		Source source = sourceService.getSourceBySourceID(sourceID);
 		String path = source.getPath();
 		File file = new File(path);
