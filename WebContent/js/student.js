@@ -164,12 +164,14 @@ function selectOne() {
         if($(this).text()=="提交作业"){
             $modal.find('#homeworkContent').html('');
             $modal.find('.homeworkTitle p').html($homeworktitle);
+            $modal.find('#homeworkContent').html($(this).find('input').eq(0).val()).removeAttr('readonly');
             $modal.find('#homeworkScore').hide();
             $modal.find('.confirm').text('提交');
             $modal.find('button').show();
             $modal.show(500);
         }else if($(this).text()=="修改作业"){
             $modal.find('.homeworkTitle p').html($homeworktitle);
+            $modal.find('#homeworkContent').html($(this).find('input').eq(0).val()).removeAttr('readonly');
             $modal.find('#homeworkContent').html($(this).find('input').val());
             $modal.find('#homeworkScore').hide();
             $modal.find('.confirm').text('修改');
