@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.huai.beans.Homework;
+import com.huai.beans.StudentHomeWorkRelation;
 
 public interface StudentHomeworkService {
 	/**
@@ -38,4 +39,9 @@ public interface StudentHomeworkService {
 	public String getContent(int homeworkID, int studentID);
 
 	public int getScore(int homeworkID, int studentID);
+
+	public String getComment(int homeworkID, int studentID);
+
+	public StudentHomeWorkRelation getStudentHomework(int homeworkID,
+			int studentID);
 }

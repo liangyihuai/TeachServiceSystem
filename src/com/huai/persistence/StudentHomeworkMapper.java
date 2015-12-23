@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.huai.beans.Homework;
+import com.huai.beans.StudentHomeWorkRelation;
 
 public interface StudentHomeworkMapper {
 	
@@ -39,6 +40,10 @@ public interface StudentHomeworkMapper {
 	void modifyHomework(int studentHomeworkID, int studentID, String content);
 
 	int getScore(int homeworkID, int studentID);
+
+	String getComment(int homeworkID, int studentID);
+
+	StudentHomeWorkRelation getStudentHomework(int homeworkID, int studentID);
 	
 	
 }

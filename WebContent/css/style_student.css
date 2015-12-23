@@ -178,15 +178,18 @@ section.active {
 }
 /*留言板*/
 .send {
+    width: 96px;
+    height: 96px;
     font-size: 3em;
+    background: url("../images/send.png");
     position: fixed;
-    right: 8%;
+    right: 5%;
     bottom: 10%;
     z-index: 999;
 }
 
 .leave_msg {
-    display: block;
+    display: none;
     width: 200px;
     font-family: 华文楷体;
     text-align: center;

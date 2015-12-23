@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huai.beans.Homework;
+import com.huai.beans.StudentHomeWorkRelation;
 import com.huai.persistence.HomeworkMapper;
 import com.huai.persistence.StudentHomeworkMapper;
 import com.huai.service.StudentHomeworkService;
@@ -65,12 +66,21 @@ public class StudentHomeworkServiceImpl implements StudentHomeworkService{
 	@Override
 	public int getScore(int homeworkID, int studentID) {
 		int score;
-		if(studentHomeworkMapper.getScore(homeworkID, studentID) ){
-			score = 0;
-		} else {
-			score = studentHomeworkMapper.getScore(homeworkID, studentID);
-		}
+		score = studentHomeworkMapper.getScore(homeworkID, studentID);
 		return score;
+	}
+
+	@Override
+	public String getComment(int homeworkID, int studentID) {
+		String comment = studentHomeworkMapper.getComment(homeworkID, studentID);
+		return comment;
+	}
+
+	@Override
+	public StudentHomeWorkRelation getStudentHomework(int homeworkID,
+			int studentID) {
+		StudentHomeWorkRelation studentHomeWork = studentHomeworkMapper.getStudentHomework(homeworkID, studentID);
+		return studentHomeWork;
 	}
 
 }

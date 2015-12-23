@@ -46,6 +46,9 @@ function addPlan() {
                     } else {
                         alert(statusText);
                     }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
                 }
             });
         },
@@ -96,6 +99,9 @@ function addStudent() {
                     } else {
                         alert('发生错误，请重试');
                     }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
                 }
             });
         },
@@ -157,6 +163,9 @@ function addHomework() {
                     } else if (data == 0) {
                         alert('发生错误，请重试！')
                     }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
                 }
             });
         },
