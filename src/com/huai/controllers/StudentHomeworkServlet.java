@@ -23,6 +23,7 @@ import sun.print.resources.serviceui;
 
 import com.huai.beans.Homework;
 import com.huai.beans.Student;
+import com.huai.beans.StudentHomeWorkRelation;
 import com.huai.beans.Teacher;
 import com.huai.service.HomeworkService;
 import com.huai.service.StudentHomeworkService;
@@ -65,16 +66,38 @@ public class StudentHomeworkServlet extends HttpServlet {
 			for (Homework homework : homeworks) {
 				JSONObject ob = new JSONObject();
 				
-				String content = studentHomeworkService.getContent(homework.getHomeworkID(),studentID);
 				ob.element("content", homework.getContent())
 				.element("homeworkID", homework.getHomeworkID())
 				.element("buildDate", homework.getBuildDate())
 				.element("deadline", homework.getDeadline());
+				
+				StudentHomeWorkRelation studentHomework = studentHomeworkService.getStudentHomework(homework.getHomeworkID(), studentID);
+				
+				if (studentHomework == null) {
+					ob.element("studentHomeworkContent", "").element("score", -1).element("comment", "");
+				} else {
+					ob.element("studentHomeworkContent", studentHomework.getContent()).element("score", studentHomework.getScore());
+					String comment = studentHomework.getComment();
+					if (comment == null) {
+						ob.element("comment", "");
+					} else {
+						ob.element("comment", comment);
+					}
+				}
+				/*String content = studentHomeworkService.getContent(homework.getHomeworkID(),studentID);
 				if(content == null){
-					ob.element("studentHomeworkContent", "");					
+					ob.element("studentHomeworkContent", "").element("score", -1);					
 				} else {
 					ob.element("studentHomeworkContent", content);	
+					int score = studentHomeworkService.getScore(homework.getHomeworkID(), studentID);
+					ob.element("score", score);
 				}
+				String comment = studentHomeworkService.getComment(homework.getHomeworkID(), studentID);
+				if (comment == null) {
+					ob.element("comment", "");
+				} else {
+					ob.element("comment", comment);
+				}*/
 				array.add(ob);
 			}
 			PrintWriter writer = response.getWriter();
@@ -90,17 +113,17 @@ public class StudentHomeworkServlet extends HttpServlet {
 				
 				PrintWriter writer = response.getWriter();
 				if (isSuccess) {
-					writer.write(1);
+					writer.print(1);
 				} else {
-					writer.write(0);
+					writer.print(0);
 				}
 			} else {
 				Boolean isSuccess = studentHomeworkService.modifyHomework(homeworkID, studentID, content, time);
 				PrintWriter writer = response.getWriter();
 				if (isSuccess) {
-					writer.write(1);
+					writer.print(1);
 				} else {
-					writer.write(0);
+					writer.print(0);
 				}
 			}
 		}
