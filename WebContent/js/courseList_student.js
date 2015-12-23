@@ -1,5 +1,6 @@
 $(function(){
     if ($.cookie('current_student')) {
+        $('#current_user').text($.cookie('current_student'));
         getCourseList();
         chooseCourse();
     } else {

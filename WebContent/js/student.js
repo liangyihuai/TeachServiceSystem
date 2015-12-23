@@ -5,6 +5,7 @@ $(function () {
     var color=['#F44336','#F50057','#2196F3','#03A9F4','#FFEA00'];//声明16机制颜色数组
     initCurrentPage();//初始化留言板
     if ($.cookie('current_student')) {
+        $('#current_user').text($.cookie('current_student'));
         getCourseProcess();
         toogleTab(color);
     } else {
@@ -38,19 +39,24 @@ function modal() {
         $(this).parents('.modal').hide(500);
     });
     $confirm.click(function () {
-        $modal_form.ajaxSubmit({
+        $.ajax({
             type: 'POST',
-            url: '123.php',
+            url: '../StudentHomeworkServlet?operate=commitHomework',
             data: {
                 homeworkID: $.cookie('selectHomework'),
+                content:$('#homeworkContent').val()
             },
             success: function (data) {
                 if (data == 1) {
                     alert('提交成功！');
                     $(this).reset();
+                    $(this).parents('.modal').hide(500);
                 } else if (data == 0) {
                     alert('提交失败，请重试！');
                 }
+            },
+            error: function (errorThrown) {
+                alert('发生错误：'+errorThrown);
             }
         })
     });
@@ -115,16 +121,30 @@ function getHomeworkList() {
     var $homeworkList = $('#homework');
     $.ajax({
         type: 'POST',
-        url: '../homework?operate=correct',
+        url: '../StudentHomeworkServlet?operate=getHomework',
         success: function (data, statusText) {
             var html = '';
             var jsonData = $.parseJSON(data);
+            var currentTime=new Date().getTime();
             $.each(jsonData, function (index, value) {
                 var buildTime = new Date(value.buildDate.time);
                 var deadline = new Date(value.deadline.time);
-                var buildeTimeText = buildTime.getFullYear() + '年' + buildTime.getMonth() + '月' + buildTime.getDate() + '日';
-                var deadlineText = deadline.getFullYear() + '年' + deadline.getMonth() + '月' + deadline.getDate() + '日';
-                html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'>提交作业</button></td></tr>";
+                var buildeTimeText = buildTime.getFullYear() + '年' + (buildTime.getMonth()+1) + '月' + buildTime.getDate() + '日';
+                var deadlineText = deadline.getFullYear() + '年' + (deadline.getMonth()+1) + '月' + deadline.getDate() + '日';
+                var studentHomeworkContent=value.studentHomeworkContent;
+                if(currentTime>deadline.getTime()){
+                    if(value.score){
+                        html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='"+value.score+"'>查看成绩</button></td></tr>";
+                    }else{
+                        html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='老师还未批阅'>查看成绩</button></td></tr>";
+                    }
+                }else{
+                    if(studentHomeworkContent.length>0){
+                        html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' />修改作业</button></td></tr>";
+                    }else{
+                        html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'>提交作业</button></td></tr>";
+                    }
+                }
             });
             $homeworkList.find('tbody').empty().append(html);
             $('.acount-work').text(jsonData.length);
@@ -141,10 +161,28 @@ function selectOne() {
             $homeworktitle = $allTd.eq(3).text(),
             $thishomeworkID = $allTd.eq(0).text();
         $.cookie('selectHomework', $thishomeworkID);
-        $modal.find('.homeworkTitle p').html($homeworktitle);
-        $modal.show(500);
+        if($(this).text()=="提交作业"){
+            $modal.find('#homeworkContent').html('');
+            $modal.find('.homeworkTitle p').html($homeworktitle);
+            $modal.find('#homeworkScore').hide();
+            $modal.find('.confirm').text('提交');
+            $modal.find('button').show();
+            $modal.show(500);
+        }else if($(this).text()=="修改作业"){
+            $modal.find('.homeworkTitle p').html($homeworktitle);
+            $modal.find('#homeworkContent').html($(this).find('input').val());
+            $modal.find('#homeworkScore').hide();
+            $modal.find('.confirm').text('修改');
+            $modal.find('button').show();
+            $modal.show(500);
+        }else{
+            $modal.find('.homeworkTitle p').html($homeworktitle);
+            $modal.find('#homeworkContent').html($(this).find('input').eq(0).val()).attr('readonly','readonly');
+            $modal.find('#homeworkScore').show().find('span').text($(this).find('input').eq(1).val());
+            $modal.find('button').hide();
+            $modal.show(500);
+        }
     })
-
 }
 //点击上传按钮上传文件
 /*参数：文件名和数据
