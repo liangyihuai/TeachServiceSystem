@@ -55,8 +55,8 @@ function modal() {
                     alert('提交失败，请重试！');
                 }
             },
-            error: function (errorThrown) {
-                alert('发生错误：'+errorThrown);
+            error: function (jqXHR,textStatus,errorThrown) {
+                alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
             }
         })
     });
@@ -133,7 +133,7 @@ function getHomeworkList() {
                 var deadlineText = deadline.getFullYear() + '年' + (deadline.getMonth()+1) + '月' + deadline.getDate() + '日';
                 var studentHomeworkContent=value.studentHomeworkContent;
                 if(currentTime>deadline.getTime()){
-                    if(value.score){
+                    if(value.score!=-1){
                         html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='"+value.score+"'>查看成绩</button></td></tr>";
                     }else{
                         html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='老师还未批阅'>查看成绩</button></td></tr>";

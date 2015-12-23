@@ -32,6 +32,9 @@ function sendMessage(color) {
                     else if (data == 0) {
                         alert('小纸条在路上被大风刮跑了,赶紧再发一张!')
                     }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
                 }
             });
         }
@@ -104,6 +107,9 @@ function loadList(currentPage,color) {
             } else {
                 next.removeClass('disabled').attr('disabled','disabled');
             }
+        },
+        error: function (jqXHR,textStatus,errorThrown) {
+            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
         }
     })
 }

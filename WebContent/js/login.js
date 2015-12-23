@@ -20,6 +20,9 @@ $(function () {
                         alert('登录失败，请重试');
                     }
                 },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
+                }
             });
         },
         rules: {
@@ -66,6 +69,9 @@ $(function () {
                         alert('登录失败，请重试');
                     }
                 },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
+                }
             });
         },
         rules: {
