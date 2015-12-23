@@ -64,7 +64,12 @@ public class StudentHomeworkServiceImpl implements StudentHomeworkService{
 
 	@Override
 	public int getScore(int homeworkID, int studentID) {
-		int score = studentHomeworkMapper.getScore(homeworkID, studentID);
+		int score;
+		if(studentHomeworkMapper.getScore(homeworkID, studentID) ){
+			score = 0;
+		} else {
+			score = studentHomeworkMapper.getScore(homeworkID, studentID);
+		}
 		return score;
 	}
 

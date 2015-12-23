@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.huai.persistence.StudentHomeworkMapper">
 
 	<insert id="doHomework" >
-		insert into studentHomeworkRelation(studentID,homeworkID,content,time) values #{0},#{1},#{2},#{3}
+		insert into studentHomeworkRelation(studentID,homeworkID,content,time,score) values #{0},#{1},#{2},#{3},-1
 	</insert>
 	
 	<select id="getContent" resultType="String">
