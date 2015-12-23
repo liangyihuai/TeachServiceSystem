@@ -12,6 +12,14 @@ public interface StudentMapper {
 	 * @return
 	 */
 	List<Integer> getStuIDByStuNO(String studentNO);
+
+	/**
+	 * 根据学号获取学生
+	 * @param studentNO
+	 * @return
+	 * liangyihuai
+	 */
+	List<Student> getStudentsByStuNO(String studentNO);
 	/**
 	 * 根据学生名字获取学生对象
 	 * @param name

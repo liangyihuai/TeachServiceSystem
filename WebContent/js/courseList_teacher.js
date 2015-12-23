@@ -18,9 +18,6 @@ function getCourseList() {
     $.ajax({
         type: "POST",
         url: "../course?operate=getCourses",
-        data: {
-            teacherID: $.cookie('current_teacher')
-        },
         success: function (data, statusText) {
             var html = '';
             var jsonData = $.parseJSON(data).courses;

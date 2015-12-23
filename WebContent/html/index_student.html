@@ -40,6 +40,10 @@
             </form>
         </div>
         <div class="modal_footer">
+            <div id='homeworkScore'>
+                <p>成绩：<span></span></p>
+                <p>评语：<span></span></p>
+            </div>
             <button class="btn cancel">取消</button>
             <button class="btn confirm">确认</button>
         </div>
@@ -54,10 +58,11 @@
         </header>
         <nav>
             <ul>
-                <li class="active"><a href="#course_process">课程进度</a></li>
-                <li><a href="#homework">作业</a></li>
-                <li><a href="#fileCenter">资料中心</a></li>
-                <li><a href="#msgwall">留言墙</a></li>
+                <li class="active"><a href="javascript:void(0);">课程进度</a></li>
+                <li><a href="javascript:void(0);">作业</a></li>
+                <li><a href="javascript:void(0);">资料中心</a></li>
+                <li><a href="javascript:void(0);">留言墙</a></li>
+                <li><a href="javascript:void(0);">成绩</a></li>
             </ul>
         </nav>
         <div class="tab_design">
@@ -112,23 +117,12 @@
                 </div>
                 <div class="file-list">
                     <ul>
-                        <!--<li>
-                            <form>
-                                <div class="left">
-                                    <span class='file_icon'></span>
-                                    <input type='hidden' name='sourceID' id='sourceID' value='1'/>
-                                    <span class='headline'>中国现代史纲要.pdf</span>
-                                </div>
-                                <div class='right'>
-                                    <button type='button' class='btn download'>下载</button>
-                                    <button type='button' class='btn remove'>删除</button>
-                                </div>
-                            </form>
-                        </li>-->
+
                     </ul>
                 </div>
             </section>
             <section id="msgwall">
+                <div class="send"></div>
                 <div class="leave_msg">
                     <span class="msg_title">留言板</span>
                     <div>
@@ -152,6 +146,25 @@
                         </ul>
                     </div>
                 </div>
+            </section>
+            <section id="achievements">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>平时成绩:<span id="tipCommonPercent"></span></th>
+                            <th>期末成绩:<span id="tipFinalPercent"></span></th>
+                            <th>总成绩</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">积一时之跬步，臻千里之遥程。</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </section>
         </div>
     </div>

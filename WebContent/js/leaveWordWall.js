@@ -6,12 +6,12 @@ $(function () {
     showButton();
     loadList($.cookie('currentPage'),color);
     turnPage(color);
-    sendMessage();
+    sendMessage(color);
 });
 /*发送信息
 * 模块功能：判断输入框中字符的数目，合法进行发送
 */
-function sendMessage() {
+function sendMessage(color) {
     var $sendButton = $('.leave_msg').find('button');
     var $msg_content = $('#msg_content');
     $sendButton.click(function () {
@@ -26,12 +26,15 @@ function sendMessage() {
                 },
                 success: function (data) {
                     if (data == 1) {
-                        loadList(1);
+                        loadList(1,color);
                         $msg_content.val('');
                     }
                     else if (data == 0) {
                         alert('小纸条在路上被大风刮跑了,赶紧再发一张!')
                     }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
                 }
             });
         }
@@ -55,12 +58,16 @@ function turnPage(color) {
         if ($.cookie('currentPage') != 1) {
             loadList($.cookie('currentPage') * 1 - 1,color);
             $.cookie('currentPage', $.cookie('currentPage') * 1 - 1);
+        }else{
+            alert('这已经是第一页，点击下一页或者刷新试试！');
         }
     });
     next.click(function () {
         if ($.cookie('currentPage') != pageCount) {
             loadList($.cookie('currentPage') * 1 + 1,color);
             $.cookie('currentPage', $.cookie('currentPage') * 1 + 1);
+        }else {
+            alert('这已经是最后一页，点击上一页或者刷新试试！');
         }
     });
 
@@ -90,16 +97,19 @@ function loadList(currentPage,color) {
             $msg_box.empty().append(html);
             $.cookie('currentPage', currentPage);
             if ($.cookie('currentPage') == 1) {
-                prev.addClass('disabled');
+                prev.addClass('disabled').attr('disabled','disabled');
                 // TODO 考虑学生端不引用bootstrap处理
             } else {
-                prev.removeClass('disabled');
+                prev.removeClass('disabled').attr('disabled','enabled');
             }
             if ($.cookie('currentPage') == pageCount) {
-                next.addClass('disabled');
+                next.addClass('disabled').attr('disabled','disabled');
             } else {
-                next.removeClass('disabled');
+                next.removeClass('disabled').attr('disabled','disabled');
             }
+        },
+        error: function (jqXHR,textStatus,errorThrown) {
+            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
         }
     })
 }

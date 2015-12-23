@@ -197,6 +197,7 @@ ul.course li{
 	background-color: #3394B7;
 }
 .msg_item_content{
+	overflow: hidden;
 	margin: 5px 10px 0 65px;
 	padding: 5px;
 	border-radius: 0 8px 0 8px;
@@ -204,16 +205,6 @@ ul.course li{
 	position: relative;
     box-shadow: 3px 4px 2px 0 #cccccc;
 }
-/*.msg_item_content:before{*/
-	/*content: '';*/
-	/*width: 0;*/
-	/*height: 0;*/
-	/*border: solid 5px;*/
-	/*border-color: #EBECED #EBECED #fff #fff;*/
-	/*position: absolute;*/
-	/*top: 0px;*/
-	/*left: -9px;*/
-/*}*/
 .msg_item_time{
 	background: none;
     display: block;

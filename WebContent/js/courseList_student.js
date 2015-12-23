@@ -1,7 +1,21 @@
 $(function(){
-    $.cookie('current_student',123);
-    getCourseList();
-    chooseCourse();
+    if ($.cookie('current_student')) {
+        $('#current_user').text($.cookie('current_student'));
+        getCourseList();
+        chooseCourse();
+    } else {
+        alert('请登录！')
+        window.location.href = 'index.html';
+    }
+    //注销登录
+    /*点击注销按钮，清除cookies*/
+    $('#logout').click(function () {
+        $.removeCookie('current_student');
+        window.location.href = '../login?operate=logout';
+    });
+    $('#close').click(function () {
+        $('#curent_center').css({'width': $(document).width(), 'height': $(document).height()}).fadeToggle();
+    })
 });
 //课程列表获取模块
 /*接口注释:
@@ -14,16 +28,12 @@ function getCourseList() {
     var $courseList=$('#courseList_student');
     $.ajax({
         type: "POST",
-        //url: "../course?operate=getCourses",
-        url:"courseList_data.php",
-        data: {
-            studentID: $.cookie('current_student')
-        },
+        url: "../course?operate=getCourses",
         success: function (data, statusText) {
             var html = '';
             var jsonData = $.parseJSON(data).courses;
             $.each(jsonData, function (index, value) {
-                html+="<div class='item col-md-3 col-sm-4 col-xs-12'><div class='inner'><img src='../images/"+jsonData[index].courseID+".jpg' /><div class='desc'><div class='desc_courseName'><h2>课程名：<span>" + jsonData[index].courseName + "</span></h2></div> <div class='desc_courseNum'><p>课程编号：<span class='desc_courseID'>"+ jsonData[index].courseID +"</span></p></div><p><span  class='desc_courseText'>"+jsonData[index].courseDescription+"</span></p></div></div></div>"
+                html+="<div class='item'><div class='inner'><img src='../images/"+jsonData[index].courseID+".jpg' /><div class='desc'><div class='desc_courseName'><h2>课程名：<span>" + jsonData[index].courseName + "</span></h2></div> <div class='desc_courseNum'><p>课程编号：<span class='desc_courseID'>"+ jsonData[index].courseID +"</span></p></div><p><span  class='desc_courseText'>"+jsonData[index].courseDescription+"</span></p></div></div></div>"
             })
             $courseList.empty().append(html);
         }
