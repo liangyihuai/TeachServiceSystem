@@ -82,6 +82,7 @@ public class StudentServlet extends HttpServlet{
 		String sex = request.getParameter("sex");
 		sex = "male".equals(sex) ? "男" : "女";
 		String clazz = request.getParameter("classNum");
+		String college = request.getParameter("department");
 		
 		Student student = new Student();
 		student.setStudentNO(studentNO);
@@ -89,6 +90,7 @@ public class StudentServlet extends HttpServlet{
 		student.setName(name);
 		student.setPassword("111111");
 		student.setSex(sex);
+		student.setCollege(college);
 
 		int flag = 0;
 		try {
