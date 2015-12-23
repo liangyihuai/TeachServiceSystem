@@ -6,8 +6,8 @@ $(function () {
     initCurrentPage();//初始化留言板
     if ($.cookie('current_student')) {
         $('#current_user').text($.cookie('current_student'));
-        getCourseProcess();
         toogleTab(color);
+        $('nav li a').eq(0).trigger('click');
     } else {
         alert('请登录！')
         window.location.href = 'index.html';
@@ -71,6 +71,9 @@ function toogleTab(color) {
         var $this = $(this),
             index = $menu_a.index(this);
         switch (index){
+            case 0:
+                getCourseProcess();
+                break;
             case 1:
                 getHomeworkList();
                 selectOne();
@@ -84,7 +87,9 @@ function toogleTab(color) {
             case 3:
                 loadList(1,color);
                 break;
-            //TODO 考虑留言列表
+            case 4:
+                getScore();
+                break;
         }
         if ($this.parent().hasClass('active')) return;
         $menu_li.removeClass('active');
@@ -110,6 +115,9 @@ function getCourseProcess() {
             });
             $('#course_process tbody').empty().append(html);
             $('.currentTime').text('第' + currentTime + '周');
+        },
+        error: function (jqXHR,textStatus,errorThrown) {
+            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
         }
     });
 }
@@ -145,6 +153,9 @@ function getHomeworkList() {
             });
             $homeworkList.find('tbody').empty().append(html);
             $('.acount-work').text(jsonData.length);
+        },
+        error: function (jqXHR,textStatus,errorThrown) {
+            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
         }
     });
 };
@@ -206,6 +217,9 @@ function uploadFile() {
                     } else if(data==0) {
                         alert("上传失败，请重试！");
                     }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
                 }
             });
         }else{
@@ -231,6 +245,9 @@ function getFileList() {
                 html += "<li><form action='../source?operate=download' method='get'><div class='left'><span class='file_icon'></span><input type='hidden' name='sourceID' id='sourceID' value='" + jsondata[index].sourceID + "'/><input type='hidden' name='operate' value='download' /><span class='headline'>" + jsondata[index].headline + "</span></div><div class='right'><button type='submit' class='btn download'>下载</button><button type='button' class='btn remove'>删除</button></div></form></li>";
             })
             $fileList.empty().append(html);
+        },
+        error: function (jqXHR,textStatus,errorThrown) {
+            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
         }
     });
 }
@@ -259,6 +276,9 @@ function remove() {
                 else if(data==2){
                     alert('你没有权限删除此文件！');
                 }
+            },
+            error: function (jqXHR,textStatus,errorThrown) {
+                alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
             }
         });
     })
@@ -269,5 +289,29 @@ function initCurrentPage() {
     var messageWallLink = $('a[href="#msgwall"]');// TODO 修改class字段
     messageWallLink.click(function () {
         $.cookie('currentPage', 1);
+    });
+}
+//得到成绩模块
+function getScore() {
+    $.ajax({
+        type: "POST",
+        url: "../score?operate=getScore",
+        success: function (data, statusText) {
+            if (data) {
+                var html = '';
+                var jsondata = $.parseJSON(data).score;
+                var commonPercent = $.parseJSON(data).commonPercent;
+                var finalPercent = $.parseJSON(data).finalPercent;
+                $('#tipCommonPercent').text(commonPercent + "%");
+                $('#tipFinalPercent').text(finalPercent + "%");
+                $.each(jsondata, function (index, value) {
+                    html += "<tr><td>" + jsondata[index].commonScore + "</td><td>" + jsondata[index].finalScore + "</td><td class='countScore'>" + jsondata[index].totalScore + "</td></tr>";
+                });
+                $('#achievements tbody').empty().append(html);
+            }
+        },
+        error: function (jqXHR,textStatus,errorThrown) {
+            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
+        }
     });
 }
