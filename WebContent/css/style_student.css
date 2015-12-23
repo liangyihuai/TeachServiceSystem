@@ -28,7 +28,6 @@ body {
     left: 50%;
     z-index: 1000;
     width: 400px;
-    height: 450px;
     margin: -200px 0 0 -200px;
     background: #FFFFFF;
     border-radius: 5px;
@@ -89,10 +88,6 @@ table, table td, table th {
 tfoot td{
     text-align: center;
 }
-tbody>tr{
-    border-bottom: 1px solid #333;
-}
-
 header {
     text-align: center;
     color: #ffffff;

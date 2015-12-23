@@ -51,6 +51,7 @@ function modal() {
                     alert('提交成功！');
                     $(this).reset();
                     $(this).parents('.modal').hide(500);
+                    getHomeworkList();
                 } else if (data == 0) {
                     alert('提交失败，请重试！');
                 }
@@ -68,19 +69,19 @@ function toogleTab(color) {
     var $contents = $('.tab_design');
     $menu_a.click(function (e) {
         var $this = $(this),
-            target = $this.attr('href');
-        switch (target){
-            case '#homework':
+            index = $menu_a.index(this);
+        switch (index){
+            case 1:
                 getHomeworkList();
                 selectOne();
                 modal();
                 break;
-            case '#fileCenter':
+            case 2:
                 uploadFile();
                 getFileList();
                 remove();
                 break;
-            case '#msgwall':
+            case 3:
                 loadList(1,color);
                 break;
             //TODO 考虑留言列表
@@ -89,11 +90,7 @@ function toogleTab(color) {
         $menu_li.removeClass('active');
         $this.parent().addClass('active');
         // 平滑切换
-        $contents.find('section')
-            .fadeTo(500, 0, function () {
-                $(this).removeClass('active').filter(target).addClass('active').fadeTo(500, 1);
-            });
-        // 阻止浏览器默认的链接动作
+        $contents.find('section').fadeTo(500, 0).removeClass('active').eq(index).addClass('active').fadeTo(500, 1);
         e.preventDefault();
     });
 }
@@ -134,7 +131,7 @@ function getHomeworkList() {
                 var studentHomeworkContent=value.studentHomeworkContent;
                 if(currentTime>deadline.getTime()){
                     if(value.score!=-1){
-                        html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='"+value.score+"'>查看成绩</button></td></tr>";
+                        html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='"+value.score+"'><input type='hidden' value='"+value.comment+"'>查看成绩</button></td></tr>";
                     }else{
                         html += "<tr><td>" + value.homeworkID + "</td><td>" + buildeTimeText + "</td><td>" + deadlineText + "</td><td>" + value.content + "</td><td><button type='button' class='btn'><input type='hidden' value='"+studentHomeworkContent+"' /><input type='hidden' value='老师还未批阅'>查看成绩</button></td></tr>";
                     }
@@ -180,7 +177,8 @@ function selectOne() {
         }else{
             $modal.find('.homeworkTitle p').html($homeworktitle);
             $modal.find('#homeworkContent').html($(this).find('input').eq(0).val()).attr('readonly','readonly');
-            $modal.find('#homeworkScore').show().find('span').text($(this).find('input').eq(1).val());
+            $modal.find('#homeworkScore').show().find('p span').eq(0).text($(this).find('input').eq(1).val());
+            $modal.find('#homeworkScore').show().find('p span').eq(1).text($(this).find('input').eq(2).val());
             $modal.find('button').hide();
             $modal.show(500);
         }
