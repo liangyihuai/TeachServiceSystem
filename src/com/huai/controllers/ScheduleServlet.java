@@ -57,7 +57,7 @@ public class ScheduleServlet extends HttpServlet {
 				.getAttribute(ServletUtil.COURSE_ID));
 		int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));	
 		String arrangement = request.getParameter("change_plan_text");
-		String courseTime="haha";
+		String courseTime="";
 		courseTime= request.getParameter("change_plan_time");
 		System.out.println(arrangement+":"+courseTime);
 		schedule.setArrangement(arrangement);
