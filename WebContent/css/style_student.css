@@ -145,15 +145,16 @@ nav li a {
 section {
     width: 984px;
     padding: 20px;
-    margin: 0px auto;
     display: none;
-    margin: 20px auto;
 }
 
 section.active {
     position: absolute;
     top: 0px;
+    left: 50%;
+    margin-left: -512px;
     display: block;
+    z-index: 999;
 }
 .btn {
     margin: 0 10px;

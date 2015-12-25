@@ -1,6 +1,5 @@
 package com.huai.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.huai.beans.Student;
-import com.huai.service.ScheduleService;
 import com.huai.service.StudentService;
 import com.huai.utils.ServletUtil;
 
@@ -84,6 +82,7 @@ public class StudentServlet extends HttpServlet{
 		String sex = request.getParameter("sex");
 		sex = "male".equals(sex) ? "男" : "女";
 		String clazz = request.getParameter("classNum");
+		String college = request.getParameter("department");
 		
 		Student student = new Student();
 		student.setStudentNO(studentNO);
@@ -91,6 +90,7 @@ public class StudentServlet extends HttpServlet{
 		student.setName(name);
 		student.setPassword("111111");
 		student.setSex(sex);
+		student.setCollege(college);
 
 		int flag = 0;
 		try {
@@ -123,7 +123,7 @@ public class StudentServlet extends HttpServlet{
 		Map<String,String> params = uploadFile.uploadFile(request, response);
 		if (params.size() == 0) return;
 		//get the file absolute path
-		String path = params.get(UploadFile.ABSOLUTE_PATH);
+		String path = params.get(UploadFile.FILE_NAME);
 		//get the content in the excel file
 		List<ArrayList<String>> dyadic = null;
 		dyadic = excelOperation.importForm(path, 0);

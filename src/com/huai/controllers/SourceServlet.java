@@ -64,6 +64,8 @@ public class SourceServlet extends HttpServlet {
 			Source source = sourceService.getSourceBySourceID(sourceID);
 			String path = source.getPath();
 			String headline = source.getHeadline();
+			int beginIndex = headline.indexOf("_")+1;
+			headline = headline.substring(beginIndex);
 			String filename = DownloadUtils.getNormalFilename(request, headline);
 			System.out.println("path:"+path);
 			DownloadUtils.launchDownloadStream(response, path, filename);
@@ -93,6 +95,13 @@ public class SourceServlet extends HttpServlet {
 			HttpServletResponse response, int courseID) throws IOException {
 		List<Source> sourseList = sourceService.getFileList(courseID);
 
+		for (Source source : sourseList) {
+			String heanline = source.getHeadline();
+			int beginIndex = heanline.indexOf("_")+1;
+			heanline = heanline.substring(beginIndex);
+			source.setHeadline(heanline);
+		}
+		
 		JSONObject jo = new JSONObject();
 		jo.element("sourseList", sourseList);
 		PrintWriter writer = response.getWriter();
