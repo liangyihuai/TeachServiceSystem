@@ -82,7 +82,6 @@ public class ScoreServlet extends HttpServlet {
 			}
 		}
 		
-		
 		PrintWriter writer;
 		try {
 			writer = response.getWriter();
@@ -95,13 +94,13 @@ public class ScoreServlet extends HttpServlet {
 			} else {
 				writer.write("0");
 			}
-			System.out.println(jo.toString());
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	private void setCoursePercent(HttpServletRequest request,
 			HttpServletResponse response) {
 		int commonPercent = Integer.parseInt(request
