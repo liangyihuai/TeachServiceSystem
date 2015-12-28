@@ -82,15 +82,15 @@ public class ScoreServlet extends HttpServlet {
 			}
 		}
 		
-		Course course = new Course();
-		course = scoreService.queryCoursePercent(courseID);
-		jo.element("commonPercent", course.getCommonPercent());
-		jo.element("finalPercent", course.getFinalPercent());
 		
 		PrintWriter writer;
 		try {
 			writer = response.getWriter();
 			if (!jo.isEmpty()) {
+				Course course = new Course();
+				course = scoreService.queryCoursePercent(courseID);
+				jo.element("commonPercent", course.getCommonPercent());
+				jo.element("finalPercent", course.getFinalPercent());
 				writer.write(jo.toString());
 			} else {
 				writer.write("0");
