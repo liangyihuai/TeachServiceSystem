@@ -26,6 +26,17 @@ $(function () {
         $('#curent_center').fadeOut();
         $('#info').show(500);
     })
+    $('#current_user').hover(function () {
+        $('#current_user_info').show(300);
+        $('#current_course').show(500);
+        $('#logout').show(800);
+    }, function () {
+        $(document).click(function () {
+            $('#current_user_info').hide(800);
+            $('#current_course').hide(500);
+            $('#logout').hide(300);
+        });
+    })
 });
 //modal框体切换
 function modal() {
@@ -44,7 +55,7 @@ function modal() {
         $(this).parents('.modal').hide(500);
     });
     $confirm.click(function () {
-        if ($('#homeworkContent').val().length==0) {
+        if ($('#homeworkContent').val().length == 0) {
             alert('作业不能为空');
         } else {
             $.ajax({
@@ -307,15 +318,21 @@ function getScore() {
         success: function (data, statusText) {
             if (data) {
                 var html = '';
-                var jsondata = $.parseJSON(data).score;
-                var commonPercent = $.parseJSON(data).commonPercent;
-                var finalPercent = $.parseJSON(data).finalPercent;
-                $('#tipCommonPercent').text(commonPercent + "%");
-                $('#tipFinalPercent').text(finalPercent + "%");
-                $.each(jsondata, function (index, value) {
-                    html += "<tr><td>" + jsondata[index].commonScore + "</td><td>" + jsondata[index].finalScore + "</td><td class='countScore'>" + jsondata[index].totalScore + "</td></tr>";
-                });
-                $('#achievements tbody').empty().append(html);
+                var jsondata = $.parseJSON(data);
+                if(jsondata!=0){
+                    var score = jsondata.score;
+                    var commonPercent = jsondata.commonPercent;
+                    var finalPercent = jsondata.finalPercent;
+                    $('#tipCommonPercent').text(commonPercent + "%");
+                    $('#tipFinalPercent').text(finalPercent + "%");
+                        html += "<tr><td>" + score.commonScore + "</td><td>" + score.finalScore + "</td><td class='countScore'>" + score.totalScore + "</td></tr>";
+                    $('#achievements tbody').empty().append(html);
+                }else{
+                    $.each(jsondata, function (index, value) {
+                        html += "<tr><td>0</td><td>0</td><td class='countScore'>0</td></tr>";
+                    });
+                    $('#achievements tbody').empty().append(html);
+                }
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
