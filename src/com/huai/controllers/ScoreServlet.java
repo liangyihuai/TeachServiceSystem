@@ -29,6 +29,7 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/score")
 public class ScoreServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 6L;
 	private ScoreService scoreService = null;
 	private StudentService studentservice = null;
 

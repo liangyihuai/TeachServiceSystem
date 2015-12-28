@@ -1,30 +1,19 @@
 package com.huai.controllers;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import net.sf.json.JSONObject;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import com.huai.beans.Source;
 import com.huai.beans.Student;
 import com.huai.beans.Teacher;
@@ -33,9 +22,10 @@ import com.huai.utils.DownloadUtils;
 import com.huai.utils.RoleUtil;
 import com.huai.utils.ServletUtil;
 
-@WebServlet("/source")
+@WebServlet(urlPatterns = { "/source" })
 public class SourceServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = 9L;
 	private SourceService sourceService;
 
 	public SourceServlet() {
@@ -64,10 +54,11 @@ public class SourceServlet extends HttpServlet {
 			Source source = sourceService.getSourceBySourceID(sourceID);
 			String path = source.getPath();
 			String headline = source.getHeadline();
-			int beginIndex = headline.indexOf("_")+1;
+			int beginIndex = headline.indexOf("_") + 1;
 			headline = headline.substring(beginIndex);
-			String filename = DownloadUtils.getNormalFilename(request, headline);
-			System.out.println("path:"+path);
+			String filename = DownloadUtils
+					.getNormalFilename(request, headline);
+			System.out.println("path:" + path);
 			DownloadUtils.launchDownloadStream(response, path, filename);
 		} else if ("getFileList".equals(operate)) {
 			getFileList(request, response, courseID);
@@ -97,11 +88,11 @@ public class SourceServlet extends HttpServlet {
 
 		for (Source source : sourseList) {
 			String heanline = source.getHeadline();
-			int beginIndex = heanline.indexOf("_")+1;
+			int beginIndex = heanline.indexOf("_") + 1;
 			heanline = heanline.substring(beginIndex);
 			source.setHeadline(heanline);
 		}
-		
+
 		JSONObject jo = new JSONObject();
 		jo.element("sourseList", sourseList);
 		PrintWriter writer = response.getWriter();
@@ -112,7 +103,8 @@ public class SourceServlet extends HttpServlet {
 	private void uploadFile(HttpServletRequest request,
 			HttpServletResponse response, int courseID) {
 		com.huai.core.UploadFile upload = new com.huai.core.UploadFile();
-		java.util.Map<String,String> resultMap = upload.uploadFile(request, response);
+		java.util.Map<String, String> resultMap = upload.uploadFile(request,
+				response);
 		String path = resultMap.get(com.huai.core.UploadFile.ABSOLUTE_PATH);
 		int teacherID = 0;
 		int studentID = 0;
