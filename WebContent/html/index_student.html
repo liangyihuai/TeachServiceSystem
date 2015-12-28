@@ -21,8 +21,13 @@
 </head>
 <body>
 <div id="curent_center">
-    <span id="current_user">2013211729</span>
-    <span id="logout">注销</span>
+    <span class="close"></span>
+    <div class="control">
+        <div id="current_user">2013211729</div>
+        <div id="current_user_info" class="control-little"><a href="account_student.html">个人信息</a></div>
+        <div id="current_course" class="control-little"><a href="courseList_student.html">物理</a></div>
+        <div id="logout" class="control-little"><a href="#">注销</a></div>
+    </div>
 </div>
 <div class="modal" id="doHomework">
     <div>
@@ -50,7 +55,7 @@
     </div>
 </div>
 <div class="wrapper">
-    <span id="close">X</span>
+    <span id="info"></span>
     <div class="content">
         <header>
             <h1>教学辅助系统学生端</h1>

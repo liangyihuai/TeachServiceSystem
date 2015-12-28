@@ -107,9 +107,6 @@ function loadList(currentPage,color) {
             } else {
                 next.removeClass('disabled').attr('disabled','disabled');
             }
-        },
-        error: function (jqXHR,textStatus,errorThrown) {
-            alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
         }
     })
 }

@@ -8,22 +8,26 @@
 	=基本样式
 ///////////////////////////////////////// */
 body {
-    background: #757F9A; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #757F9A , #D7DDE8); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #757F9A , #D7DDE8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     font-size: 16px;
+    background: #83a4d4; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #83a4d4, #b6fbff); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #83a4d4, #b6fbff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.left{
+
+.left {
     float: left;
 }
-.right{
+
+.right {
     float: right;
 }
+
 .wrapper {
     margin-top: 30px;
 }
-.modal{
-    position: absolute;
+
+.modal {
+    position: fixed;
     top: 50%;
     left: 50%;
     z-index: 1000;
@@ -35,7 +39,8 @@ body {
     border: 1px solid #ccc;
     display: none;
 }
-.modal_header{
+
+.modal_header {
     font-size: 16px;
     line-height: 40px;
     position: relative;
@@ -43,10 +48,12 @@ body {
     height: 40px;
     border-bottom: 2px solid #cccccc;
 }
-.modal_header h2{
+
+.modal_header h2 {
     color: #333333;
 }
-.modal_header span.close_modal{
+
+.modal_header span.close_modal {
     color: #ccc;
     font-weight: bold;
     display: block;
@@ -56,38 +63,47 @@ body {
     top: 8px;
     right: 10px;
 }
-.modal_header span.close_modal:hover{
+
+.modal_header span.close_modal:hover {
     color: #5c5c5c;
 }
-.modal_body{
+
+.modal_body {
     text-align: center;
     padding: 10px 15px;
     border-bottom: 2px solid #cccccc;
 }
-.modal_body p{
+
+.modal_body p {
     text-align: left;
     color: #7c7c7c;
     font-size: 14px;
 }
-.modal_body textarea{
+
+.modal_body textarea {
     width: 90%;
-    border: 1px solid  #ccc;
+    border: 1px solid #ccc;
     border-radius: 3px;
     padding: 10px;
 }
-.modal_body textarea:focus{
+
+.modal_body textarea:focus {
     box-shadow: 0 0 5px #ccc;
 }
-.modal_footer{
+
+.modal_footer {
     padding: 10px 5px;
     text-align: center;
 }
+
 table, table td, table th {
     border: none;
 }
-tfoot td{
+
+tfoot td {
     text-align: center;
 }
+
 header {
     text-align: center;
     color: #ffffff;
@@ -110,7 +126,7 @@ header > h1 {
     background: #fff;
     color: #333;
     position: relative;
-    min-height: 1500px;
+    height: 1000px;
     border-radius: 0 2px 2px 2px;
 }
 
@@ -142,6 +158,7 @@ nav li a {
     -ms-transition: all 0.2s;
     transition: all 0.2s;
 }
+
 section {
     width: 984px;
     padding: 20px;
@@ -156,6 +173,7 @@ section.active {
     display: block;
     z-index: 999;
 }
+
 .btn {
     margin: 0 10px;
     color: #333;
@@ -164,13 +182,16 @@ section.active {
     border-radius: 2px;
     padding: 4px 15px;
 }
-.cancel{
+
+.cancel {
     border: 1px solid #7c7c7c;
 }
+
 .input-control {
     border: 1px solid #0088cc;
     padding: 2px 15px;
 }
+
 /*留言板*/
 .send {
     width: 96px;
@@ -290,25 +311,30 @@ section.active {
     font-size: 0.8em;
     color: #cccccc;
 }
+
 /*文件列表*/
-.file-list{
+.file-list {
     width: 800px;
-    margin:20px auto;
+    margin: 20px auto;
 }
-.file_icon{
+
+.file_icon {
     background: url("");
 }
-.file-list li{
+
+.file-list li {
     width: 500px;
     margin: 20px auto;
     text-align: center;
     display: block;
     overflow: hidden;
 }
-.file-list li::after{
+
+.file-list li::after {
     content: "";
     clear: both;
 }
+
 /*课程列表*/
 .item {
     display: inline-block;
@@ -341,13 +367,13 @@ section.active {
 }
 
 /*.inner:hover {*/
-    /*-webkit-transform: rotateY(-180deg);*/
-    /*-moz-transform: rotateY(-180deg);*/
-    /*-ms-transform: rotateY(-180deg);*/
-    /*-o-transform: rotateY(-180deg);*/
-    /*transform: rotateY(-180deg);*/
+/*-webkit-transform: rotateY(-180deg);*/
+/*-moz-transform: rotateY(-180deg);*/
+/*-ms-transform: rotateY(-180deg);*/
+/*-o-transform: rotateY(-180deg);*/
+/*transform: rotateY(-180deg);*/
 /*}*/
-.inner:hover img{
+.inner:hover img {
     transform-origin: 100% 100%;
     -webkit-transform: rotateX(-90deg);
     -moz-transform: rotateX(-90deg);
@@ -360,21 +386,23 @@ section.active {
     /*-o-transform: translateZ(-1px);*/
     /*transform: translateZ(-1px);*/
 }
+
 .inner img {
     display: block;
     transform-origin: 100% 100%;
     border-radius: 3px;
-    box-shadow: 0px 3px 8px rgba(0,0,0,0.3);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
     -webkit-transform: translateZ(1px);
     -moz-transform: translateZ(1px);
     -ms-transform: translateZ(1px);
     -o-transform: translateZ(1px);
     transform: translateZ(1px);
-    transition:transform .6s ease-in-out .3s;
+    transition: transform .6s ease-in-out .3s;
     width: 200px;
     height: 250px;
     background-color: #F4F5F6;
 }
+
 .inner .desc {
     font-size: 0.8em;
     margin: -250px auto 0;
@@ -387,37 +415,95 @@ section.active {
     background: -webkit-linear-gradient(to top, #757F9A, #D7DDE8); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #757F9A, #D7DDE8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.inner .desc h2{
+
+.inner .desc h2 {
     font-size: 1.2em;
     color: #0F95F8;
 }
-#homeworkScore{
+
+#homeworkScore {
     display: none;
 }
+
 /*遮罩，用户面板*/
-#close {
-    font-size: 3em;
+#info {
+    width: 32px;
+    height: 32px;
+    background: url("../images/list_32px.png") no-repeat;
     display: block;
-    color: #18A2FF;
-    width: 50px;
-    height: 50px;
     position: absolute;
     top: 5px;
     right: 10px;
-    z-index: 9999;
+    z-index: 999;
 }
 
 #curent_center {
     display: none;
     position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
-    z-index: 9998;
+    z-index: 1000;
     background-color: rgba(0, 0, 0, 0.6);
 }
-
-#logout, #current_user {
+.close{
+    background: url("../images/Close_24px.png") no-repeat;
     display: block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+}
+.control{
+    width: 500px;
+    height: 500px;
+    position: relative;
+    top: 20%;
+    left: 50%;
+    margin-left: -250px;
+}
+#curent_center .control-little{
+    color: #fff;
+    display: none;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 40px;
+    box-shadow: 2px 2px 2px #333;
+}
+#current_user_info{
+    background-color: #f0ad4e;
+    position: absolute;
+    top: 20%;
+    left: 55%;
+}
+#current_course{
+    background-color: #bcf058;
+    position: absolute;
+    top: 40%;
+    left: 70%;
+}
+#curent_center a:link, a:visited{
+    color: #fff;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+#curent_center a:hover, a:active{
+    color: #3a3a3a;
+}
+#logout{
+    background-color: #c7254e;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+}
+#current_user {
     font-size: 18px;
     font-weight: bold;
     color: #ccc;
@@ -428,20 +514,81 @@ section.active {
     background-color: #1b6d85;
     border-radius: 75px;
     box-shadow: 2px 2px 2px #333;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -75px 0 0 -75px;
 }
-
-#logout {
-    position: fixed;
-    top: 45%;
-    left: 55%;
-}
-
-#current_user {
-    position: fixed;
-    top: 45%;
-    left: 40%;
-}
-
-#logout:hover, #current_user:hover {
+#current_user:hover {
     color: #fff;
+}
+.panel{
+    width: 700px;
+    margin: 20px auto;
+}
+.panel_header{
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    background: #2e6da4;
+    border-radius: 5px 5px 0 0;
+    padding: 5px 10px;
+}
+.panel_header h2{
+    font-weight: normal;
+    font-size: 20px;
+    color: #FFF;
+}
+.panel_body{
+    padding: 20px 30px;
+    height: 450px;
+    background: #fff;
+}
+.account_info{
+    line-height: 30px;
+    margin: 10px 0;
+    text-align: left;
+    border-bottom: 1px dashed #333333;
+}
+.account_info_item{
+    margin-left: 50px;
+}
+.panel_body button{
+    margin-top: 20px;
+}
+.tip{
+    display: none;
+    margin: 10px auto;
+    font-size: 14px;
+    color: #FFF;
+    text-align: center;
+    padding: 2px 10px;
+    width: 500px;
+    background: #757F9A;
+    border-radius: 4px;
+    position: relative;
+}
+.tip::before{
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    border:10px solid;
+    border-color:transparent transparent #757F9A transparent;
+}
+.tip div{
+    margin: 10px 20px;
+}
+.tip input{
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.tip button{
+    font-size: 12px;
+    margin: 0 0 0 15px;
+    background: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 3px 8px;
 }
