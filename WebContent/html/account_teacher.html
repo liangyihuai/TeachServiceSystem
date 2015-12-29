@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="../css/style_teacher.css"/>
     <!--jquery引入，必须在bootstrap.js文件之前引入-->
     <script src="../js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery缓动函数-->
+    <script src="../js/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
     <!--bootstrap组件JS文件-->
     <script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <!--日期插件支持js-->
@@ -29,10 +31,8 @@
     <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
     <!--主js文件-->
     <script src="../js/teacher.js" type="text/javascript" charset="utf-8"></script>
-    <!--文件上传插件-->
-    <script src="../js/jquery.uploadfile.min.js" type="text/javascript" charset="utf-8"></script>
-    <!--学生列表-->
-    <script src="../js/studentList_teacher.js" type="text/javascript" charset="utf-8"></script>
+    <!--个人设置js-->
+    <script src="../js/account_teacher.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -78,7 +78,11 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="plan_text">安排</label>
+                        <label for="change_plan_time">时间：</label>
+                        <input class="form-control" type="text" name="change_plan_time" id="change_plan_time" />
+                    </div>
+                    <div class="form-group">
+                        <label for="change_plan_text">安排：</label>
                         <textarea class="form-control" rows="3" name="change_plan_text" id="change_plan_text"></textarea>
                     </div>
                 </form>
@@ -195,12 +199,11 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                     <ul class="nav navbar-nav">
-
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">课程进度<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="courseProcess_teacher.html">当前课程进度</a></li>
+                                <li class="active"><a href="courseProcess_teacher.html">当前课程进度</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#addPlan" data-toggle="modal">添加课程安排</a></li>
                             </ul>
@@ -245,46 +248,33 @@
     <div class="content">
         <div class="container">
             <ol class="breadcrumb">
-                <li id="current_mange_course"></li>
-                <li class="active">学生列表</li>
+                <li class="active">个人设置</li>
             </ol>
-            <div class="panel panel-primary">
-                <div class="panel-heading">学生列表</div>
+            <div class="panel panel-primary" id="teacher_setting">
+                <div class="panel-heading">个人设置</div>
                 <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>学号</th>
-                                <th>姓名</th>
-                                <th>性别</th>
-                                <th>班级</th>
-                                <th>学院</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <td colspan="8">总人数<span class="countman"></span></td>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="uploadFile">
-                        <!--action="../student?operate=import" method="post"-->
-                        <form class="form-inline"  enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="file">选择Excel文件进行导入</label>
-                                <input class="form-control" type="file" name="file" id="file"/>
+                    <div class="account_info">工号：<span class="account_info_item" id="accout-teacherNumber">2013211730</span></div>
+                    <div class="account_info">姓名：<span class="account_info_item" id="accout-teacherName">张雪松</span></div>
+                    <div class="account_info">性别：<span class="account_info_item" id="accout-teacherSex">男</span></div>
+                    <div class="account_info">学校：<span class="account_info_item" id="accout-teacherSchool">重庆邮电大学</span></div>
+                    <div class="account_info">学校：<span class="account_info_item" id="accout-teacherAcademy">计算机科学与技术</span></div>
+                    <button class="btn btn-default changePassBtn center-block">修改密码</button>
+                    <div class="tip">
+                        <form>
+                            <div>
+                                <label for="oldPass">原&nbsp;&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</label>
+                                <input type="password" id="oldPass" name="oldPass">
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="上传学生表必须和模板一致">导入</button>
+                            <div>
+                                <label for="newPass">新&nbsp;&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</label>
+                                <input type="password" id="newPass" name="newPass">
                             </div>
+                            <div>
+                                <label for="newPass2">重复新密码：</label>
+                                <input type="password" id="newPass2" name="newPass2">
+                            </div>
+                            <button class="btn btn-danger" type="submit">确认</button>
                         </form>
-                        <a href="../student?operate=download" class="btn btn-info">下载模板</a>
                     </div>
                 </div>
             </div>

@@ -40,6 +40,7 @@
                 <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span>
                 </button>
                 <h3>登录</h3>
+                <button class="btn btn-default btn-sm register_button" data-dismiss="modal" data-toggle="modal" data-target="#teacher_reg">注册<span class="glyphicon glyphicon-arrow-right"></span></button>
             </div>
             <div class="modal-body">
                 <form>
@@ -58,7 +59,48 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary confirm">登 录</button>
-                <a href="/account/forget_password" class="forget_pass">忘记密码</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--老师注册modal-->
+<div class="modal fade" id="teacher_reg">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h3>注册</h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="teacher_reg_num" class="control-label">用户名：<span class="mustInput">*</span></label>
+                        <input class="form-control" id="teacher_reg_num" name="username" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher_reg_pass" class="control-label">密码：<span class="mustInput">*</span></label>
+                        <input class="form-control" id="teacher_reg_pass" name="password" type="password"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher_reg_sex" class="control-label">性别：</label>
+                        <select class="form-control" name="teacher_reg_sex" id="teacher_reg_sex">
+                            <option value="male" selected>男</option>
+                            <option value="female">女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher_reg_school" class="control-label">学校：<span class="mustInput">*</span></label>
+                        <input class="form-control" id="teacher_reg_school" name="teacher_reg_school" type="password"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher_reg_academy" class="control-label">院系：<span class="mustInput">*</span></label>
+                        <input class="form-control" id="teacher_reg_academy" name="teacher_reg_academy" type="password"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default register_button">注册</button>
             </div>
         </div>
     </div>
@@ -88,8 +130,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary confirm">登 录</button>
-                <a href="/account/forget_password" class="forget_pass">忘记密码</a>
+                <button class="btn btn-primary confirm center-block">登 录</button>
             </div>
         </div>
     </div>
