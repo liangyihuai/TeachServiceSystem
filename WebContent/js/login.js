@@ -97,4 +97,65 @@ $(function () {
             $(element).css('border', '1px solid #ccc');
         }
     });
+    //老师注册模块
+    /*注册之后将自动登陆
+     * */
+    $('#teacher_reg .register_button').click(function () {
+        $('#teacher_reg form').submit();
+    });
+    $('#teacher_reg form').validate({
+        submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                type: "POST",
+                url: "../login?operate=teacherReg",
+                success: function (data, statusText) {
+                    var jsondata = $.parseJSON(data);
+                    if (jsondata.status == 1) {
+                        alert('注册成功，即将跳转！');
+                        $.cookie('current_teacher', $('#teacher_reg_num').val(), {expires: 7})
+                        window.location.href = "courseList_teacher.html";
+                    } else {
+                        alert('登录失败，请重试');
+                    }
+                },
+                error: function (jqXHR,textStatus,errorThrown) {
+                    alert('发生错误，错误码：'+jqXHR.status+",参考错误："+errorThrown);
+                }
+            });
+        },
+        rules: {
+            username: {
+                required: true,
+            },
+            password: {
+                required: true,
+            },
+            teacher_reg_school:{
+                required: true,
+            },
+            teacher_reg_academy:{
+                required: true,
+            }
+        },
+        messages: {
+            username: {
+                required: '请填写你的用户名！',
+            },
+            password: {
+                required: '密码不得为空！',
+            },
+            teacher_reg_school:{
+                required: '请填写你的学校',
+            },
+            teacher_reg_academy:{
+                required: '请填写你所属的学院',
+            }
+        },
+        highlight: function (element, errorClass) {
+            $(element).css('border', '1px solid red');
+        },
+        unhighlight: function (element, errorClass) {
+            $(element).css('border', '1px solid #ccc');
+        }
+    });
 });

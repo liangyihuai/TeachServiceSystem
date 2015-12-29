@@ -41,6 +41,13 @@ body {
 .login-header h1 {
 	color: #fff;
 }
+.modal-footer{
+	text-align: center;
+}
+#teacher_login .modal-header .register_button{
+	float: right;
+	margin-top: -20px;
+}
 .role {
 	margin-top: 100px;
 	background: rgba(255, 255, 255, 0.8);
@@ -237,4 +244,44 @@ button.download{
 	color: #337AB7;
 	border: none;
 	background:none;
+}
+#teacher_setting .panel-body{
+	height: 500px;
+}
+.account_info{
+	line-height: 30px;
+	margin: 10px 0;
+	text-align: left;
+	border-bottom: 1px dashed #333333;
+}
+.account_info_item{
+	margin-left: 50px;
+}
+.tip{
+	display: none;
+	margin: 10px auto;
+	font-size: 14px;
+	color: #FFF;
+	text-align: center;
+	padding: 10px 15px;
+	width: 500px;
+	background: #39BECD;
+	border-radius: 4px;
+	position: relative;
+}
+.tip::before{
+	content: "";
+	position: absolute;
+	top: -18px;
+	left: 50%;
+	border:10px solid;
+	border-color:transparent transparent #39BECD transparent;
+}
+.tip div{
+	margin: 10px 20px;
+}
+.tip input{
+	color: #333;
+	border: 1px solid #ccc;
+	border-radius: 2px;
 }
