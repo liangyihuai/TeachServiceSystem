@@ -1,11 +1,10 @@
-/**
- * Created by dust on 2015/12/12.
- */
 $(function () {
     getFileList();
     uploadFile();
-    remove();
+    removeFile();
 });
+
+
 //获取文件列表
 /*参数：无
 * 返回：json字符串
@@ -25,6 +24,7 @@ function getFileList() {
         }
     });
 }
+
 //点击上传按钮上传文件
 /*参数：文件名和数据
 * 返回:1,0
@@ -56,11 +56,12 @@ function uploadFile() {
 
     })
 }
+
 //点击删除按钮删除文件
 /*参数：fileID
  * 返回：后台调用进行删除
 */
-function remove(){
+function removeFile(){
     var $fileList=$('.file-list ul');
     $fileList.on('click','.remove',function () {
         var thisID=$(this).parents('form').find('input').val();
@@ -82,6 +83,7 @@ function remove(){
                     alert('你没有权限删除此文件！');
                 }
             }
+            //TODO 错误处理
         });
     })
 }

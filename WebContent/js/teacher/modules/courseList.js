@@ -1,12 +1,16 @@
-/**
- * Created by dust on 2015/11/17.
- */
 $(function () {
-    getCourseList();
-    addCourse();
-    chooseCourse();
-    deleteCourse();
+    if(isLogin()){
+        getCourseList();
+        addCourse();
+        chooseCourse();
+        deleteCourse();
+    }else{
+        alert('你未登录，即将跳转到登录页面进行登录！')
+        window.location.href='index.html'
+    }
 });
+
+
 //课程列表获取模块
 /*接口注释:
  * url:课程点击后的链接
@@ -26,8 +30,10 @@ function getCourseList() {
             })
             $('.course .row').empty().append(html);
         }
+        //TODO 添加错误处理
     });
 }
+
 //选择课程列表模块
 /*点击课程列表中的管理按钮后，用AJAX的方式将所选课程ID传给后台存入session中，并且前端存入cookies中方便后续使用*/
 function chooseCourse() {
@@ -42,15 +48,16 @@ function chooseCourse() {
             data:{
                 courseID:current_course,
             },
-            //TODO 发生选择课程错误的处理
             success: function (data, statusText) {
                 if(data==1){
                     window.location.href='courseProcess_teacher.html';
                 }
             }
+            //TODO 发生选择课程错误的处理
         });
     });
 }
+
 //添加课程
 /*点击添加课程，填写课程信息，对课程Id进行检查，确认添加*/
 function addCourse(){
@@ -98,6 +105,7 @@ function addCourse(){
         }
     });
 }
+
 //删除课程
 /*点击删除按钮，进行删除*/
 function deleteCourse(){

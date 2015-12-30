@@ -1,13 +1,14 @@
-/**
- * Created by dust on 2015/12/11.
- */
 $(function () {
     var color=['#F44336','#F50057','#2196F3','#03A9F4','#FFEA00'];//声明16机制颜色数组
-    showButton();
-    loadList($.cookie('currentPage'),color);
+    $.cookie('currentPage', 1);//初始化cookie,默认页面
+    if($.cookie('current_teacher')){
+        loadList(1,color);
+    }
     turnPage(color);
+    showButton();
     sendMessage(color);
 });
+
 /*发送信息
 * 模块功能：判断输入框中字符的数目，合法进行发送
 */
@@ -48,30 +49,8 @@ function showButton() {
         $leave_msg.slideToggle();
     });
 }
-/*页面跳转
-*模块功能：点击上一页下一页调用 loadList(currentPage,color)进行跳转
-*/
-function turnPage(color) {
-    var prev = $('.prev');
-    var next = $('.next');
-    prev.click(function () {
-        if ($.cookie('currentPage') != 1) {
-            loadList($.cookie('currentPage') * 1 - 1,color);
-            $.cookie('currentPage', $.cookie('currentPage') * 1 - 1);
-        }else{
-            alert('这已经是第一页，点击下一页或者刷新试试！');
-        }
-    });
-    next.click(function () {
-        if ($.cookie('currentPage') != pageCount) {
-            loadList($.cookie('currentPage') * 1 + 1,color);
-            $.cookie('currentPage', $.cookie('currentPage') * 1 + 1);
-        }else {
-            alert('这已经是最后一页，点击上一页或者刷新试试！');
-        }
-    });
 
-}
+//加载留言信息
 function loadList(currentPage,color) {
     var prev = $('.prev');
     var next = $('.next');
@@ -109,4 +88,29 @@ function loadList(currentPage,color) {
             }
         }
     })
+}
+
+/*页面跳转
+*模块功能：点击上一页下一页调用 loadList(currentPage,color)进行跳转
+*/
+function turnPage(color) {
+    var prev = $('.prev');
+    var next = $('.next');
+    prev.click(function () {
+        if ($.cookie('currentPage') != 1) {
+            loadList($.cookie('currentPage') * 1 - 1,color);
+            $.cookie('currentPage', $.cookie('currentPage') * 1 - 1);
+        }else{
+            alert('这已经是第一页，点击下一页或者刷新试试！');
+        }
+    });
+    next.click(function () {
+        if ($.cookie('currentPage') != pageCount) {
+            loadList($.cookie('currentPage') * 1 + 1,color);
+            $.cookie('currentPage', $.cookie('currentPage') * 1 + 1);
+        }else {
+            alert('这已经是最后一页，点击上一页或者刷新试试！');
+        }
+    });
+
 }
