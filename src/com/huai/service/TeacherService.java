@@ -16,4 +16,11 @@ public interface TeacherService {
 	 * @param newPassword 新密码
 	 */
 	void changePassword(Teacher teacher, String newPassword);
+
+	/**
+	 * 老师注册
+	 * @return
+	 * @throws Exception
+	 */
+	boolean signIn(Teacher teacher) throws Exception;
 }

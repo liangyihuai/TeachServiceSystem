@@ -12,4 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Set name=#{name},password=#{password},sex=#{sex},school=#{school},college=#{college} 
 		Where teacherID=#{teacherID}
 	</select>
+	<update id="addTeacher" parameterType="Teacher">
+		INSERT INTO teacher(name,password,sex,school,college) VALUES (#{name},#{password},#{sex},#{school},#{college})
+	</update>
 </mapper>

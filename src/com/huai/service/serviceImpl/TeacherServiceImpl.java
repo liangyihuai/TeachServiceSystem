@@ -24,9 +24,20 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
+	public boolean signIn(Teacher teacher) throws Exception {
+		int count = teacherMapper.addTeacher(teacher);
+		if(count>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
 	public Teacher getTeacherByName(String name) {
 		Teacher teacher = teacherMapper.getTeacherByName(name);
 		return teacher;
 	}
+
 
 }
