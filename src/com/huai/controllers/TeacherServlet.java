@@ -76,7 +76,11 @@ public class TeacherServlet extends HttpServlet{
 
 			PrintWriter writer = response.getWriter();
 			if(teacher != null){
-				JSONObject jsonObject = JSONObject.fromObject(teacher);
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.element("college", teacher.getCollege());
+				jsonObject.element("username",teacher.getName());
+				jsonObject.element("school",teacher.getSchool());
+				jsonObject.element("sex", teacher.getSex());
 				writer.write(jsonObject.toString());
 			}else{
 				writer.write("0");
