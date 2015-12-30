@@ -1,31 +1,6 @@
-$(function () {
-    //注销登录
-    /*点击注销按钮，清除cookies*/
-    $('#logout').click(function () {
-        $.removeCookie('currentUser');
-        window.location.href = '../login?operate=logout';
-    });
-    initCurrentPage();//初始化留言板
-    /*作业布置截至时间选框*/
-    $('#homeworkStopTime').datetimepicker({
-        format: 'yyyy-mm-dd',
-        minView: 2,
-        autoclose: true,
-        language: 'zh-CN'
-    });
-    // 监测登录状态模块
-    /*如果登录了进行后续操作，如果没有登录，跳转到登陆界面进行登录*/
-    if ($.cookie('current_teacher')) {
-        $('#current_center').html($.cookie('current_teacher') + '<span class="caret"></span>');
-        $('#current_mange_course').text(decodeURI($.cookie('courseName')));
-        addPlan();
-        addStudent();
-        addHomework();
-    } else if ($('#current_center').length > 0) {
-        $('#current_center').html('登录');
-    }
-});
-
+/**
+ * Created by dust on 2015/12/30.
+ */
 //添加课程进度模块
 /*字段合法性监测，通过点击确定允许提交*/
 function addPlan() {
@@ -144,6 +119,7 @@ function addStudent() {
         }
     });
 }
+
 //布置作业模块
 /*点击布置作业，合法性检测*/
 function addHomework() {
@@ -194,10 +170,10 @@ function addHomework() {
     });
 }
 
-/*点击了留言板之后将cookie的currentPage设置为1*/
-function initCurrentPage() {
-    var messageWallLink = $('.message-wall');
-    messageWallLink.click(function () {
-        $.cookie('currentPage', 1);
-    });
-}
+/*作业布置截至时间选框格式设定*/
+$('#homeworkStopTime').datetimepicker({
+    format: 'yyyy-mm-dd',
+    minView: 2,
+    autoClose: true,
+    language: 'zh-CN'
+});

@@ -1,10 +1,14 @@
-/**
- * Created by dust on 2015/11/28.
- */
 $(function () {
     getCheckList();
     checkOne();
 });
+
+
+//得到作业列表
+/*
+* 请求参数：无
+* 返回：json数组
+* */
 function getCheckList() {
     $.ajax({
         type: 'POST',
@@ -35,6 +39,12 @@ function getCheckList() {
         }
     });
 }
+
+//选取批改项
+/*
+* 将选取项Id存入cookie
+* 动态更改批改作业modal框
+* */
 function checkOne() {
     $('#commited table').on('click', '.checkBtn', function () {
         $.cookie('commitTheOne', $(this).parents('tr').find('td').eq(0).html());
@@ -43,6 +53,12 @@ function checkOne() {
         confirmCommit();
     })
 }
+
+//批改作业modal处理
+/*
+* 批改验证
+* 请求参数：作业ID：studentHomeworkID
+* 返回：{成功：1,错误：0}*/
 function confirmCommit() {
     $('#check .confirm').click(function () {
         $('#check form').submit();
@@ -65,6 +81,7 @@ function confirmCommit() {
                         alert('批改失败，请重试！');
                     }
                 }
+                //TODO 错误处理
             });
         },
         rules: {

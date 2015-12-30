@@ -1,8 +1,13 @@
-/*Created by dust on 2015/11/23.*/
 $(function () {
     getHomeworkList();
     chooseHomework();
 });
+
+//获取作业列表
+/*
+* 请求参数：无
+* 返回数据：作业列表json数组
+* */
 function getHomeworkList() {
     $.ajax({
         type: 'POST',
@@ -21,7 +26,12 @@ function getHomeworkList() {
             $('.acount-work').text(jsonData.length);
         }
     });
-};
+}
+
+//选择作业列表项
+/*
+* 请求参数：作业ID
+* 返回：无*/
 function chooseHomework() {
     $('table').on('click', '.selectBtn',function () {
         var homeworkNum=$(this).parent().parent().find('td').eq(0).text();
