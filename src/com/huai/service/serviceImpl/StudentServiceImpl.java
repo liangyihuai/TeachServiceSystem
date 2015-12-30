@@ -175,7 +175,7 @@ public class StudentServiceImpl implements StudentService{
 		int flag = 0;
 		if(newPassword != null){
 			student.setPassword(newPassword);
-			flag = studentMapper.updateStu(student);
+			flag = studentMapper.updatePassword(student.getStudentNO(),newPassword);
 		}
 		if(flag>0)
 			return true;

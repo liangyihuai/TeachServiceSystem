@@ -3,6 +3,7 @@ package com.huai.persistence;
 import java.util.List;
 
 import com.huai.beans.Student;
+import org.apache.ibatis.annotations.Param;
 
 public interface StudentMapper {
 
@@ -81,4 +82,12 @@ public interface StudentMapper {
 	 * LiangYH
 	 */
 	int updateStu(Student student)throws Exception;
+
+	/**
+	 * 修改学生密码
+	 * @param studentNO
+	 * @param newPassword
+	 * @return
+	 */
+	int updatePassword(@Param("studentNO")String studentNO, @Param("newPassword")String newPassword);
 }

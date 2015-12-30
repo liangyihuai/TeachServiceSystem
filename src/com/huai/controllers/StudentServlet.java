@@ -93,23 +93,23 @@ public class StudentServlet extends HttpServlet{
 		String oldPassword = request.getParameter("oldPass");
 		String newPassword = request.getParameter("newPass");
 
-		boolean runStatus = false;
-		if(oldPassword != null ){
-			PrintWriter writer = null;
-			if(student != null && oldPassword.equals(student.getPassword())){
-				try {
+		PrintWriter writer = null;
+		try {
+			writer = response.getWriter();
+			boolean runStatus = false;
+			if(oldPassword != null ){
+				if(student != null && oldPassword.equals(student.getPassword())){
 					runStatus = studentService.updateStaudent(student, newPassword);
-					writer = response.getWriter();
-					if(runStatus)
-						writer.write("1");
-					else
-						writer.write("0");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}finally {
-					if(writer != null)writer.close();
 				}
 			}
+			if(runStatus)
+				writer.write("1");
+			else
+				writer.write("0");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(writer != null)writer.close();
 		}
 	}
 
