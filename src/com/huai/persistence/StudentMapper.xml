@@ -53,4 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE student SET name=#{name},password=#{password},sex=#{sex},
 			clazz=#{clazz},major=#{major},college=#{college} WHERE studentNO=#{studentNO}
 	</update>
+	<update id="updatePassword">
+		UPDATE student SET password=#{newPassword} WHERE studentNO=#{studentNO}
+	</update>
 </mapper>

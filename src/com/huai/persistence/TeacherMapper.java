@@ -13,4 +13,11 @@ public interface TeacherMapper {
 	 * 更新记录
 	 */
 	void update(Teacher teacher);
+
+	/**
+	 * 增加一个老师
+	 * @param teacher
+	 * @return
+	 */
+	int addTeacher(Teacher teacher);
 }

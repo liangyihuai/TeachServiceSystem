@@ -1,6 +1,5 @@
 package com.huai.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.huai.core.ExcelOperation;
 import com.huai.core.UploadFile;
 import com.huai.utils.DownloadUtils;
+import com.huai.utils.RoleUtil;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.huai.beans.Student;
-import com.huai.service.ScheduleService;
 import com.huai.service.StudentService;
 import com.huai.utils.ServletUtil;
 
@@ -31,7 +30,6 @@ import com.huai.utils.ServletUtil;
 
 @WebServlet(urlPatterns={"/student"})
 public class StudentServlet extends HttpServlet{
-	
 	
 	private StudentService studentService;
 	
@@ -46,7 +44,12 @@ public class StudentServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
-		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+		String tempCourseID = (String)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = 0;
+		if(tempCourseID != null){
+			courseId = Integer.valueOf(tempCourseID);
+		}
+
 		System.out.println("operate = "+operate);
 		
 		if("list".equals(operate)){
@@ -60,6 +63,53 @@ public class StudentServlet extends HttpServlet{
 			importStudents(request, response, courseId);
 		}else if("download".equals(operate)){
 			download(request,response);
+		}else if("changePass".equals(operate)){
+			changePassword(request,response);
+			return;
+		}else if("info".equals(operate)){
+			getInfo(request,response);
+		}
+	}
+	private void getInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Student student = (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
+
+		PrintWriter writer = response.getWriter();
+		if(student != null){
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.element("clazz",student.getClazz());
+			jsonObject.element("college", student.getCollege());
+			jsonObject.element("username",student.getName());
+			jsonObject.element("sex", student.getSex());
+			jsonObject.element("studentNO",student.getStudentNO());
+			writer.write(jsonObject.toString());
+		}else{
+			writer.write("0");
+		}
+		writer.close();
+	}
+
+	private void changePassword(HttpServletRequest request, HttpServletResponse response){
+		Student student = (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
+		String oldPassword = request.getParameter("oldPass");
+		String newPassword = request.getParameter("newPass");
+
+		PrintWriter writer = null;
+		try {
+			writer = response.getWriter();
+			boolean runStatus = false;
+			if(oldPassword != null ){
+				if(student != null && oldPassword.equals(student.getPassword())){
+					runStatus = studentService.updateStaudent(student, newPassword);
+				}
+			}
+			if(runStatus)
+				writer.write("1");
+			else
+				writer.write("0");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(writer != null)writer.close();
 		}
 	}
 
@@ -84,6 +134,7 @@ public class StudentServlet extends HttpServlet{
 		String sex = request.getParameter("sex");
 		sex = "male".equals(sex) ? "男" : "女";
 		String clazz = request.getParameter("classNum");
+		String college = request.getParameter("department");
 		
 		Student student = new Student();
 		student.setStudentNO(studentNO);
@@ -91,6 +142,7 @@ public class StudentServlet extends HttpServlet{
 		student.setName(name);
 		student.setPassword("111111");
 		student.setSex(sex);
+		student.setCollege(college);
 
 		int flag = 0;
 		try {
@@ -123,7 +175,7 @@ public class StudentServlet extends HttpServlet{
 		Map<String,String> params = uploadFile.uploadFile(request, response);
 		if (params.size() == 0) return;
 		//get the file absolute path
-		String path = params.get(UploadFile.ABSOLUTE_PATH);
+		String path = params.get(UploadFile.FILE_NAME);
 		//get the content in the excel file
 		List<ArrayList<String>> dyadic = null;
 		dyadic = excelOperation.importForm(path, 0);

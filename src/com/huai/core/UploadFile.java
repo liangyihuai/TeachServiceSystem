@@ -97,6 +97,7 @@ public class UploadFile{
 					if("".equals(fileName) && fileSize==0){
 						return null;
 					}
+					fileName = System.currentTimeMillis()+"_"+fileName;
 					
 					parameters.put(UploadFile.FILE_NAME, fileName);
 					
