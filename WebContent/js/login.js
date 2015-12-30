@@ -107,7 +107,7 @@ $(function () {
         submitHandler: function (form) {
             $(form).ajaxSubmit({
                 type: "POST",
-                url: "../login?operate=teacherReg",
+                url: "../teacher?operate=signIn",
                 success: function (data, statusText) {
                     var jsondata = $.parseJSON(data);
                     if (jsondata.status == 1) {
