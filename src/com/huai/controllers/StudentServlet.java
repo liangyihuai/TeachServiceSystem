@@ -44,7 +44,12 @@ public class StudentServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
-		int courseId = Integer.parseInt((String)request.getSession().getAttribute(ServletUtil.COURSE_ID));
+		String tempCourseID = (String)request.getSession().getAttribute(ServletUtil.COURSE_ID);
+		int courseId = 0;
+		if(tempCourseID != null){
+			courseId = Integer.valueOf(tempCourseID);
+		}
+
 		System.out.println("operate = "+operate);
 		
 		if("list".equals(operate)){
@@ -61,7 +66,21 @@ public class StudentServlet extends HttpServlet{
 		}else if("changePass".equals(operate)){
 			changePassword(request,response);
 			return;
+		}else if("info".equals(operate)){
+			getInfo(request,response);
 		}
+	}
+	private void getInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Student student = (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
+
+		PrintWriter writer = response.getWriter();
+		if(student != null){
+			JSONObject jsonObject = JSONObject.fromObject(student);
+			writer.write(jsonObject.toString());
+		}else{
+			writer.write("0");
+		}
+		writer.close();
 	}
 
 	private void changePassword(HttpServletRequest request, HttpServletResponse response){
@@ -77,9 +96,9 @@ public class StudentServlet extends HttpServlet{
 					runStatus = studentService.updateStaudent(student, newPassword);
 					writer = response.getWriter();
 					if(runStatus)
-						writer.write(1);
+						writer.write("1");
 					else
-						writer.write(0);
+						writer.write("0");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}finally {

@@ -7,7 +7,9 @@ import com.huai.core.UploadFile;
 import com.huai.service.StudentService;
 import com.huai.service.TeacherService;
 import com.huai.utils.DownloadUtils;
+import com.huai.utils.RoleUtil;
 import com.huai.utils.ServletUtil;
+import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -69,6 +71,18 @@ public class TeacherServlet extends HttpServlet{
 			}finally {
 				writer.close();
 			}
+		}else if("info".equals(operate)){
+			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
+
+			PrintWriter writer = response.getWriter();
+			if(teacher != null){
+				JSONObject jsonObject = JSONObject.fromObject(teacher);
+				writer.write(jsonObject.toString());
+			}else{
+				writer.write("0");
+			}
+			writer.close();
+			return;
 		}
 	}
 
