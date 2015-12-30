@@ -167,4 +167,19 @@ public class StudentServiceImpl implements StudentService{
 		}
 		return runStatus;
 	}
+
+	@Override
+	public boolean updateStaudent(Student student, String newPassword) throws Exception {
+		String oldPassword = student.getPassword();
+
+		int flag = 0;
+		if(newPassword != null){
+			student.setPassword(newPassword);
+			flag = studentMapper.updateStu(student);
+		}
+		if(flag>0)
+			return true;
+		else
+			return false;
+	}
 }

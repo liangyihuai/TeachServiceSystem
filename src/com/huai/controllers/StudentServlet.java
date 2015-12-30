@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.huai.core.ExcelOperation;
 import com.huai.core.UploadFile;
 import com.huai.utils.DownloadUtils;
+import com.huai.utils.RoleUtil;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -29,7 +30,6 @@ import com.huai.utils.ServletUtil;
 
 @WebServlet(urlPatterns={"/student"})
 public class StudentServlet extends HttpServlet{
-	
 	
 	private StudentService studentService;
 	
@@ -58,6 +58,34 @@ public class StudentServlet extends HttpServlet{
 			importStudents(request, response, courseId);
 		}else if("download".equals(operate)){
 			download(request,response);
+		}else if("changePass".equals(operate)){
+			changePassword(request,response);
+			return;
+		}
+	}
+
+	private void changePassword(HttpServletRequest request, HttpServletResponse response){
+		Student student = (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
+		String oldPassword = request.getParameter("oldPass");
+		String newPassword = request.getParameter("newPass");
+
+		boolean runStatus = false;
+		if(oldPassword != null ){
+			PrintWriter writer = null;
+			if(student != null && oldPassword.equals(student.getPassword())){
+				try {
+					runStatus = studentService.updateStaudent(student, newPassword);
+					writer = response.getWriter();
+					if(runStatus)
+						writer.write(1);
+					else
+						writer.write(0);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally {
+					if(writer != null)writer.close();
+				}
+			}
 		}
 	}
 

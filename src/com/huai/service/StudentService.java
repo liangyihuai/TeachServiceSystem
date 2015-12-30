@@ -32,4 +32,13 @@ public interface StudentService {
 	 * LiangYH
 	 */
 	boolean importStudents(List<ArrayList<String>> dyadic, int courseID);
+
+	/**
+	 * 根据学号更新学生
+	 * @param student 修改前的学生对象
+	 * @param newPassword
+	 * @return
+	 * @throws Exception
+	 */
+	boolean updateStaudent(Student student,String newPassword) throws Exception;
 }

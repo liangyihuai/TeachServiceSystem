@@ -43,7 +43,7 @@ public class TeacherServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
 		if("signIn".equals(operate)){
-			String name = request.getParameter("name");
+			String name = request.getParameter("username");
 			String password = request.getParameter("password");
 			String sex = request.getParameter("sex");
 			String school = request.getParameter("school");

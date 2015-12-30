@@ -80,5 +80,5 @@ public interface StudentMapper {
 	 * @throws Exception
 	 * LiangYH
 	 */
-	void updateStu(Student student)throws Exception;
+	int updateStu(Student student)throws Exception;
 }
