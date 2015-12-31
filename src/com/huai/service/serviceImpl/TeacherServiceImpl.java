@@ -18,9 +18,13 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public void changePassword(Teacher teacher, String newPassword) {
+	public boolean changePassword(Teacher teacher, String newPassword) {
 		teacher.setPassword(newPassword);
-		teacherMapper.update(teacher);
+		int count = teacherMapper.update(teacher);
+		if(count > 0)
+			return true;
+		else
+			return false;
 	}
 
 	@Override

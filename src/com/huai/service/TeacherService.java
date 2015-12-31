@@ -15,7 +15,7 @@ public interface TeacherService {
 	 * @param teacher 老师对象
 	 * @param newPassword 新密码
 	 */
-	void changePassword(Teacher teacher, String newPassword);
+	boolean changePassword(Teacher teacher, String newPassword);
 
 	/**
 	 * 老师注册
