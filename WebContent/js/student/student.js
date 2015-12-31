@@ -1,23 +1,23 @@
-/**
- * Created by dust on 2015/12/17.
- */
 $(function () {
-    var color = ['#F44336', '#F50057', '#2196F3', '#03A9F4', '#FFEA00'];//声明16机制颜色数组
-    initCurrentPage();//初始化留言板
-    if ($.cookie('current_student')) {
-        $('#current_user').text($.cookie('current_student'));
+    var color=['#F44336','#F50057','#2196F3','#03A9F4','#FFEA00'];//声明16机制颜色数组
+    if (isLogin()) {
+        init();
         toogleTab(color);
         $('nav li a').eq(0).trigger('click');
+        setting()
     } else {
-        alert('请登录！')
-        window.location.href = 'index.html';
+        alert('你未登录，即将跳转到登录页面进行登录！')
+        window.location.href='index.html'
     }
-    //注销登录
-    /*点击注销按钮，清除cookies*/
-    $('#logout').click(function () {
-        $.removeCookie('current_student');
-        window.location.href = '../login?operate=logout';
-    });
+});
+//初始化信息
+function init(){
+    $('#current_user').text($.cookie('current_student'));
+    $('#current_course a').text(decodeURI($.cookie('courseName')));
+}
+
+//工具按钮、控制环
+function setting(){
     $('#info').click(function () {
         $('#curent_center').css({'width': $(document).width(), 'height': $(document).height()}).fadeIn();
         $(this).hide();
@@ -27,17 +27,17 @@ $(function () {
         $('#info').show(500);
     })
     $('#current_user').hover(function () {
-        $('#current_user_info').show(300);
-        $('#current_course').show(500);
-        $('#logout').show(800);
+        $('#current_user_info').show(300,'easeInOutBack');
+        $('#current_course').show(500,'easeInOutBack');
+        $('#logout').show(800,'easeInOutBack');
     }, function () {
         $(document).click(function () {
             $('#current_user_info').hide(800);
             $('#current_course').hide(500);
             $('#logout').hide(300);
-        });
+        })
     })
-});
+}
 //modal框体切换
 function modal() {
     var $modal = $('.modal'),
@@ -104,7 +104,7 @@ function toogleTab(color) {
                 remove();
                 break;
             case 3:
-                loadList(1, color);
+                loadList(1,color);
                 break;
             case 4:
                 getScore();
@@ -118,6 +118,7 @@ function toogleTab(color) {
         e.preventDefault();
     });
 }
+
 //查询课程进度
 /*点击获取课程进度*/
 function getCourseProcess() {
@@ -140,6 +141,7 @@ function getCourseProcess() {
         }
     });
 }
+
 //获取作业列表
 function getHomeworkList() {
     var $homeworkList = $('#homework');
@@ -178,6 +180,7 @@ function getHomeworkList() {
         }
     });
 };
+
 //选择作业，存入当前选择的作业ID，改变modal的作业内容
 function selectOne() {
     var $homeworkList = $('#homework'),
@@ -214,6 +217,7 @@ function selectOne() {
         }
     })
 }
+
 //点击上传按钮上传文件
 /*参数：文件名和数据
  * 返回:1,0
@@ -247,6 +251,7 @@ function uploadFile() {
         }
     })
 }
+
 //查询删除下载资料
 //获取文件列表
 /*参数：无
@@ -302,14 +307,7 @@ function remove() {
         });
     })
 }
-//刷新留言墙，发送信息
-/*点击了留言板之后将cookie的currentPage设置为1*/
-function initCurrentPage() {
-    var messageWallLink = $('a[href="#msgwall"]');// TODO 修改class字段
-    messageWallLink.click(function () {
-        $.cookie('currentPage', 1);
-    });
-}
+
 //得到成绩模块
 function getScore() {
     $.ajax({

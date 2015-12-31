@@ -5,28 +5,32 @@
     <title>教学辅助系统——学生端</title>
     <link rel="stylesheet" href="../css/style_student.css"/>
     <!--jquery引入，必须在bootstrap.js文件之前引入-->
-    <script src="../js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
     <!--jquery缓动函数-->
-    <script src="../js/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
     <!--cookies插件-->
-    <script src="../js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
     <!--表单验证插件-->
-    <script src="../js/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
     <!--表单验证中文插件-->
-    <script src="../js/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/messages_zh.min.js" type="text/javascript" charset="utf-8"></script>
     <!--表单提交插件-->
-    <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+    <!--账户相关-->
+    <script src="../js/common/account.js" type="text/javascript" charset="utf-8"></script>
     <!--学生js文件-->
-    <script src="../js/account_student.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/student/student.js" type="text/javascript" charset="utf-8"></script>
+    <!--个人信息js-->
+    <script src="../js/common/information.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div id="curent_center">
     <span class="close"></span>
     <div class="control">
-        <div id="current_user">2013211729</div>
-        <div id="current_user_info" class="control-little"><a href="javascript:void(0);">个人信息</a></div>
-        <div id="current_course" class="control-little"><a href="courseList_student.html">物理</a></div>
-        <div id="logout" class="control-little"><a href="#">注销</a></div>
+        <div id="current_user"></div>
+        <div id="current_user_info" class="control-little"><a href="information_student.html">个人信息</a></div>
+        <div id="current_course" class="control-little"><a href="courseList_student.html"></a></div>
+        <div id="logout" class="control-little"><a href="javascript:void(0);">注销</a></div>
     </div>
 </div>
 <div class="wrapper">
@@ -39,11 +43,9 @@
         <div class="panel">
             <div class="panel_header"><h2>个人信息</h2></div>
             <div class="panel_body">
-                <div class="account_info">学号：<span class="account_info_item" id="accout-studentNumber">2013211730</span>
+                <div id="information_box">
+
                 </div>
-                <div class="account_info">姓名：<span class="account_info_item" id="accout-studentName">张雪松</span></div>
-                <div class="account_info">性别：<span class="account_info_item" id="accout-studentSex">男</span></div>
-                <div class="account_info">学院：<span class="account_info_item" id="accout-studentdepartment">计算机科学与技术</span></div>
                 <button class="btn changePassBtn">修改密码</button>
                 <div class="tip">
                     <form>

@@ -1,11 +1,9 @@
-/**
- * Created by dust on 2015/11/17.
- */
-
 $(function () {
     getCourseProcess();
     changeCourseProcess();
 });
+
+
 //获取课程进度模块
 /*点击获取课程进度*/
 function getCourseProcess() {
@@ -23,8 +21,10 @@ function getCourseProcess() {
             $('#courseProcessPanel tbody').empty().append(html);
             $('.currentTime').text('第'+currentTime+'周');
         }
+        //TODO 错误处理
     });
 }
+
 //修改课程进度模块
 /*点击修改按钮修改课程进度*/
 function changeCourseProcess() {

@@ -17,6 +17,8 @@ $(function(){
         $('#curent_center').css({'width': $(document).width(), 'height': $(document).height()}).fadeToggle();
     })
 });
+
+
 //课程列表获取模块
 /*接口注释:
  * url:课程点击后的链接
@@ -39,6 +41,7 @@ function getCourseList() {
         }
     });
 }
+
 //选择课程列表模块
 /*点击课程列表中的管理按钮后，用AJAX的方式将所选课程ID传给后台存入session中，并且前端存入cookies中方便后续使用*/
 function chooseCourse() {

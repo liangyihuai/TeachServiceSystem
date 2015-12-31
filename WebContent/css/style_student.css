@@ -1,4 +1,4 @@
-@import "reset.css";
+@import "lib/reset.css";
 
 @charset "utf-8";
 
@@ -564,7 +564,7 @@ section.active {
     text-align: center;
     padding: 2px 10px;
     width: 500px;
-    background: #757F9A;
+    background: #39BECD;
     border-radius: 4px;
     position: relative;
 }
@@ -574,7 +574,7 @@ section.active {
     top: -18px;
     left: 50%;
     border:10px solid;
-    border-color:transparent transparent #757F9A transparent;
+    border-color:transparent transparent #39BECD transparent;
 }
 .tip div{
     margin: 10px 20px;
@@ -585,10 +585,11 @@ section.active {
     border-radius: 2px;
 }
 .tip button{
-    font-size: 12px;
-    margin: 0 0 0 15px;
-    background: #fff;
+    font-size: 14px;
+    margin: 0 0 10px 15px;
+    background: #D9534F;
     border: none;
+    color: #fff;
     border-radius: 2px;
-    padding: 3px 8px;
+    padding: 5px 10px;
 }
