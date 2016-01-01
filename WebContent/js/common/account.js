@@ -1,7 +1,7 @@
 $(function () {
     register();
     login();
-    logout();
+    $('#logout').click(logout);
 });
 
 //老师注册模块
@@ -170,11 +170,9 @@ function login(){
 //注销登录
 /*点击注销按钮，清除cookies*/
 function logout(){
-    $('#logout').click(function () {
-        $.cookie('current_teacher')?$.removeCookie('current_teacher'):$.removeCookie('current_student');
-        //TODO 清除其他cookies
-        window.location.href = '../login?operate=logout';
-    });
+    $.cookie('current_teacher')?$.removeCookie('current_teacher'):$.removeCookie('current_student');
+    //TODO 清除其他cookies
+    window.location.href = '../login?operate=logout';
 }
 
 //登陆状态检测

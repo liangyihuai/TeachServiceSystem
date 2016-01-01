@@ -1,1 +1,0 @@
-{"schedule":[{"arrangement":"学习面向对象编程","courseID":1,"courseTime":"第6周星期一三四节","scheduleID":1},{"arrangement":"布置第三章的作业","courseID":1,"courseTime":"第7周星期一三四节","scheduleID":2},{"arrangement":"学习面向对象编程","courseID":1,"courseTime":"第9周星期一三四节","scheduleID":3}]}
