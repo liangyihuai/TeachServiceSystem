@@ -41,37 +41,11 @@ public class TeacherServlet extends HttpServlet{
 		
 	}
 	
+	//http://localhost:8080/TeachServiceSystem/teacher?operate=signIn
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operate = request.getParameter("operate");
-		if("signIn".equals(operate)){
-			String name = request.getParameter("username");
-			String password = request.getParameter("password");
-			String sex = request.getParameter("sex");
-			String school = request.getParameter("school");
-			String college = request.getParameter("college");
-
-			Teacher teacher = new Teacher();
-			teacher.setName(name);
-			teacher.setCollege(college);
-			teacher.setSchool(school);
-			teacher.setSex(sex);
-			teacher.setPassword(password);
-
-			boolean runStatus = false;
-			PrintWriter writer = response.getWriter();
-			try {
-				runStatus = teacherService.signIn(teacher);
-				if(runStatus)
-					writer.write(1);
-				else
-					writer.write(0);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-				writer.close();
-			}
-		}else if("info".equals(operate)){
+		if("info".equals(operate)){
 			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
 
 			PrintWriter writer = response.getWriter();

@@ -15,13 +15,11 @@ function register(){
         submitHandler: function (form) {
             $(form).ajaxSubmit({
                 type: "POST",
-                url: "../teacher?operate=signIn",
+                url: "../login?operate=signIn",
                 success: function (data, statusText) {
                     var jsondata = $.parseJSON(data);
                     if (jsondata.status == 1) {
-                        alert('注册成功，即将跳转！');
-                        $.cookie('current_teacher', $('#teacher_reg_num').val(), {expires: 7})
-                        window.location.href = "courseList_teacher.html";
+                        alert('注册成功！');
                     } else {
                         alert('注册失败，请重试！');
                     }
@@ -38,10 +36,10 @@ function register(){
             password: {
                 required: true,
             },
-            teacher_reg_school:{
+            school:{
                 required: true,
             },
-            teacher_reg_academy:{
+            college:{
                 required: true,
             }
         },
@@ -52,10 +50,10 @@ function register(){
             password: {
                 required: '密码不得为空！',
             },
-            teacher_reg_school:{
+            school:{
                 required: '请填写你的学校',
             },
-            teacher_reg_academy:{
+            college:{
                 required: '请填写你所属的学院',
             }
         },
