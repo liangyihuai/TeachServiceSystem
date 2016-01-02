@@ -30,6 +30,9 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public boolean signIn(Teacher teacher) throws Exception {
+		Teacher teacher1 = teacherMapper.getTeacherByName(teacher.getName());
+		if(teacher1 != null) return false;
+
 		int count = teacherMapper.addTeacher(teacher);
 		if(count>0){
 			return true;
