@@ -91,10 +91,10 @@ public class TeacherServlet extends HttpServlet{
 			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
 			String oldPassword = request.getParameter("oldPass");
 			String newPassword = request.getParameter("newPass");
-			String name = request.getParameter("accout-teacherNumber");
-			String sex = request.getParameter("accout-teacherSex");
-			String school = request.getParameter("accout-teacherSchool");
-			String college = request.getParameter("accout-teacherAcademy");
+			String name = request.getParameter("teacherNumber");
+			String sex = request.getParameter("teacherSex");
+			String school = request.getParameter("teacherSchool");
+			String college = request.getParameter("teacherAcademy");
 
 			PrintWriter writer = null;
 			try {
