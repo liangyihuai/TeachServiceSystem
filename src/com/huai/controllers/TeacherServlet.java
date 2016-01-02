@@ -88,10 +88,13 @@ public class TeacherServlet extends HttpServlet{
 			writer.close();
 			return;
 		} else if("changePass".equals(operate)){
-//			Student student = (Student)request.getSession().getAttribute(RoleUtil.STUDENT_ROLE_NAME);
 			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
 			String oldPassword = request.getParameter("oldPass");
 			String newPassword = request.getParameter("newPass");
+			String name = request.getParameter("accout-teacherNumber");
+			String sex = request.getParameter("accout-teacherSex");
+			String school = request.getParameter("accout-teacherSchool");
+			String college = request.getParameter("accout-teacherAcademy");
 
 			PrintWriter writer = null;
 			try {
@@ -99,7 +102,12 @@ public class TeacherServlet extends HttpServlet{
 				boolean runStatus = false;
 				if(oldPassword != null && newPassword != null){
 					if(teacher != null && oldPassword.equals(teacher.getPassword())){
-						runStatus = teacherService.changePassword(teacher, newPassword);
+						if(name != null)teacher.setName(name);
+						if(sex != null)teacher.setSex(sex);
+						if(school != null) teacher.setSchool(school);
+						if(college != null)teacher.setCollege(college);
+						teacher.setPassword(newPassword);
+						runStatus = teacherService.changePassword(teacher);
 					}
 				}
 				if(runStatus)
