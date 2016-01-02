@@ -106,9 +106,9 @@ public class LoginServlet extends HttpServlet{
 			try {
 				runStatus = teacherService.signIn(teacher);
 				if(runStatus)
-					writer.write(1);
+					writer.write("1");
 				else
-					writer.write(0);
+					writer.write("0");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {

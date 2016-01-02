@@ -18,10 +18,10 @@ function register(){
                 url: "../login?operate=signIn",
                 success: function (data, statusText) {
                     var jsondata = $.parseJSON(data);
-                    if (jsondata.status == 1) {
+                    if (jsondata == 1) {
                         alert('注册成功！');
-                    } else {
-                        alert('注册失败，请重试！');
+                    } else if(jsondata == 0) {
+                        alert('注册失败！');
                     }
                 },
                 error: function (jqXHR,textStatus,errorThrown) {
@@ -66,10 +66,11 @@ function register(){
     });
 }
 
-//老师登录模块
-/*登录之后将账户名记录进cookie
- * */
+//登录模块s
 function login(){
+    //老师登录模块
+    /*登录之后将账户名记录进cookie
+     * */
     $('#teacher_login .confirm').click(function () {
         $('#teacher_login form').submit();
     });
@@ -84,7 +85,7 @@ function login(){
                         $.cookie('current_teacher', $('#teacher_num').val(), {expires: 7})
                         window.location.href = "courseList_teacher.html";
                     } else {
-                        alert('登录失败，请重试');
+                        alert('登录失败!');
                     }
                 },
                 error: function (jqXHR,textStatus,errorThrown) {
