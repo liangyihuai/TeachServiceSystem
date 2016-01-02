@@ -87,6 +87,38 @@ public class TeacherServlet extends HttpServlet{
 			}
 			writer.close();
 			return;
+		} else if("changePass".equals(operate)){
+			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
+			String oldPassword = request.getParameter("oldPass");
+			String newPassword = request.getParameter("newPass");
+			String name = request.getParameter("teacherNumber");
+			String sex = request.getParameter("teacherSex");
+			String school = request.getParameter("teacherSchool");
+			String college = request.getParameter("teacherAcademy");
+
+			PrintWriter writer = null;
+			try {
+				writer = response.getWriter();
+				boolean runStatus = false;
+				if(oldPassword != null && newPassword != null){
+					if(teacher != null && oldPassword.equals(teacher.getPassword())){
+						if(name != null)teacher.setName(name);
+						if(sex != null)teacher.setSex(sex);
+						if(school != null) teacher.setSchool(school);
+						if(college != null)teacher.setCollege(college);
+						teacher.setPassword(newPassword);
+						runStatus = teacherService.changePassword(teacher);
+					}
+				}
+				if(runStatus)
+					writer.write("1");
+				else
+					writer.write("0");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(writer != null)writer.close();
+			}
 		}
 	}
 
