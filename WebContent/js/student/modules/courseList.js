@@ -35,7 +35,7 @@ function getCourseList() {
             var html = '';
             var jsonData = $.parseJSON(data).courses;
             $.each(jsonData, function (index, value) {
-                html+="<div class='item'><div class='inner'><img src='../images/"+jsonData[index].courseID+".jpg' /><div class='desc'><div class='desc_courseName'><h2>课程名：<span>" + jsonData[index].courseName + "</span></h2></div> <div class='desc_courseNum'><p>课程编号：<span class='desc_courseID'>"+ jsonData[index].courseID +"</span></p></div><p><span  class='desc_courseText'>"+jsonData[index].courseDescription+"</span></p></div></div></div>"
+                html+="<div class='item'><div class='inner'><div class='inner-cover'>"+jsonData[index].courseName.substr(0,5)+"</div><div class='desc'><div class='desc_courseName'><h2>课程名：<span>" + jsonData[index].courseName + "</span></h2></div> <div class='desc_courseNum'><p>课程编号：<span class='desc_courseID'>"+ jsonData[index].courseID +"</span></p></div><p><span  class='desc_courseText'>"+jsonData[index].courseDescription+"</span></p></div></div></div>"
             })
             $courseList.empty().append(html);
         }

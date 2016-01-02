@@ -4,17 +4,19 @@ $(function () {
         init();
         toogleTab(color);
         $('nav li a').eq(0).trigger('click');
-        setting()
+        setting();
     } else {
         alert('你未登录，即将跳转到登录页面进行登录！')
         window.location.href='index.html'
     }
 });
+
 //初始化信息
 function init(){
     $('#current_user').text($.cookie('current_student'));
     $('#current_course a').text(decodeURI($.cookie('courseName')));
 }
+
 //跨浏览器获取视口大小
 function getInner(){
     if(typeof window.innerWidth!='undefined'){
@@ -29,28 +31,47 @@ function getInner(){
         }
     }
 }
+//跨浏览器获取页面宽度高度
+function getPage(){
+    var width=document.documentElement.scrollWidth||document.body.scrollWidth;
+    var height=document.documentElement.scrollHeight||document.body.scrollHeight;
+    return{
+        width:width,
+        height:height
+    }
+}
 //工具按钮、控制环
 function setting(){
+    var curent_center=$('#curent_center');
+    var control=$('.control');
+    var current_user=$('#current_user');
+    var current_user_info=$('#current_user_info');
+    var current_course=$('#current_course');
+    var logout=$('#logout');
     $('#info').click(function () {
-        $('#curent_center').css({'width': getInner().width, 'height': getInner().height}).fadeIn();
-        window.resize=function(){
-            $('#curent_center').css({'width': getInner().width, 'height': getInner().height}).fadeIn();
-        }
+        curent_center.css({'width': getPage().width, 'height': getPage().height}).fadeIn();
+        control.css({'left':(getInner().width-500)/2,'top':(getInner().height-500)/2});
         $(this).hide();
     })
+    window.onresize=function(){
+        if(curent_center.css('display')=='block'){
+            curent_center.css({'width': getPage().width, 'height': getPage().height});
+            control.css({'left':(getInner().width-500)/2,'top':(getInner().height-500)/2});
+        }
+    }
     $('.close').click(function () {
-        $('#curent_center').fadeOut();
+        curent_center.fadeOut();
         $('#info').show(500);
     })
-    $('#current_user').hover(function () {
-        $('#current_user_info').show(300,'easeInOutBack');
-        $('#current_course').show(500,'easeInOutBack');
-        $('#logout').show(800,'easeInOutBack');
+    current_user.hover(function () {
+        current_user_info.show(300,'easeInOutBack');
+        current_course.show(500,'easeInOutBack');
+        logout.show(800,'easeInOutBack');
     }, function () {
         $(document).click(function () {
-            $('#current_user_info').hide(800);
-            $('#current_course').hide(500);
-            $('#logout').hide(300);
+            current_user_info.hide(800);
+            current_course.hide(500);
+            logout.hide(300);
         })
     })
 }
