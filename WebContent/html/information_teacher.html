@@ -258,9 +258,40 @@
                 <div class="panel-heading">个人设置</div>
                 <div class="panel-body">
                     <div id="information_box">
-
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="teacherNumber" class="col-sm-2 col-sm-offset-3 control-label">用户名：</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="teacherNumber" id="teacherNumber"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacherSex" class="col-sm-2 col-sm-offset-3 control-label">性别：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="teacherSex" id="teacherSex">
+                                        <option value="male">男</option>
+                                        <option value="female">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacherSchool" class="col-sm-2 col-sm-offset-3 control-label">学校：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" name="teacherSchool" id="teacherSchool"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacherAcademy" class="col-sm-2 col-sm-offset-3 control-label">学院：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" name="teacherAcademy" id="teacherAcademy"/>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <button class="btn btn-default changePassBtn center-block">修改密码</button>
+                    <div class="control-btn">
+                        <button class="btn btn-default updateInfoBtn center-block">更新信息</button>
+                        <button class="btn btn-default changePassBtn center-block">修改密码</button>
+                    </div>
                     <div class="tip">
                         <form>
                             <div>

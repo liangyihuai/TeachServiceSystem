@@ -26,7 +26,7 @@ function getCourseList() {
             var html = '';
             var jsonData = $.parseJSON(data).courses;
             $.each(jsonData, function (index, value) {
-                html += "<li class='col-md-3 col-sm-6 col-xs-12'><div class='course-item'><div class='course-item-cover'><img src='../images/" + jsonData[index].courseID + ".jpg' class='img-responsive' /></div><div class='course-item-desc'><div class='course-item-desc-courseID'>课程编号：" + jsonData[index].courseID + "</div><div><h3 class='course-item-desc-title'>课程名称：" + jsonData[index].courseName + "</h3></div><div class='course-item-desc-text'><p>" + jsonData[index].courseDescription + "</p></div>" + "<div class='enter_manage'><button class='btn btn-default'>管理</button></div>" +"<div class='delete'><button class='btn btn-default'>删除</button></div>"+"</div></div></li>";
+                html += "<li class='col-md-3 col-sm-6 col-xs-12'><div class='course-item'><div class='course-item-cover'>"+jsonData[index].courseName.substr(0,5)+"</div><div class='course-item-desc'><div class='course-item-desc-courseID'>课程编号：" + jsonData[index].courseID + "</div><div><h3 class='course-item-desc-title'>课程名称：" + jsonData[index].courseName + "</h3></div><div class='course-item-desc-text'><p>" + jsonData[index].courseDescription + "</p></div>" + "<div class='enter_manage'><button class='btn btn-default'>管理</button></div>" +"<div class='delete'><button class='btn btn-default'>删除</button></div>"+"</div></div></li>";
             })
             $('.course .row').empty().append(html);
         }

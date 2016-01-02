@@ -23,7 +23,7 @@ function register(){
                         $.cookie('current_teacher', $('#teacher_reg_num').val(), {expires: 7})
                         window.location.href = "courseList_teacher.html";
                     } else {
-                        alert('登录失败，请重试');
+                        alert('注册失败，请重试！');
                     }
                 },
                 error: function (jqXHR,textStatus,errorThrown) {
