@@ -175,7 +175,7 @@ public class StudentServlet extends HttpServlet{
 		Map<String,String> params = uploadFile.uploadFile(request, response);
 		if (params.size() == 0) return;
 		//get the file absolute path
-		String path = params.get(UploadFile.FILE_NAME);
+		String path = params.get(UploadFile.ABSOLUTE_PATH);
 		//get the content in the excel file
 		List<ArrayList<String>> dyadic = null;
 		dyadic = excelOperation.importForm(path, 0);
