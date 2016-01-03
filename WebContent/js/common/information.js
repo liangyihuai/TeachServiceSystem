@@ -58,7 +58,7 @@ function updateInfo(){
         submitHandler:function(form){
             $(form).ajaxSubmit({
                 type: 'POST',
-                url: '123.php',
+                url: '../teacher?operate=changeInfo',
                 success: function (data, statusText) {
                     if (data == 1) {
                         alert('更新个人信息成功');
