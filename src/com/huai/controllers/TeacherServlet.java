@@ -65,34 +65,49 @@ public class TeacherServlet extends HttpServlet{
 			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
 			String oldPassword = request.getParameter("oldPass");
 			String newPassword = request.getParameter("newPass");
+
+			PrintWriter writer = response.getWriter();
+			boolean runStatus = false;
+			try {
+				if(oldPassword != null && newPassword != null){
+					if(teacher != null && oldPassword.equals(teacher.getPassword())){
+						teacher.setPassword(newPassword);
+						runStatus = teacherService.changeInfo(teacher);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(runStatus)
+				writer.write("1");
+			else
+				writer.write("0");
+			writer.close();
+		}else if("changeInfo".equals(operate)){
 			String name = request.getParameter("teacherNumber");
 			String sex = request.getParameter("teacherSex");
 			String school = request.getParameter("teacherSchool");
 			String college = request.getParameter("teacherAcademy");
 
-			PrintWriter writer = null;
-			try {
-				writer = response.getWriter();
-				boolean runStatus = false;
-				if(oldPassword != null && newPassword != null){
-					if(teacher != null && oldPassword.equals(teacher.getPassword())){
-						if(name != null)teacher.setName(name);
-						if(sex != null)teacher.setSex(sex);
-						if(school != null) teacher.setSchool(school);
-						if(college != null)teacher.setCollege(college);
-						teacher.setPassword(newPassword);
-						runStatus = teacherService.changePassword(teacher);
-					}
+			Teacher teacher = (Teacher)request.getSession().getAttribute(RoleUtil.TEACHER_ROLE_NAME);
+			boolean runStatus = false;
+			PrintWriter writer = response.getWriter();
+			try{
+				if(teacher != null){
+					if(name != null)teacher.setName(name);
+					if(sex != null)teacher.setSex(sex);
+					if(school != null) teacher.setSchool(school);
+					if(college != null)teacher.setCollege(college);
+					runStatus = teacherService.changeInfo(teacher);
 				}
-				if(runStatus)
-					writer.write("1");
-				else
-					writer.write("0");
-			} catch (Exception e) {
+			}catch (Exception e){
 				e.printStackTrace();
-			}finally {
-				if(writer != null)writer.close();
 			}
+			if(runStatus)
+				writer.write("1");
+			else
+				writer.write("0");
+			writer.close();
 		}
 	}
 
