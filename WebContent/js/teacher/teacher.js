@@ -15,7 +15,7 @@ $(function () {
         minView: 2,
         autoClose: true,
         language: 'zh-CN'
-    });s
+    });
 });
 
 //初始化老师信息
