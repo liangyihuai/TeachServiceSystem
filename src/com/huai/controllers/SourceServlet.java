@@ -86,11 +86,13 @@ public class SourceServlet extends HttpServlet {
 			HttpServletResponse response, int courseID) throws IOException {
 		List<Source> sourseList = sourceService.getFileList(courseID);
 
-		for (Source source : sourseList) {
-			String heanline = source.getHeadline();
-			int beginIndex = heanline.indexOf("_") + 1;
-			heanline = heanline.substring(beginIndex);
-			source.setHeadline(heanline);
+		if(sourseList != null && sourseList.size()>0){
+			for (Source source : sourseList) {
+				String heanline = source.getHeadline();
+				int beginIndex = heanline.indexOf("_") + 1;
+				heanline = heanline.substring(beginIndex);
+				source.setHeadline(heanline);
+			}
 		}
 
 		JSONObject jo = new JSONObject();
